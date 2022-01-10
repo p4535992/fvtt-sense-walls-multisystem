@@ -1,0 +1,32 @@
+{
+    "name": "sense-walls",
+    "title": "Sense Walls",
+    "description": "Enable walls only for tokens without a certain vision level.",
+    "author": "JDCalvert",
+    "version": "1.0.0",
+    "minimumCoreVersion": "9",
+    "compatibleCoreVersion": "9",
+    "system": [
+        "pf2e"
+    ],
+    "dependencies": [
+        {
+            "name": "lib-wrapper"
+        }
+    ],
+    "url": "https://github.com/JDCalvert/FVTT-Sense-Walls",
+    "manifest": "https://raw.githubusercontent.com/JDCalvert/FVTT-Sense-Walls/main/module.json",
+    "readme": "https://github.com/JDCalvert/FVTT-Sense-Walls",
+    "bugs": "https://github.com/JDCalvert/FVTT-Sense-Walls/issues",
+    "changelog": "https://github.com/JDCalvert/FVTT-Sense-Walls/blob/main/CHANGELOG.md",
+    "scripts": [
+        "scripts/sensewalls.js"
+    ],
+    "languages": [
+        {
+          "lang": "en",
+          "name": "English",
+          "path": "lang/en.json"
+        }
+    ]
+}
