@@ -77,6 +77,10 @@ function resetVisionLevel() {
     game.currentTokenVisionLevel = VisionLevel.NORMAL;
 }
 
+function shouldIncludeWall(wall) {
+    return game.currentTokenVisionLevel < (wall.document.getFlag(senseWallsModuleName, "visionLevel") || VisionLevel.NONE);
+}
+
 Hooks.on(
     "init",
     () => {
@@ -98,14 +102,38 @@ Hooks.on(
             "ClockwiseSweepPolygon.testWallInclusion",
             function filterWalls(wrapped, ...args) {
                 if (args[2] === "sight") {
-                    let wall = args[0];
-                    let includeWall = game.currentTokenVisionLevel < (wall.document.getFlag(senseWallsModuleName, "visionLevel") || VisionLevel.NONE);
-                    return wrapped(...args) && includeWall;
+                    return wrapped(...args) && shouldIncludeWall(args[0]);
                 } else {
                     return wrapped(...args);
                 }
             },
             "WRAPPER"
         );
+
+        if (game.modules.get("levels")?.active) {
+            libWrapper.register(
+                senseWallsModuleName,
+                "Levels.prototype.advancedLosTestInLos",
+                function updateTokenVisionSourceLevels(wrapped, ...args) {
+                    updateVisionLevel(args[0]);
+                    let result = wrapped(...args);
+                    resetVisionLevel();
+                    return result
+                }
+            );
+
+            libWrapper.register(
+                senseWallsModuleName,
+                "Levels.prototype.shouldIgnoreWall",
+                function filterWallsLevels(wrapped, ...args) {
+                    if (args[1] === 0) {
+                        return wrapped(...args) || !shouldIncludeWall(args[0]);
+                    } else {
+                        return wrapped(...args);
+                    }
+                },
+                "WRAPPER"
+            );
+        }
     }
 )
