@@ -15,7 +15,7 @@
         }
     ],
     "url": "https://github.com/JDCalvert/FVTT-Sense-Walls",
-    "manifest": "https://raw.githubusercontent.com/JDCalvert/FVTT-Sense-Walls/main/module.json",
+    "manifest": "https://github.com/JDCalvert/FVTT-Sense-Walls/releases/latest/download/module.json",
     "download": "https://github.com/JDCalvert/FVTT-Sense-Walls/archive/1.0.0.zip",
     "readme": "https://github.com/JDCalvert/FVTT-Sense-Walls",
     "bugs": "https://github.com/JDCalvert/FVTT-Sense-Walls/issues",
