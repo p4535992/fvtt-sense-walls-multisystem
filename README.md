@@ -12,18 +12,7 @@
 
 ![GitHub all releases](https://img.shields.io/github/downloads/p4535992/fvtt-sense-walls-multisystem/total?style=for-the-badge)
 
-Invisible Stalkers should only be seen by players that have cast See Invisibility.  Stealthy Goblins should only be seen by players with high perception.
-And when that Drow casts Darkness, players should need Devil's Sight to see any tokens inside.
-
-Conditional Visibility allows you to set conditions on tokens that will display them only to players whose senses meet the conditions necessary to see
-the token.
-
-## Suggestion for future developing for anyone want to help
-
-- A integration with the 'levels' module it's seem to be the right road to follow, we can use the method `overrideVisibilityTets(sourceToken, token){}` of levels for override the levels visibility test
-- Sync the status with the flags on the token
-- With the advent of foundry version 9 it could be done much better by synchronizing it with modules like levels and Active Token Effect.
-
+A module for Foundry VTT that allows walls to block only certain senses, while other senses can "pierce" the wall.
 ## Installation
 
 It's always easiest to install modules from the in game add-on browser.
@@ -76,11 +65,15 @@ The setup above also uses the [Perfect Vision](https://foundryvtt.com/packages/p
 
 ## Issues
 
-Any issues, bugs, or feature requests are always welcome to be reported directly to the [Issue Tracker](https://github.com/p4535992/sense-walls-multisystem/issues ), or using the [Bug Reporter Module](https://foundryvtt.com/packages/bug-reporter/).
+Any issues, bugs, or feature requests are always welcome to be reported directly to the [Issue Tracker](https://github.com/p4535992/fvtt-sense-walls-multisystem/issues ), or using the [Bug Reporter Module](https://foundryvtt.com/packages/bug-reporter/).
 
 ## License
+
+- [FVTT Sense Walls](https://github.com/JDCalvert/FVTT-Sense-Walls) with [???](https://github.com/JDCalvert/FVTT-Sense-Walls/LICENSE)
 
 This package is under an [MIT license](LICENSE) and the [Foundry Virtual Tabletop Limited License Agreement for module development](https://foundryvtt.com/article/license/).
 
 ## Credit
+
+- Ty to  [JDCalvert](https://github.com/JDCalvert) for the inspirational project [FVTT Sense Walls](https://github.com/JDCalvert/FVTT-Sense-Walls)
 
