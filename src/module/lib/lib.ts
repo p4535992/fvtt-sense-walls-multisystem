@@ -1,5 +1,10 @@
 import CONSTANTS from '../constants.js';
+import { StatusEffectSightFlags, VisionLevelPf2e } from '../sensewalls-models.js';
 import { canvas, game } from '../settings';
+
+// =============================
+// Module Generic function
+// =============================
 
 export function isGMConnected(): boolean {
   return Array.from(<Users>game.users).find((user) => user.isGM && user.active) ? true : false;
@@ -71,3 +76,53 @@ export function dialogWarning(message, icon = 'fas fa-exclamation-triangle') {
     </p>`;
 }
 
+// =============================
+// Module specific function
+// =============================
+
+export function buildOption(optionName, optionValue, currentValue) {
+  return `<option value=${optionValue} ${currentValue === optionValue ? 'selected' : ''}>${optionName}</option>`;
+}
+
+export function updateVisionLevel(token) {
+  let actor = token.actor;
+  if (!actor) {
+    return;
+  }
+
+  let senses = actor.data.data.traits.senses;
+
+  if (actor.type === 'npc') {
+    //NPCs have one "sense" which is a free-text entry. Try to find the individual senses from there
+    //by splitting on comma characters and removing whitespace and the dash in "low-light vision"
+    senses = senses.value.split(',').map((s) => s.replace(/[\s-]+/g, '').toLowerCase());
+  } else if (actor.type == 'character' || actor.type == 'familiar') {
+    //Characters have an array of senses. Just put them to lower case to make matching easier
+    senses = senses.map((sense) => sense.type.toLowerCase());
+  } else {
+    // Non-creature actors (vehicles, loot actors etc.) don't have senses, so treat them as normal vision
+    return;
+  }
+
+  //If the token is blind, then we'll ignore any vision senses. Otherwise, find their highest
+  //vision level and we'll use that to see if the wall should be ignored.
+  return actor.getCondition(StatusEffectSightFlags.BLINDED)
+    ? VisionLevelPf2e.BLINDED
+    : senses.includes(StatusEffectSightFlags.GREATER_DARKVISION)
+    ? VisionLevelPf2e.GREATER_DARKVISION
+    : senses.includes(StatusEffectSightFlags.DARKVISION)
+    ? VisionLevelPf2e.DARKVISION
+    : senses.includes(StatusEffectSightFlags.LOW_LIGHT_VISION)
+    ? VisionLevelPf2e.LOW_LIGHT_VISION
+    : VisionLevelPf2e.NORMAL;
+}
+
+export function resetVisionLevel(): number {
+  return VisionLevelPf2e.NORMAL;
+}
+
+export function shouldIncludeWall(wall, currentTokenVisionLevel: number) {
+  return (
+    currentTokenVisionLevel < (wall.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel') || VisionLevelPf2e.NONE)
+  );
+}

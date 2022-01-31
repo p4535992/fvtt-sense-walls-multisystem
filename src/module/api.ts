@@ -9,7 +9,6 @@ import { StatusSight } from './sensewalls-models';
 import HOOKS from './hooks';
 
 export default class API {
-
   static get effectInterface(): EffectInterface {
     return new EffectInterface(CONSTANTS.MODULE_NAME, senseWallsSocket);
   }
@@ -49,5 +48,4 @@ export default class API {
     });
     return game.settings.set(CONSTANTS.MODULE_NAME, 'senses', inAttributes);
   }
-
 }

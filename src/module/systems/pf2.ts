@@ -1,13 +1,7 @@
 import { EffectDefinitions } from '../sensewalls-effect-definition';
-import {
-  StatusEffect,
-  StatusEffectSightFlags,
-  StatusEffectStatusFlags,
-  StatusSight,
-} from '../sensewalls-models';
 import CONSTANTS from '../constants';
 import { i18n } from '../lib/lib';
-import { CONDITIONAL_VISIBILITY_MODULE_NAME } from '../settings';
+import { StatusEffectSightFlags, StatusSight } from '../sensewalls-models';
 
 export default {
   HP_ATTRIBUTE: 'data.attributes.hp.value',
@@ -38,26 +32,6 @@ export default {
       path: 'data.traits.senses.darkvision',
       img: 'systems/dnd5e/icons/spells/evil-eye-red-1.jpg',
       effect: EffectDefinitions.darkvision(0),
-    },
-  ],
-  CONDITIONS: <StatusEffect[]>[
-    {
-      id: StatusEffectStatusFlags.INVISIBLE,
-      visibilityId: StatusEffectStatusFlags.INVISIBLE,
-      name: i18n(`${CONDITIONAL_VISIBILITY_MODULE_NAME}.${StatusEffectStatusFlags.INVISIBLE}`),
-      img: 'systems/pf2e/icons/conditions/invisible.webp',
-    },
-    {
-      id: StatusEffectStatusFlags.OBSCURED,
-      visibilityId: StatusEffectStatusFlags.OBSCURED, //'obscured',
-      name: i18n(`${CONDITIONAL_VISIBILITY_MODULE_NAME}.${StatusEffectStatusFlags.OBSCURED}`),
-      img: 'modules/' + CONDITIONAL_VISIBILITY_MODULE_NAME + '/icons/foggy.svg',
-    },
-    {
-      id: StatusEffectStatusFlags.IN_DARKNESS,
-      visibilityId: StatusEffectStatusFlags.IN_DARKNESS, // 'indarkness',
-      name: i18n(`${CONDITIONAL_VISIBILITY_MODULE_NAME}.${StatusEffectStatusFlags.IN_DARKNESS}`),
-      img: 'modules/' + CONDITIONAL_VISIBILITY_MODULE_NAME + '/icons/moon.svg',
     },
   ],
 };

@@ -1,5 +1,4 @@
 import FoundryHelpers from '../lib/foundry-helpers';
-import { conditionalVisibilitySocket } from './../socket';
 import Effect from './effect';
 import EffectHandler from './effect-handler';
 

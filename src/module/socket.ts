@@ -19,7 +19,6 @@ export const SOCKET_HANDLERS = {
   /**
    * Item & attribute sockets
    */
-
 };
 
 export let senseWallsSocket;
@@ -42,7 +41,6 @@ export function registerSocket() {
    * UI sockets
    */
 
-
   /**
    * Item & attribute sockets
    */
@@ -50,15 +48,9 @@ export function registerSocket() {
   /**
    * Effects
    */
-  senseWallsSocket.register('toggleEffect', (...args) =>
-    API.effectInterface._effectHandler.toggleEffectArr(...args),
-  );
-  senseWallsSocket.register('addEffect', (...args) =>
-    API.effectInterface._effectHandler.addEffectArr(...args),
-  );
-  senseWallsSocket.register('removeEffect', (...args) =>
-    API.effectInterface._effectHandler.removeEffectArr(...args),
-  );
+  senseWallsSocket.register('toggleEffect', (...args) => API.effectInterface._effectHandler.toggleEffectArr(...args));
+  senseWallsSocket.register('addEffect', (...args) => API.effectInterface._effectHandler.addEffectArr(...args));
+  senseWallsSocket.register('removeEffect', (...args) => API.effectInterface._effectHandler.removeEffectArr(...args));
   // senseWallsSocket.register('addActorDataChanges', (...args) => API._actorUpdater.addActorDataChanges(...args));
   // senseWallsSocket.register('removeActorDataChanges', (...args) => API._actorUpdater.removeActorDataChanges(...args));
   senseWallsSocket.register('addEffectOnActor', (...args) =>

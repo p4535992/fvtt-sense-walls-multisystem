@@ -51,7 +51,7 @@ function defaultSettings(apply = false) {
       //@ts-ignore
       default: apply && SYSTEMS.DATA ? SYSTEMS.DATA.SENSES : [],
       type: Array,
-    }
+    },
   };
 }
 
@@ -107,7 +107,6 @@ export const registerSettings = function (): void {
     default: false,
     type: Boolean,
   });
-
 };
 
 class ResetSettingsDialog extends FormApplication {

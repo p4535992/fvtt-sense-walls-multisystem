@@ -1,15 +1,7 @@
-import Effect, { Constants } from '../effects/effect';
 import { EffectDefinitions } from '../sensewalls-effect-definition';
-import { i18n } from '../lib/lib';
-import { CONDITIONAL_VISIBILITY_MODULE_NAME } from '../settings';
-import {
-  StatusEffect,
-  StatusEffectSightFlags,
-  StatusEffectStatusFlags,
-  StatusSight,
-} from '../sensewalls-models';
 import CONSTANTS from '../constants';
-import ArrayMatrix from '../lib/javascript-array-matrix';
+import { i18n } from '../lib/lib';
+import { StatusEffectSightFlags, StatusSight } from '../sensewalls-models';
 
 export default {
   HP_ATTRIBUTE: 'data.attributes.hp.value',
@@ -85,52 +77,4 @@ export default {
       effect: EffectDefinitions.devilssight(0),
     },
   ],
-  CONDITIONS: <StatusEffect[]>[
-    {
-      id: StatusEffectStatusFlags.HIDDEN,
-      visibilityId: StatusEffectStatusFlags.HIDDEN, //'hidden',
-      name: i18n(`${CONDITIONAL_VISIBILITY_MODULE_NAME}.${StatusEffectStatusFlags.HIDDEN}`),
-      img: 'modules/' + CONDITIONAL_VISIBILITY_MODULE_NAME + '/icons/newspaper.svg',
-    },
-    {
-      id: StatusEffectStatusFlags.INVISIBLE,
-      visibilityId: StatusEffectStatusFlags.INVISIBLE, //'invisible',
-      name: i18n(`${CONDITIONAL_VISIBILITY_MODULE_NAME}.${StatusEffectStatusFlags.INVISIBLE}`),
-      img: 'modules/' + CONDITIONAL_VISIBILITY_MODULE_NAME + '/icons/unknown.svg',
-    },
-    {
-      id: StatusEffectStatusFlags.OBSCURED,
-      visibilityId: StatusEffectStatusFlags.OBSCURED, //'obscured',
-      name: i18n(`${CONDITIONAL_VISIBILITY_MODULE_NAME}.${StatusEffectStatusFlags.OBSCURED}`),
-      img: 'modules/' + CONDITIONAL_VISIBILITY_MODULE_NAME + '/icons/foggy.svg',
-    },
-    {
-      id: StatusEffectStatusFlags.IN_DARKNESS,
-      visibilityId: StatusEffectStatusFlags.IN_DARKNESS, // 'indarkness',
-      name: i18n(`${CONDITIONAL_VISIBILITY_MODULE_NAME}.${StatusEffectStatusFlags.IN_DARKNESS}`),
-      img: 'modules/' + CONDITIONAL_VISIBILITY_MODULE_NAME + '/icons/moon.svg',
-    },
-  ],
-  // LIGTH_VS_VISION: [
-  //   { color: 'Blue', size: 'Small', sku: '123' },
-  //   { color: 'Blue', size: 'Medium', sku: '124' },
-  //   { color: 'Red', size: 'Medium', sku: '125' },
-  //   { color: 'Blue', size: 'Large', sku: '126' },
-  //   { color: 'Red', size: 'Large', sku: '127' },
-  //   { color: 'Green', size: 'Large', sku: '128' }
-  // ]
-  //   {
-  //     brightlight : {
-  //       BLINDED: 'BLINDED',
-  //       NORMAL: '',
-  //       DARKVISION: '',
-  //       SUNLIGHT_SENSITIVITY: '',
-  //       BLINDSIGHT: '',
-  //       TREMORSENSE: 'TREMORSENSE',
-  //     },
-  //     dimlight: { apples: 0, oranges: 10, bananas: 0, melons: 0 },
-  //     darkness: { apples: 0, oranges: 0, bananas: 0, melons: 5 },
-  //     magicaldarkness
-  //   }
-  // ],
 };
