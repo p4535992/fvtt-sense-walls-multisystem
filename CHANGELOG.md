@@ -1,5 +1,3 @@
-# Changelog
-
 ## 1.0.1 - 2022-01-11
 - Fix compatibility issue with [Levels](https://foundryvtt.com/packages/levels).
 

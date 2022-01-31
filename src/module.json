@@ -1,0 +1,63 @@
+{
+  "name": "sense-walls-multisystem",
+  "title": "Sense Walls Multisystem",
+  "description": "Enable walls only for tokens without a certain vision level.",
+  "version": "1.0.0",
+  "author": "JDCalvert, p4535992",
+  "type": "module",
+  "socket": true,
+  "includes": [
+    "./assets/**",
+    "./lang/**",
+    "./scripts/**",
+    "./styles/**",
+    "./templates/**",
+    "./module.json",
+    "./README.md",
+    "./icons/**",
+    "./packs/**"
+  ],
+  "media": [
+    {
+      "type": "icon",
+      "location": ""
+    },
+    {
+      "type": "cover",
+      "location": ""
+    },
+    {
+      "type": "screenshot",
+      "location": ""
+    }
+  ],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "scripts": [],
+  "esmodules": ["sensewalls.js"],
+  "styles": ["styles/sensewalls.css"],
+  "packs": [],
+  "minimumCoreVersion": "0.8.9",
+  "compatibleCoreVersion": "9",
+  "manifestPlusVersion": "1.2.0",
+  "url": "https://github.com/p4535992/fvtt-sense-walls-multisystem",
+  "manifest": "https://github.com/p4535992/fvtt-sense-walls-multisystem/releases/latest/download/module.json",
+  "download": "https://github.com/p4535992/fvtt-sense-walls-multisystem/releases/download/v1.0.0/module.zip",
+  "readme": "https://github.com/p4535992/fvtt-sense-walls-multisystem/blob/v1.0.0/README.md",
+  "changelog": "https://github.com/p4535992/fvtt-sense-walls-multisystem/blob/v1.0.0/changelog.md",
+  "bugs": "https://github.com/p4535992/fvtt-sense-walls-multisystem/issues",
+  "allowBugReporter": true,
+  "dependencies": [
+    {
+      "name": "lib-wrapper"
+    },
+    {
+      "name": "socketlib"
+    }
+  ]
+}
