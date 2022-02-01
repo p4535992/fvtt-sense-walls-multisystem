@@ -20,6 +20,17 @@ export default {
       effect: undefined,
       visionLevelMin: -2,
       visionLevelMax: -1,
+      checkElevation: false,
+    },
+    {
+      id: StatusEffectSightFlags.NORMAL,
+      name: i18n(`${CONSTANTS.MODULE_NAME}.${StatusEffectSightFlags.NORMAL}`),
+      path: 'data.traits.senses.blinded',
+      img: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/light_02.jpg`,
+      effect: EffectDefinitions.blinded(0),
+      visionLevelMin: 0,
+      visionLevelMax: 1,
+      checkElevation: false,
     },
     {
       id: StatusEffectSightFlags.BLINDED,
@@ -30,15 +41,7 @@ export default {
       effect: EffectDefinitions.blinded(0),
       visionLevelMin: -1,
       visionLevelMax: 0,
-    },
-    {
-      id: StatusEffectSightFlags.BLINDED,
-      name: i18n(`${CONSTANTS.MODULE_NAME}.${StatusEffectSightFlags.NORMAL}`),
-      path: 'data.traits.senses.blinded',
-      img: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/light_02.jpg`,
-      effect: EffectDefinitions.blinded(0),
-      visionLevelMin: 0,
-      visionLevelMax: 1,
+      checkElevation: false,
     },
     {
       id: StatusEffectSightFlags.LOW_LIGHT_VISION,
@@ -47,8 +50,9 @@ export default {
       // img: 'systems/dnd5e/icons/skills/violet_09.jpg',
       img: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/violet_09.jpg`,
       effect: EffectDefinitions.lowlightvision(0),
-      visionLevelMin: 1,
-      visionLevelMax: 2
+      visionLevelMin: 0,
+      visionLevelMax: 2,
+      checkElevation: false,
     },
     {
       id: StatusEffectSightFlags.DARKVISION,
@@ -57,8 +61,9 @@ export default {
       // img: 'systems/dnd5e/icons/spells/evil-eye-red-1.jpg',
       img: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/evil-eye-red-1.jpg`,
       effect: EffectDefinitions.darkvision(0),
-      visionLevelMin: 2,
-      visionLevelMax: 3
+      visionLevelMin: 0,
+      visionLevelMax: 3,
+      checkElevation: false,
     },
     {
       id: StatusEffectSightFlags.GREATER_DARKVISION,
@@ -67,8 +72,9 @@ export default {
       // img: 'systems/dnd5e/icons/spells/evil-eye-eerie-1.jpg',
       img: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/evil-eye-eerie-1.jpg`,
       effect: EffectDefinitions.darkvision(120),
-      visionLevelMin: 3,
-      visionLevelMax: 4
+      visionLevelMin: 0,
+      visionLevelMax: 4,
+      checkElevation: false,
     },
   ],
 };
