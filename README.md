@@ -68,28 +68,30 @@ The setup above also uses the [Perfect Vision](https://foundryvtt.com/packages/p
 
 ### System Dnd5e
 
+<img src="/assets/img/MarineGEO_logo.png" alt="MarineGEO circle logo" style="height: 100px; width:100px;"/>
+
 | Effect\Vision Level                                | Minimum | Maximum | Check Elevation |
 |:--------------------------------------------------:|:-------:|:-------:|:---------------:|
-|![img](./src/icons/ae/light_01.jpg) None            | 0 | 0 | false |
-|![img](./src/icons/ae/light_02.jpg) Normal          | 0 | 1 | false |
-|![img](./src/icons/ae/affliction_24.jpg) Blinded    | 0 | 0 | false |
-|![img](./src/icons/ae/evil-eye-red-1.jpg) Darkvision| 0 | 3 | false |
-|![img](./src/icons/ae/ice_15.jpg) Tremor Sense      | 0 | 10 | true |
-|![img](./src/icons/ae/shadow_11.jpg) See invisible  | 0 | 5 | false |
-|![img](./src/icons/ae/green_18.jpg) Blind Sight     | 0 | 6 | false |
-|![img](./src/icons/ae/emerald_11.jpg) True Sight    | 0 | 7 | false |
-|![img](./src/icons/ae/blue_17.jpg) Devil's sight    | 0 | 8 | false |
+|<img src="./icons/ae/light_01.jpg" alt="" style="height: 100px; width:100px;"/> None            | 0 | 0 | false |
+|<img src="./icons/ae/light_02.jpg" alt="" style="height: 100px; width:100px;"/> Normal          | 0 | 1 | false |
+|<img src="./icons/ae/affliction_24.jpg" alt="" style="height: 100px; width:100px;"/> Blinded    | 0 | 0 | false |
+|<img src="./icons/ae/evil-eye-red-1.jpg" alt="" style="height: 100px; width:100px;"/> Darkvision| 0 | 3 | false |
+|<img src="./icons/ae/ice_15.jpg" alt="" style="height: 100px; width:100px;"/> Tremor Sense      | 0 | 10 | true |
+|<img src="./icons/ae/shadow_11.jpg" alt="" style="height: 100px; width:100px;"/> See invisible  | 0 | 5 | false |
+|<img src="./icons/ae/green_18.jpg" alt="" style="height: 100px; width:100px;"/> Blind Sight     | 0 | 6 | false |
+|<img src="./icons/ae/emerald_11.jpg" alt="" style="height: 100px; width:100px;"/> True Sight    | 0 | 7 | false |
+|<img src="./icons/ae/blue_17.jpg" alt="" style="height: 100px; width:100px;"/> Devil's sight    | 0 | 8 | false |
 
 ### System Pf2e
 
 | Effect\Vision Level                                | Minimum | Maximum | Check Elevation |
 |:--------------------------------------------------:|:-------:|:-------:|:---------------:|
-|![img](./src/icons/ae/light_01.jpg) None            | -2 | -1 | false |
-|![img](./src/icons/ae/light_02.jpg) Normal          | 0 | 1 | false |
-|![img](./src/icons/ae/affliction_24.jpg) Blinded    | -1 | 0 | false |
-|![img](./src/icons/ae/violet_09.jpg) Low Light Vision | 0 | 2 | false |
-|![img](./src/icons/ae/evil-eye-red-1.jpg) Darkvision | 0 | 3 | false |
-|![img](./src/icons/ae/evil-eye-eerie-1.jpg) Greater Darkvision | 0 | 4 | false |
+|<img src="./icons/ae/light_01.jpg" alt="" style="height: 100px; width:100px;"/> None            | -2 | -1 | false |
+|<img src="./icons/ae/light_02.jpg" alt="" style="height: 100px; width:100px;"/> Normal          | 0 | 1 | false |
+|<img src="./icons/ae/affliction_24.jpg" alt="" style="height: 100px; width:100px;"/> Blinded    | -1 | 0 | false |
+|<img src="./icons/ae/violet_09.jpg" alt="" style="height: 100px; width:100px;"/> Low Light Vision | 0 | 2 | false |
+|<img src="./icons/ae/evil-eye-red-1.jpg" alt="" style="height: 100px; width:100px;"/> Darkvision | 0 | 3 | false |
+|<img src="./icons/ae/evil-eye-eerie-1.jpg" alt="" style="height: 100px; width:100px;"/> Greater Darkvision | 0 | 4 | false |
 
 ## [Changelog](./CHANGELOG.md)
 
