@@ -160,10 +160,11 @@ export default class EffectHandler {
       (activeEffect) => <boolean>activeEffect?.data?.flags?.isConvenient && activeEffect?.data?.label == effectName,
     );
 
-    if (effectToRemove) {
-      await actor.deleteEmbeddedDocuments('ActiveEffect', [<string>effectToRemove.id]);
-      log(`Removed effect ${effectName} from ${actor.name} - ${actor.id}`);
-    }
+    if (!effectToRemove) return;
+
+    await actor.deleteEmbeddedDocuments('ActiveEffect', [<string>effectToRemove.id]);
+    log(`Removed effect ${effectName} from ${actor.name} - ${actor.id}`);
+
   }
 
   /**
@@ -397,13 +398,13 @@ export default class EffectHandler {
       )
     );
 
-    if (effectToRemove) {
-      // actor.deleteEmbeddedDocuments('ActiveEffect', [<string>effectToRemove.id]);
-      // Why i need this ??? for avoid the double AE
-      await effectToRemove.update({ disabled: true });
-      await effectToRemove.delete();
-      log(`Removed effect ${effectName} from ${actor.name} - ${actor.id}`);
-    }
+    if (!effectToRemove) return;
+
+    // actor.deleteEmbeddedDocuments('ActiveEffect', [<string>effectToRemove.id]);
+    // Why i need this ??? for avoid the double AE
+    await effectToRemove.update({ disabled: true });
+    await effectToRemove.delete();
+    log(`Removed effect ${effectName} from ${actor.name} - ${actor.id}`);
   }
 
   /**
