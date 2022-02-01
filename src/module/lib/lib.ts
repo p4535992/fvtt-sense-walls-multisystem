@@ -126,23 +126,23 @@ export function resetVisionLevel(): string {
   return StatusEffectSightFlags.NORMAL;
 }
 
-export function shouldIncludeWall(wall):boolean {
+export function shouldIncludeWall(wall): boolean {
   // const tokenVisioneLevel = <number>currentToken.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
   let currentToken = <Token>getFirstPlayerTokenSelected();
   if (!currentToken) {
     currentToken = <Token>getFirstPlayerToken();
   }
-  if(!currentToken){
+  if (!currentToken) {
     return true;
   }
-  const tokenVisioneLevel = <number>currentToken.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
+  const tokenVisioneLevel = getVisionLevelToken(currentToken);
   const wallVisionLevel = wall.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
   const indexValueWallVisionLevel = API.SENSES.find((a: StatusSight) => {
     return a.id == wallVisionLevel;
   });
   return (
-    currentTokenVisionLevel <
-    (wall.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel') || StatusEffectSightFlags.NONE)
+    tokenVisioneLevel.min <= <number>indexValueWallVisionLevel?.visionLevelMin &&
+    tokenVisioneLevel.max >= <number>indexValueWallVisionLevel?.visionLevelMax
   );
 }
 
@@ -157,8 +157,10 @@ export async function wallNewDraw() {
 
   // this.visibilityIcon = this.data.sight === 0 ? this.addChild(drawVisibility(this.direction)) : null;
   // this.movementIcon = this.data.move === 0 ? this.addChild(drawMovement(this.direction)) : null;
-  const requiredVisionLevel:StatusEffectSightFlags = this.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel') || StatusEffectSightFlags.NONE;
-  this.visionLevelIcon = this.data.sight === 0 ? this.addChild(drawVisionLevel(this.direction,requiredVisionLevel)) : null;
+  const requiredVisionLevel: StatusEffectSightFlags =
+    this.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel') || StatusEffectSightFlags.NONE;
+  this.visionLevelIcon =
+    this.data.sight === 0 ? this.addChild(drawVisionLevel(this.direction, requiredVisionLevel)) : null;
 
   // Draw a door control icon
   if (this.isDoor) {
@@ -311,7 +313,7 @@ export function wallNewUpdate(data: any, ...args) {
 /**
  * Returns the first selected token
  */
- function getFirstPlayerTokenSelected(): Token | null {
+function getFirstPlayerTokenSelected(): Token | null {
   // Get first token ownted by the player
   const selectedTokens = <Token[]>canvas.tokens?.controlled;
   if (selectedTokens.length > 1) {
@@ -327,7 +329,7 @@ export function wallNewUpdate(data: any, ...args) {
     //}
   }
   return selectedTokens[0];
-};
+}
 
 /**
  * Returns a list of selected (or owned, if no token is selected)
@@ -345,19 +347,17 @@ function getFirstPlayerToken(): Token | null {
   // If exactly one token is selected, take that
   token = controlled[0];
   if (!token) {
-    if (<boolean>game.settings.get(ARMS_REACH_MODULE_NAME, 'useOwnedTokenIfNoTokenIsSelected')) {
-      if (!controlled.length || controlled.length == 0) {
-        // If no token is selected use the token of the users character
-        token = <Token>canvas.tokens?.placeables.find((token) => token.data._id === game.user?.character?.data?._id);
-      }
-      // If no token is selected use the first owned token of the users character you found
-      if (!token) {
-        token = <Token>canvas.tokens?.ownedTokens[0];
-      }
+    if (!controlled.length || controlled.length == 0) {
+      // If no token is selected use the token of the users character
+      token = <Token>canvas.tokens?.placeables.find((token) => token.data._id === game.user?.character?.data?._id);
+    }
+    // If no token is selected use the first owned token of the users character you found
+    if (!token) {
+      token = <Token>canvas.tokens?.ownedTokens[0];
     }
   }
   return token;
-};
+}
 
 export function getElevationToken(token: Token): number {
   const base = token.document.data;
@@ -380,20 +380,27 @@ function getElevationPlaceableObject(placeableObject: any): number {
   return base_elevation;
 }
 
-function getVisionLevelToken(token:Token):{min:number, max:number}{
+function getVisionLevelToken(token: Token): { min: number; max: number } {
   const actor = <Actor>token.document.getActor();
   const actorEffects = <EmbeddedCollection<typeof ActiveEffect, ActorData>>actor?.data.effects;
-  let min:number = 0;
-  let max:number = 0;
+  let min = 0;
+  let max = 0;
   for (const effectEntity of actorEffects) {
     const effectNameToSet = effectEntity.name ? effectEntity.name : effectEntity.data.label;
     if (!effectNameToSet) {
       continue;
     }
-    const effectSight = API.SENSES.find((a:StatusSight) => {
+    const effectSight = API.SENSES.find((a: StatusSight) => {
       return effectNameToSet.toLowerCase().startsWith(a.id.toLowerCase());
     });
-    min = effectSight?.visionLevelMin;
-    max = effectSight?.visionLevelMax;
+    if (effectSight) {
+      if (min < <number>effectSight?.visionLevelMin) {
+        min = <number>effectSight?.visionLevelMin;
+      }
+      if (max < <number>effectSight?.visionLevelMax) {
+        max = <number>effectSight?.visionLevelMax;
+      }
+    }
   }
+  return { min: min, max: max };
 }

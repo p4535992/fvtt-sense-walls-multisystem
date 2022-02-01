@@ -38,7 +38,7 @@
       "path": "lang/en.json"
     }
   ],
-  "scripts": [],
+  "scripts": ["module/lib/dd.min.js"],
   "esmodules": ["sensewalls.js"],
   "styles": ["styles/sensewalls.css"],
   "packs": [],

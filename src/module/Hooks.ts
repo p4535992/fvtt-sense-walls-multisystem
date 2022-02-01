@@ -1,10 +1,4 @@
 import CONSTANTS from './constants';
-import { registerHotkeys } from './hotkeys';
-import { debug, isGMConnected } from './lib/lib';
-import { registerLibwrappers } from './libwrapper';
-import { canvas, game } from './settings';
-import { registerSocket } from './socket';
-import API from './api';
 
 const prefix =
   (str) =>
