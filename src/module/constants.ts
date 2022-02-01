@@ -5,6 +5,7 @@ const CONSTANTS = {
   DEFAULTS: {
     enabled: true,
   },
+  ICONS: {},
 };
 
 CONSTANTS.PATH = `modules/${CONSTANTS.MODULE_NAME}/`;

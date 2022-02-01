@@ -1,13 +1,14 @@
 import { registerLibwrappers } from './libwrapper';
 import { registerSocket, senseWallsSocket } from './socket';
-import { canvas, checkSystem, game } from './settings';
+import { checkSystem } from './settings';
+import { canvas, game } from './settings';
 import CONSTANTS from './constants';
 import HOOKS from './hooks';
-import { buildOption, debug, resetVisionLevel, shouldIncludeWall, updateVisionLevel } from './lib/lib';
+import { debug, i18n, resetVisionLevel, shouldIncludeWall, updateVisionLevel } from './lib/lib';
 import API from './api.js';
 import EffectInterface from './effects/effect-interface';
 import { registerHotkeys } from './hotkeys';
-import { VisionLevelPf2e } from './sensewalls-models';
+import { StatusEffectSightFlags, StatusSight } from './sensewalls-models';
 
 export const initHooks = async (): Promise<void> => {
   // registerSettings();
@@ -32,13 +33,17 @@ export const initHooks = async (): Promise<void> => {
     'ClockwiseSweepPolygon.testWallInclusion',
     function filterWalls(wrapped, ...args) {
       if (args[2] === 'sight') {
-        return wrapped(...args) && shouldIncludeWall(args[0], 0); // TODO to implemented
+        return wrapped(...args) && shouldIncludeWall(args[0]); // TODO to implemented
       } else {
         return wrapped(...args);
       }
     },
     'WRAPPER',
   );
+
+  // ======================================
+  // Se levels module is active
+  // ======================================
 
   if (game.modules.get('levels')?.active) {
     //@ts-ignore
@@ -58,7 +63,7 @@ export const initHooks = async (): Promise<void> => {
       'Levels.prototype.shouldIgnoreWall',
       function filterWallsLevels(wrapped, ...args) {
         if (args[1] === 0) {
-          return wrapped(...args) || !shouldIncludeWall(args[0], 0); // TODO to implemented
+          return wrapped(...args) || !shouldIncludeWall(args[0]); // TODO to implemented
         } else {
           return wrapped(...args);
         }
@@ -66,6 +71,13 @@ export const initHooks = async (): Promise<void> => {
       'WRAPPER',
     );
   }
+
+  //@ts-ignore
+  libWrapper.register(CONSTANTS.MODULE_NAME, 'Wall.prototype.draw', wallNewDraw, 'OVERRIDE');
+  //@ts-ignore
+  libWrapper.register(CONSTANTS.MODULE_NAME, 'Wall.prototype._onUpdate', wallNewUpdate, 'OVERRIDE');
+  //@ts-ignore
+  libWrapper.register(CONSTANTS.MODULE_NAME, 'Wall.prototype.refresh', wallNewRefresh, 'OVERRIDE');
 
   registerLibwrappers();
 
@@ -115,31 +127,25 @@ export const readyHooks = async (): Promise<void> => {
   // Add any additional hooks if necessary
 
   Hooks.on('renderWallConfig', (app, html, data) => {
-    const requiredVisionLevel = app.object.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel') || VisionLevelPf2e.NONE;
+    const requiredVisionLevel = app.object.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel') || StatusEffectSightFlags.NONE;
+
+    const sensesOrderByName = <StatusSight[]>API.SENSES.sort((a, b) => a.name.localeCompare(b.name));
+
+    const options: string[] = [];
+    options.push(`<option data-image="icons/svg/mystery-man.svg" value="">${i18n('None')}</option>`);
+    sensesOrderByName.forEach((a: StatusSight) => {
+      if (requiredVisionLevel == a.name) {
+        options.push(`<option selected="selected" data-image="${a.img}" value="${a.id}">${a.name}</option>`);
+      } else {
+        options.push(`<option data-image="${a.img}" value="${a.id}">${a.name}</option>`);
+      }
+    });
+
     const newHtml = `
             <div class="form-group">
                 <label>${game.i18n.localize('senseWalls.piercingVisionLevelPf2e.name')}</label>
-                <select type="range" name="flags.${CONSTANTS.MODULE_NAME}.visionLevel" data-dtype="Number">
-                    ${buildOption(
-                      game.i18n.localize('senseWalls.piercingVisionLevelPf2e.lowLightVision'),
-                      VisionLevelPf2e.LOW_LIGHT_VISION,
-                      requiredVisionLevel,
-                    )}
-                    ${buildOption(
-                      game.i18n.localize('senseWalls.piercingVisionLevelPf2e.darkvision'),
-                      VisionLevelPf2e.DARKVISION,
-                      requiredVisionLevel,
-                    )}
-                    ${buildOption(
-                      game.i18n.localize('senseWalls.piercingVisionLevelPf2e.greaterDarkvision'),
-                      VisionLevelPf2e.GREATER_DARKVISION,
-                      requiredVisionLevel,
-                    )}
-                    ${buildOption(
-                      game.i18n.localize('senseWalls.piercingVisionLevelPf2e.none'),
-                      VisionLevelPf2e.NONE,
-                      requiredVisionLevel,
-                    )}
+                <select name="flags.${CONSTANTS.MODULE_NAME}.visionLevel" data-dtype="String" is="ms-dropdown">
+                  ${options.join('')}
                 </select>
                 <p class="notes">${game.i18n.localize('senseWalls.piercingVisionLevelPf2e.description')}</p>
             </div>

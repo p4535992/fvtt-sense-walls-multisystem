@@ -1,4 +1,4 @@
-import CONSTANTS from "./constants";
+import CONSTANTS from './constants';
 
 export const preloadTemplates = async function (): Promise<Handlebars.TemplateDelegate<any>[]> {
   const templatePaths = [

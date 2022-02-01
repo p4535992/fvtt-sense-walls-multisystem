@@ -14,7 +14,6 @@ const module = prefix(CONSTANTS.MODULE_NAME);
 
 const HOOKS = {
   READY: module`ready`,
-  ON_RENDER_TOKEN_CONFIG: module`onRenderTokenConfig`,
 };
 
 export default HOOKS;

@@ -7,6 +7,9 @@ export interface StatusSight {
   path: string;
   img: string;
   effect: Effect;
+  visionLevelMin: number;
+  visionLevelMax: number;
+  checkElevation: boolean;
   pathOri?: string;
 }
 
@@ -29,11 +32,11 @@ export enum StatusEffectSightFlags {
   BLINDED = 'blinded',
 }
 
-export class VisionLevelPf2e {
-  static BLINDED = -1;
-  static NORMAL = 0;
-  static LOW_LIGHT_VISION = 1;
-  static DARKVISION = 2;
-  static GREATER_DARKVISION = 3;
-  static NONE = 4; // A special, unattainable vision level
-}
+// export class VisionLevelPf2e {
+//   static BLINDED = -1;
+//   static NORMAL = 0;
+//   static LOW_LIGHT_VISION = 1;
+//   static DARKVISION = 2;
+//   static GREATER_DARKVISION = 3;
+//   static NONE = 4; // A special, unattainable vision level
+// }

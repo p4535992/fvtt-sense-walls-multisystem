@@ -69,11 +69,17 @@ Any issues, bugs, or feature requests are always welcome to be reported directly
 
 ## License
 
-- [FVTT Sense Walls](https://github.com/JDCalvert/FVTT-Sense-Walls) with [???](https://github.com/JDCalvert/FVTT-Sense-Walls/LICENSE)
+- [FVTT Sense Walls](https://github.com/JDCalvert/FVTT-Sense-Walls) with [???](https://github.com/JDCalvert/FVTT-Sense-Walls/blob/master/LICENSE)
+- [Wonderwalls](https://github.com/kandashi/wonderwalls) with [MIT](https://github.com/kandashi/wonderwalls/blob/master/LICENSE)
+- [Image dropdown](https://github.com/marghoobsuleman/ms-Dropdown) with [MIT](https://github.com/marghoobsuleman/ms-Dropdown/blob/master/MIT-LICENSE.txt)
+- Some icons are retrieve from the [Dnd5e system](https://gitlab.com/foundrynet/dnd5e) with [MIT](https://gitlab.com/foundrynet/dnd5e/-/blob/master/LICENSE.txt)
+- Some icons are retrieve from the [Pf2 system](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/) with [GPLv2](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/-/blob/master/LICENSE)
 
 This package is under an [MIT license](LICENSE) and the [Foundry Virtual Tabletop Limited License Agreement for module development](https://foundryvtt.com/article/license/).
 
 ## Credit
 
-- Ty to  [JDCalvert](https://github.com/JDCalvert) for the inspirational project [FVTT Sense Walls](https://github.com/JDCalvert/FVTT-Sense-Walls)
+- Ty to [JDCalvert](https://github.com/JDCalvert) for the inspirational project [FVTT Sense Walls](https://github.com/JDCalvert/FVTT-Sense-Walls)
+- Ty to [Kandashi](https://github.com/kandashi) for the module [Wonderwalls](https://github.com/kandashi/wonderwalls)
+- The dropdown with image is build with [Image dropdown](https://github.com/marghoobsuleman/ms-Dropdown)
 
