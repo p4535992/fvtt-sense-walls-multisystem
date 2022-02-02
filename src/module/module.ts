@@ -42,7 +42,7 @@ export const initHooks = async (): Promise<void> => {
   );
 
   // ======================================
-  // Se levels module is active
+  // If levels module is active
   // ======================================
 
   if (game.modules.get('levels')?.active) {
@@ -143,11 +143,11 @@ export const readyHooks = async (): Promise<void> => {
 
     const newHtml = `
             <div class="form-group">
-                <label>${game.i18n.localize('senseWalls.piercingVisionLevelPf2e.name')}</label>
+                <label>${i18n(`${CONSTANTS.MODULE_NAME}.visionLevel.name`)}</label>
                 <select name="flags.${CONSTANTS.MODULE_NAME}.visionLevel" data-dtype="String" is="ms-dropdown">
                   ${options.join('')}
                 </select>
-                <p class="notes">${game.i18n.localize('senseWalls.piercingVisionLevelPf2e.description')}</p>
+                <p class="notes">${i18n(`${CONSTANTS.MODULE_NAME}.visionLevel.description`)}</p>
             </div>
         `;
 
