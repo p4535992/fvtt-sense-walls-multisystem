@@ -33,7 +33,7 @@ export const initHooks = async (): Promise<void> => {
     'ClockwiseSweepPolygon.testWallInclusion',
     function filterWalls(wrapped, ...args) {
       if (args[2] === 'sight') {
-        return wrapped(...args) && shouldIncludeWall(args[0]); // TODO to implemented
+        return wrapped(...args) && shouldIncludeWall(args[0]);
       } else {
         return wrapped(...args);
       }
@@ -63,7 +63,7 @@ export const initHooks = async (): Promise<void> => {
       'Levels.prototype.shouldIgnoreWall',
       function filterWallsLevels(wrapped, ...args) {
         if (args[1] === 0) {
-          return wrapped(...args) || !shouldIncludeWall(args[0]); // TODO to implemented
+          return wrapped(...args) || !shouldIncludeWall(args[0]);
         } else {
           return wrapped(...args);
         }

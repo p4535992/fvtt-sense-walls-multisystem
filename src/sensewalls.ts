@@ -81,7 +81,7 @@ Hooks.once('libChangelogsReady', function () {
   //@ts-ignore
   libChangelogs.register(
     CONSTANTS.MODULE_NAME,
-    `Big update integration levels. perfect vision, shared vision`,
+    `- Initial release`,
     'minor',
   );
 });

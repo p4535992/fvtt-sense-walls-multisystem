@@ -1,6 +1,6 @@
 import CONSTANTS from './constants';
 import Effect, { Constants } from './effects/effect';
-import { i18nFormat } from './lib/lib';
+import { getElevationToken, i18nFormat } from './lib/lib';
 import { canvas } from './settings';
 
 /**
@@ -50,7 +50,7 @@ export class EffectDefinitions {
     return new Effect({
       name: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.darkvision.name`, number),
       description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.darkvision.description`, number),
-      icon: 'systems/dnd5e/icons/spells/evil-eye-red-1.jpg',
+      icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/evil-eye-red-1.jpg`,
       // seconds: Constants.SECONDS.IN_EIGHT_HOURS,
       transfer: true,
       changes: [
@@ -76,7 +76,7 @@ export class EffectDefinitions {
     return new Effect({
       name: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.blindsigth.name`, number),
       description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.blindsigth.description`, number),
-      icon: 'systems/dnd5e/icons/skills/affliction_24.jpg',
+      icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/affliction_24.jpg`,
       // seconds: Constants.SECONDS.IN_EIGHT_HOURS,
       transfer: true,
       changes: [
@@ -94,7 +94,7 @@ export class EffectDefinitions {
     return new Effect({
       name: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.tremorsense.name`, number),
       description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.tremorsense.description`, number),
-      icon: 'systems/dnd5e/icons/skills/ice_15.jpg',
+      icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/ice_15.jpg`,
       // seconds: Constants.SECONDS.IN_EIGHT_HOURS,
       transfer: true,
       changes: [
@@ -112,7 +112,7 @@ export class EffectDefinitions {
     return new Effect({
       name: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.truesight.name`, number),
       description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.truesight.description`, number),
-      icon: 'systems/dnd5e/icons/skills/emerald_11.jpg',
+      icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/emerald_11.jpg`,
       // seconds: Constants.SECONDS.IN_EIGHT_HOURS,
       transfer: true,
       changes: [
@@ -130,7 +130,7 @@ export class EffectDefinitions {
     return new Effect({
       name: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.seeinvisible.name`, number),
       description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.seeinvisible.description`, number),
-      icon: 'systems/dnd5e/icons/skills/shadow_11.jpg',
+      icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/shadow_11.jpg`,
       // seconds: Constants.SECONDS.IN_EIGHT_HOURS,
       transfer: true,
       changes: [
@@ -148,7 +148,7 @@ export class EffectDefinitions {
     return new Effect({
       name: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.devilssight.name`, number),
       description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.devilssight.description`, number),
-      icon: 'systems/dnd5e/icons/skills/blue_17.jpg',
+      icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/blue_17.jpg`,
       // seconds: Constants.SECONDS.IN_EIGHT_HOURS,
       transfer: true,
       changes: [
@@ -166,7 +166,7 @@ export class EffectDefinitions {
     return new Effect({
       name: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.lowlightvision.name`, number),
       description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.lowlightvision.description`, number),
-      icon: 'systems/dnd5e/icons/skills/violet_09.jpg',
+      icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/violet_09.jpg`,
       // seconds: Constants.SECONDS.IN_EIGHT_HOURS,
       transfer: true,
       changes: [
@@ -198,7 +198,7 @@ export class EffectDefinitions {
     return new Effect({
       name: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.blinded.name`, number),
       description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.blinded.description`, number),
-      icon: 'systems/dnd5e/icons/skills/light_01.jpg',
+      icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/light_01.jpg`,
       // seconds: Constants.SECONDS.IN_EIGHT_HOURS,
       transfer: true,
       changes: [],
@@ -288,7 +288,8 @@ export class EffectDefinitions {
    * @param elevation
    */
   static async shadowEffect(tokenInstance: Token) {
-    const elevation: number = getProperty(tokenInstance.data, 'elevation');
+    //const elevation: number = getProperty(tokenInstance.data, 'elevation');
+    const elevation: number = getElevationToken(tokenInstance);
     //const tokenInstance = canvas.tokens?.get(tokenID);
     const tokenMagicEffectId = CONSTANTS.MODULE_NAME + '-Shadows';
     const twist = {

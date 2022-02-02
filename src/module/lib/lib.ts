@@ -87,11 +87,15 @@ export function dialogWarning(message, icon = 'fas fa-exclamation-triangle') {
 //   return `<option value=${optionValue} ${currentValue === optionValue ? 'selected' : ''}>${optionName}</option>`;
 // }
 
-export function updateVisionLevel(token) {
+export function updateVisionLevel(token:Token) {
   const actor = token.actor;
   if (!actor) {
     return;
   }
+  // TODO Probably i must do something ?
+  //@ts-ignore
+  const checkSenses = actor.data.data.traits.senses;
+  return;
 
   /*
   let senses = actor.data.data.traits.senses;
@@ -135,14 +139,22 @@ export function shouldIncludeWall(wall): boolean {
   if (!currentToken) {
     return true;
   }
-  const tokenVisioneLevel = getVisionLevelToken(currentToken);
+  const tokenVisionLevel = getVisionLevelToken(currentToken);
   const wallVisionLevel = wall.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
   const indexValueWallVisionLevel = API.SENSES.find((a: StatusSight) => {
     return a.id == wallVisionLevel;
   });
+  if(tokenVisionLevel?.checkElevation){
+    const tokenElevation = getElevationToken(currentToken);
+    const wallElevation = getElevationWall(wall);
+    if(tokenElevation < wallElevation){
+      return false;
+    }
+  }
+
   return (
-    tokenVisioneLevel.min <= <number>indexValueWallVisionLevel?.visionLevelMin &&
-    tokenVisioneLevel.max >= <number>indexValueWallVisionLevel?.visionLevelMax
+    tokenVisionLevel.min <= <number>indexValueWallVisionLevel?.visionLevelMin &&
+    tokenVisionLevel.max >= <number>indexValueWallVisionLevel?.visionLevelMax
   );
 }
 
@@ -380,11 +392,12 @@ function getElevationPlaceableObject(placeableObject: any): number {
   return base_elevation;
 }
 
-function getVisionLevelToken(token: Token): { min: number; max: number } {
+function getVisionLevelToken(token: Token): { min: number; max: number, checkElevation: boolean } {
   const actor = <Actor>token.document.getActor();
   const actorEffects = <EmbeddedCollection<typeof ActiveEffect, ActorData>>actor?.data.effects;
   let min = 0;
   let max = 0;
+  let hasOnlyEffectsWithCheckElevationTrue = true;
   for (const effectEntity of actorEffects) {
     const effectNameToSet = effectEntity.name ? effectEntity.name : effectEntity.data.label;
     if (!effectNameToSet) {
@@ -393,6 +406,7 @@ function getVisionLevelToken(token: Token): { min: number; max: number } {
     const effectSight = API.SENSES.find((a: StatusSight) => {
       return effectNameToSet.toLowerCase().startsWith(a.id.toLowerCase());
     });
+    // if is a AE with the label of the module (no id sorry)
     if (effectSight) {
       if (min < <number>effectSight?.visionLevelMin) {
         min = <number>effectSight?.visionLevelMin;
@@ -400,7 +414,15 @@ function getVisionLevelToken(token: Token): { min: number; max: number } {
       if (max < <number>effectSight?.visionLevelMax) {
         max = <number>effectSight?.visionLevelMax;
       }
+      // look up if you have not basic AE and if the check elevation is not enabled
+      if(!effectSight.checkElevation
+        && effectSight.id != StatusEffectSightFlags.NONE
+        && effectSight.id != StatusEffectSightFlags.NORMAL
+        && effectSight.id != StatusEffectSightFlags.BLINDED
+        ){
+        hasOnlyEffectsWithCheckElevationTrue = false;
+      }
     }
   }
-  return { min: min, max: max };
+  return { min: min, max: max, checkElevation: hasOnlyEffectsWithCheckElevationTrue };
 }
