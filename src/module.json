@@ -42,7 +42,7 @@
   "esmodules": ["sensewalls.js"],
   "styles": ["styles/sensewalls.css", "styles/dd.css"],
   "packs": [],
-  "minimumCoreVersion": "9",
+  "minimumCoreVersion": "0.8.9",
   "compatibleCoreVersion": "9",
   "manifestPlusVersion": "1.2.0",
   "url": "https://github.com/p4535992/fvtt-sense-walls-multisystem",
