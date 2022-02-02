@@ -9,8 +9,10 @@ export default class EffectHandler {
   _foundryHelpers: FoundryHelpers;
 
   constructor(moduleName: string) {
-    //@ts-ignore
-    if (!game[moduleName].effects) {
+    if (!game[moduleName]) {
+      game[moduleName] = {};
+    }
+    if (!game[moduleName]?.effects) {
       game[moduleName].effects = {};
     }
     if (!game[moduleName].effects.customEffects) {

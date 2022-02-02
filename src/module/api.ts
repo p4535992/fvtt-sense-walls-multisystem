@@ -9,9 +9,11 @@ import { StatusSight } from './sensewalls-models';
 import HOOKS from './hooks';
 
 export default class API {
-  static get effectInterface(): EffectInterface {
-    return new EffectInterface(CONSTANTS.MODULE_NAME, senseWallsSocket);
-  }
+  // static get effectInterface(): EffectInterface {
+  //   return new EffectInterface(CONSTANTS.MODULE_NAME, senseWallsSocket);
+  // }
+
+  static effectInterface: EffectInterface;
 
   /**
    * The attributes used to track dynamic attributes in this system

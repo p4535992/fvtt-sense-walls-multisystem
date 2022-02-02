@@ -87,7 +87,7 @@ export function dialogWarning(message, icon = 'fas fa-exclamation-triangle') {
 //   return `<option value=${optionValue} ${currentValue === optionValue ? 'selected' : ''}>${optionName}</option>`;
 // }
 
-export function updateVisionLevel(token:Token) {
+export function updateVisionLevel(token: Token) {
   const actor = token.actor;
   if (!actor) {
     return;
@@ -144,10 +144,10 @@ export function shouldIncludeWall(wall): boolean {
   const indexValueWallVisionLevel = API.SENSES.find((a: StatusSight) => {
     return a.id == wallVisionLevel;
   });
-  if(tokenVisionLevel?.checkElevation){
+  if (tokenVisionLevel?.checkElevation) {
     const tokenElevation = getElevationToken(currentToken);
     const wallElevation = getElevationWall(wall);
-    if(tokenElevation < wallElevation){
+    if (tokenElevation < wallElevation) {
       return false;
     }
   }
@@ -170,10 +170,16 @@ export async function wallNewDraw() {
   // this.visibilityIcon = this.data.sight === 0 ? this.addChild(drawVisibility(this.direction)) : null;
   // this.movementIcon = this.data.move === 0 ? this.addChild(drawMovement(this.direction)) : null;
   const requiredVisionLevel: StatusEffectSightFlags =
-    this.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel') || StatusEffectSightFlags.NONE;
-  this.visionLevelIcon =
-    this.data.sight === 0 ? this.addChild(drawVisionLevel(this.direction, requiredVisionLevel)) : null;
+    this.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
 
+  const status = API.SENSES.find((a:StatusSight) =>{
+    return a.id == requiredVisionLevel || a.name == requiredVisionLevel;
+  });
+
+  if(requiredVisionLevel && status){
+    this.visionLevelIcon =
+      this.data.sight === 0 ? this.addChild(drawVisionLevel(this.direction, status)) : null;
+  }
   // Draw a door control icon
   if (this.isDoor) {
     this.createDoorControl();
@@ -273,9 +279,10 @@ export function wallNewRefresh() {
 //   return walk;
 // }
 
-function drawVisionLevel(direction, sightAllowed: StatusEffectSightFlags) {
+function drawVisionLevel(direction, statusSight: StatusSight) {
   // Create the icon
-  const sightIcon = PIXI.Sprite.from(`modules/${CONSTANTS.MODULE_NAME}/icons/${sightAllowed}.png`);
+  //const sightIcon = PIXI.Sprite.from(`modules/${CONSTANTS.MODULE_NAME}/icons/${sightAllowed}.png`);
+  const sightIcon = PIXI.Sprite.from(statusSight.img);
   sightIcon.width = sightIcon.height = 32;
 
   // Rotate the icon
@@ -392,7 +399,7 @@ function getElevationPlaceableObject(placeableObject: any): number {
   return base_elevation;
 }
 
-function getVisionLevelToken(token: Token): { min: number; max: number, checkElevation: boolean } {
+function getVisionLevelToken(token: Token): { min: number; max: number; checkElevation: boolean } {
   const actor = <Actor>token.document.getActor();
   const actorEffects = <EmbeddedCollection<typeof ActiveEffect, ActorData>>actor?.data.effects;
   let min = 0;
@@ -415,11 +422,12 @@ function getVisionLevelToken(token: Token): { min: number; max: number, checkEle
         max = <number>effectSight?.visionLevelMax;
       }
       // look up if you have not basic AE and if the check elevation is not enabled
-      if(!effectSight.checkElevation
-        && effectSight.id != StatusEffectSightFlags.NONE
-        && effectSight.id != StatusEffectSightFlags.NORMAL
-        && effectSight.id != StatusEffectSightFlags.BLINDED
-        ){
+      if (
+        !effectSight.checkElevation &&
+        effectSight.id != StatusEffectSightFlags.NONE &&
+        effectSight.id != StatusEffectSightFlags.NORMAL &&
+        effectSight.id != StatusEffectSightFlags.BLINDED
+      ) {
         hasOnlyEffectsWithCheckElevationTrue = false;
       }
     }

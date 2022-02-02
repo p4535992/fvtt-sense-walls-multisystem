@@ -4,7 +4,7 @@ import { checkSystem } from './settings';
 import { canvas, game } from './settings';
 import CONSTANTS from './constants';
 import HOOKS from './hooks';
-import { debug, i18n, resetVisionLevel, shouldIncludeWall, updateVisionLevel } from './lib/lib';
+import { debug, i18n, resetVisionLevel, shouldIncludeWall, updateVisionLevel, wallNewDraw, wallNewRefresh, wallNewUpdate } from './lib/lib';
 import API from './api.js';
 import EffectInterface from './effects/effect-interface';
 import { registerHotkeys } from './hotkeys';
@@ -15,31 +15,31 @@ export const initHooks = async (): Promise<void> => {
 
   // Just as we're about to recalculate vision for this token, keep track of its vision level
   //@ts-ignore
-  libWrapper.register(
-    CONSTANTS.MODULE_NAME,
-    'Token.prototype.updateVisionSource',
-    function updateTokenVisionSource(wrapped, ...args) {
-      updateVisionLevel(this);
-      wrapped(...args);
-      resetVisionLevel();
-    },
-    'WRAPPER',
-  );
+  // libWrapper.register(
+  //   CONSTANTS.MODULE_NAME,
+  //   'Token.prototype.updateVisionSource',
+  //   function updateTokenVisionSource(wrapped, ...args) {
+  //     updateVisionLevel(this);
+  //     wrapped(...args);
+  //     resetVisionLevel();
+  //   },
+  //   'WRAPPER',
+  // );
 
   // Ignore the wall if the token's vision level is sufficient to pierce the wall, as per the wall configuration
   //@ts-ignore
-  libWrapper.register(
-    CONSTANTS.MODULE_NAME,
-    'ClockwiseSweepPolygon.testWallInclusion',
-    function filterWalls(wrapped, ...args) {
-      if (args[2] === 'sight') {
-        return wrapped(...args) && shouldIncludeWall(args[0]);
-      } else {
-        return wrapped(...args);
-      }
-    },
-    'WRAPPER',
-  );
+  // libWrapper.register(
+  //   CONSTANTS.MODULE_NAME,
+  //   'ClockwiseSweepPolygon.testWallInclusion',
+  //   function filterWalls(wrapped, ...args) {
+  //     if (args[2] === 'sight') {
+  //       return wrapped(...args) && shouldIncludeWall(args[0]);
+  //     } else {
+  //       return wrapped(...args);
+  //     }
+  //   },
+  //   'WRAPPER',
+  // );
 
   // ======================================
   // If levels module is active
@@ -134,10 +134,10 @@ export const readyHooks = async (): Promise<void> => {
     const options: string[] = [];
     options.push(`<option data-image="icons/svg/mystery-man.svg" value="">${i18n('None')}</option>`);
     sensesOrderByName.forEach((a: StatusSight) => {
-      if (requiredVisionLevel == a.name) {
-        options.push(`<option selected="selected" data-image="${a.img}" value="${a.id}">${a.name}</option>`);
+      if (requiredVisionLevel == a.id) {
+        options.push(`<option selected="selected" data-image="${a.img}" value="${a.id}">${i18n(a.name)}</option>`);
       } else {
-        options.push(`<option data-image="${a.img}" value="${a.id}">${a.name}</option>`);
+        options.push(`<option data-image="${a.img}" value="${a.id}">${i18n(a.name)}</option>`);
       }
     });
 

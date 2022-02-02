@@ -6,7 +6,7 @@ export interface StatusSight {
   name: string;
   path: string;
   img: string;
-  effect: Effect;
+  // effect: Effect;
   visionLevelMin: number;
   visionLevelMax: number;
   checkElevation: boolean;

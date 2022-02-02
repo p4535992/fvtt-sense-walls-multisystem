@@ -1,6 +1,7 @@
 import CONSTANTS from './constants';
 import Effect, { Constants } from './effects/effect';
 import { getElevationToken, i18nFormat } from './lib/lib';
+import { StatusEffectSightFlags } from './sensewalls-models';
 import { canvas } from './settings';
 
 /**
@@ -9,20 +10,58 @@ import { canvas } from './settings';
 export class EffectDefinitions {
   constructor() {}
 
-  //   /**
-  //    * Get all effects
-  //    *
-  //    * @returns {Effect[]} all the effects
-  //    */
-  //   get all() {
-  //     return [this._darkvision];
-  //   }
+  /**
+   * Get all effects
+   *
+   * @returns {Effect[]} all the effects
+   */
+  get all(): Effect[] {
+    return [
+      EffectDefinitions.blinded(0),
+      EffectDefinitions.blindsigth(0),
+      EffectDefinitions.darkvision(0),
+      EffectDefinitions.devilssight(0),
+      EffectDefinitions.lowlightvision(0),
+      // EffectDefinitions.seeinvisible(0),
+      // EffectDefinitions.shadowEffect(0),
+      EffectDefinitions.tremorsense(0),
+      EffectDefinitions.truesight(0),
+    ];
+  }
 
-  //   effect(name: string) {
-  //     return <Effect>this.all.find((effect: Effect) => {
-  //       return effect.name.toLowerCase() === name.toLowerCase();
-  //     });
-  //   }
+  effect(name: string, distance = 0): Effect | undefined {
+    const effect = <Effect>this.all.find((effect: Effect) => {
+      return effect.name.toLowerCase() === name.toLowerCase();
+    });
+    if (effect?.customId == StatusEffectSightFlags.BLINDED) {
+      return EffectDefinitions.blinded(distance);
+    }
+    if (effect?.customId == StatusEffectSightFlags.BLIND_SIGHT) {
+      return EffectDefinitions.blindsigth(distance);
+    }
+    if (effect?.customId == StatusEffectSightFlags.DARKVISION) {
+      return EffectDefinitions.darkvision(distance);
+    }
+    if (effect?.customId == StatusEffectSightFlags.DEVILS_SIGHT) {
+      return EffectDefinitions.devilssight(distance);
+    }
+    if (effect?.customId == StatusEffectSightFlags.GREATER_DARKVISION) {
+      return EffectDefinitions.darkvision(120);
+    }
+    if (effect?.customId == StatusEffectSightFlags.LOW_LIGHT_VISION) {
+      return EffectDefinitions.lowlightvision(distance);
+    }
+    if (effect?.customId == StatusEffectSightFlags.SEE_INVISIBLE) {
+      return EffectDefinitions.seeinvisible(distance);
+    }
+    if (effect?.customId == StatusEffectSightFlags.TREMOR_SENSE) {
+      return EffectDefinitions.tremorsense(distance);
+    }
+    if (effect?.customId == StatusEffectSightFlags.TRUE_SIGHT) {
+      return EffectDefinitions.truesight(distance);
+    }
+    return undefined;
+  }
 
   // ===========================================
   // The source effect
@@ -48,6 +87,7 @@ export class EffectDefinitions {
 
   static darkvision(number: number) {
     return new Effect({
+      customId: StatusEffectSightFlags.DARKVISION,
       name: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.darkvision.name`, number),
       description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.darkvision.description`, number),
       icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/evil-eye-red-1.jpg`,
@@ -74,6 +114,7 @@ export class EffectDefinitions {
 
   static blindsigth(number: number) {
     return new Effect({
+      customId: StatusEffectSightFlags.BLIND_SIGHT,
       name: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.blindsigth.name`, number),
       description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.blindsigth.description`, number),
       icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/affliction_24.jpg`,
@@ -92,6 +133,7 @@ export class EffectDefinitions {
 
   static tremorsense(number: number) {
     return new Effect({
+      customId: StatusEffectSightFlags.TREMOR_SENSE,
       name: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.tremorsense.name`, number),
       description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.tremorsense.description`, number),
       icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/ice_15.jpg`,
@@ -110,6 +152,7 @@ export class EffectDefinitions {
 
   static truesight(number) {
     return new Effect({
+      customId: StatusEffectSightFlags.TRUE_SIGHT,
       name: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.truesight.name`, number),
       description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.truesight.description`, number),
       icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/emerald_11.jpg`,
@@ -128,6 +171,7 @@ export class EffectDefinitions {
 
   static seeinvisible(number) {
     return new Effect({
+      customId: StatusEffectSightFlags.SEE_INVISIBLE,
       name: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.seeinvisible.name`, number),
       description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.seeinvisible.description`, number),
       icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/shadow_11.jpg`,
@@ -146,6 +190,7 @@ export class EffectDefinitions {
 
   static devilssight(number) {
     return new Effect({
+      customId: StatusEffectSightFlags.DEVILS_SIGHT,
       name: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.devilssight.name`, number),
       description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.devilssight.description`, number),
       icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/blue_17.jpg`,
@@ -164,6 +209,7 @@ export class EffectDefinitions {
 
   static lowlightvision(number) {
     return new Effect({
+      customId: StatusEffectSightFlags.LOW_LIGHT_VISION,
       name: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.lowlightvision.name`, number),
       description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.lowlightvision.description`, number),
       icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/violet_09.jpg`,
@@ -196,6 +242,7 @@ export class EffectDefinitions {
 
   static blinded(number) {
     return new Effect({
+      customId: StatusEffectSightFlags.BLINDED,
       name: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.blinded.name`, number),
       description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.blinded.description`, number),
       icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/light_01.jpg`,
