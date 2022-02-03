@@ -55,6 +55,7 @@ function defaultSettings(apply = false) {
 }
 
 export const registerSettings = function (): void {
+
   game.settings.registerMenu(CONSTANTS.MODULE_NAME, 'resetAllSettings', {
     name: `${CONSTANTS.MODULE_NAME}.setting.reset.name`,
     hint: `${CONSTANTS.MODULE_NAME}.setting.reset.hint`,
@@ -73,8 +74,7 @@ export const registerSettings = function (): void {
 
   const settings = defaultSettings();
   for (const [name, data] of Object.entries(settings)) {
-    //@ts-ignore
-    game.settings.register(CONSTANTS.MODULE_NAME, name, data);
+      game.settings.register(CONSTANTS.MODULE_NAME, name, data);
   }
 
   game.settings.register(CONSTANTS.MODULE_NAME, 'debug', {
@@ -155,8 +155,8 @@ export async function checkSystem() {
     await game.settings.set(CONSTANTS.MODULE_NAME, 'systemNotFoundWarningShown', true);
 
     return Dialog.prompt({
-      title: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.Dialogs.NoSystemFound.Title`),
-      content: dialogWarning(game.i18n.localize(`${CONSTANTS.MODULE_NAME}.Dialogs.NoSystemFound.Content`)),
+      title: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.nosystemfound.title`),
+      content: dialogWarning(game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.nosystemfound.content`)),
       callback: () => {},
     });
   }
@@ -167,12 +167,12 @@ export async function checkSystem() {
 
   if (game.settings.get(CONSTANTS.MODULE_NAME, 'systemNotFoundWarningShown')) {
     return new Dialog({
-      title: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.Dialogs.SystemFound.Title`),
-      content: warn(game.i18n.localize(`${CONSTANTS.MODULE_NAME}.Dialogs.SystemFound.Content`), true),
+      title: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.systemfound.title`),
+      content: warn(game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.systemfound.content`), true),
       buttons: {
         confirm: {
           icon: '<i class="fas fa-check"></i>',
-          label: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.Dialogs.SystemFound.Confirm`),
+          label: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.systemfound.confirm`),
           callback: () => {
             applyDefaultSettings();
           },

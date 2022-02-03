@@ -24,5 +24,11 @@
   "sense-walls-multisystem.dialogs.resetsettings.title": "Reset Item Piles Module Settings",
   "sense-walls-multisystem.dialogs.resetsettings.content": "Are you sure you want to reset all of the Item Piles module settings to the current system's defaults? <strong>THIS CANNOT BE UNDONE!</strong>",
   "sense-walls-multisystem.dialogs.resetsettings.confirm": "Reset Module Settings",
-  "sense-walls-multisystem.dialogs.resetsettings.cancel": "Cancel"
+  "sense-walls-multisystem.dialogs.resetsettings.cancel": "Cancel",
+
+  "sense-walls-multisystem.dialogs.nosystemfound.title": "System Not Recognized",
+  "sense-walls-multisystem.dialogs.nosystemfound.content": "This system is not currently fully supported. This means that the module does not know how to best handle this system's items, but can still operate in a limited fashion.<br><br>You can configure the module's settings yourself, but it requires a bit of technical know-how.<br><br>If you have any questions, ping <strong>Wasp#2005</strong> on the Foundry discord.",
+  "sense-walls-multisystem.dialogs.systemfound.title": "System Recognized",
+  "sense-walls-multisystem.dialogs.systemfound.content": "This system was previously not supported, but in an recent update it was added as a supported system!<br><br>Do you want to load this system's default Item Pile settings?",
+  "sense-walls-multisystem.dialogs.systemfound.confirm": "Apply System Defaults"
 }
