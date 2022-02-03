@@ -4,42 +4,24 @@ import { checkSystem } from './settings';
 import { canvas, game } from './settings';
 import CONSTANTS from './constants';
 import HOOKS from './hooks';
-import { debug, i18n, resetVisionLevel, shouldIncludeWall, updateVisionLevel, wallNewDraw, wallNewRefresh, wallNewUpdate } from './lib/lib';
+import {
+  debug,
+  i18n,
+  resetVisionLevel,
+  shouldIncludeWall,
+  updateVisionLevel,
+  wallNewDraw,
+  wallNewRefresh,
+  wallNewUpdate,
+} from './lib/lib';
 import API from './api.js';
 import EffectInterface from './effects/effect-interface';
 import { registerHotkeys } from './hotkeys';
 import { StatusEffectSightFlags, StatusSight } from './sensewalls-models';
+import { SenseWallsPlaceableConfig } from './sensewalls-config';
 
 export const initHooks = async (): Promise<void> => {
   // registerSettings();
-
-  // Just as we're about to recalculate vision for this token, keep track of its vision level
-  //@ts-ignore
-  // libWrapper.register(
-  //   CONSTANTS.MODULE_NAME,
-  //   'Token.prototype.updateVisionSource',
-  //   function updateTokenVisionSource(wrapped, ...args) {
-  //     updateVisionLevel(this);
-  //     wrapped(...args);
-  //     resetVisionLevel();
-  //   },
-  //   'WRAPPER',
-  // );
-
-  // Ignore the wall if the token's vision level is sufficient to pierce the wall, as per the wall configuration
-  //@ts-ignore
-  // libWrapper.register(
-  //   CONSTANTS.MODULE_NAME,
-  //   'ClockwiseSweepPolygon.testWallInclusion',
-  //   function filterWalls(wrapped, ...args) {
-  //     if (args[2] === 'sight') {
-  //       return wrapped(...args) && shouldIncludeWall(args[0]);
-  //     } else {
-  //       return wrapped(...args);
-  //     }
-  //   },
-  //   'WRAPPER',
-  // );
 
   // ======================================
   // If levels module is active
@@ -124,37 +106,39 @@ export const readyHooks = async (): Promise<void> => {
   registerHotkeys();
   Hooks.callAll(HOOKS.READY);
 
+  SenseWallsPlaceableConfig.registerHooks();
+
   // Add any additional hooks if necessary
 
-  Hooks.on('renderWallConfig', (app, html, data) => {
-    const requiredVisionLevel = app.object.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel') || StatusEffectSightFlags.NONE;
+  //   Hooks.on('renderWallConfig', (app, html, data) => {
+  //     const requiredVisionLevel = app.object.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel') || StatusEffectSightFlags.NONE;
 
-    const sensesOrderByName = <StatusSight[]>API.SENSES.sort((a, b) => a.name.localeCompare(b.name));
+  //     const sensesOrderByName = <StatusSight[]>API.SENSES.sort((a, b) => a.name.localeCompare(b.name));
 
-    const options: string[] = [];
-    options.push(`<option data-image="icons/svg/mystery-man.svg" value="">${i18n('None')}</option>`);
-    sensesOrderByName.forEach((a: StatusSight) => {
-      if (requiredVisionLevel == a.id) {
-        options.push(`<option selected="selected" data-image="${a.img}" value="${a.id}">${i18n(a.name)}</option>`);
-      } else {
-        options.push(`<option data-image="${a.img}" value="${a.id}">${i18n(a.name)}</option>`);
-      }
-    });
+  //     const options: string[] = [];
+  //     options.push(`<option data-image="icons/svg/mystery-man.svg" value="">${i18n('None')}</option>`);
+  //     sensesOrderByName.forEach((a: StatusSight) => {
+  //       if (requiredVisionLevel == a.id) {
+  //         options.push(`<option selected="selected" data-image="${a.img}" value="${a.id}">${i18n(a.name)}</option>`);
+  //       } else {
+  //         options.push(`<option data-image="${a.img}" value="${a.id}">${i18n(a.name)}</option>`);
+  //       }
+  //     });
 
-    const newHtml = `
-            <div class="form-group">
-                <label>${i18n(`${CONSTANTS.MODULE_NAME}.visionLevel.name`)}</label>
-                <select name="flags.${CONSTANTS.MODULE_NAME}.visionLevel" data-dtype="String" is="ms-dropdown">
-                  ${options.join('')}
-                </select>
-                <p class="notes">${i18n(`${CONSTANTS.MODULE_NAME}.visionLevel.description`)}</p>
-            </div>
-        `;
+  //     const newHtml = `
+  //             <div class="form-group">
+  //                 <label>${i18n(`${CONSTANTS.MODULE_NAME}.visionLevel.name`)}</label>
+  //                 <select name="flags.${CONSTANTS.MODULE_NAME}.visionLevel" data-dtype="String" is="ms-dropdown">
+  //                   ${options.join('')}
+  //                 </select>
+  //                 <p class="notes">${i18n(`${CONSTANTS.MODULE_NAME}.visionLevel.description`)}</p>
+  //             </div>
+  //         `;
 
-    const underh = html.find('select[name="sight"]');
-    const formGroup = underh.closest('.form-group');
-    formGroup.after(newHtml);
+  //     const underh = html.find('select[name="sight"]');
+  //     const formGroup = underh.closest('.form-group');
+  //     formGroup.append(newHtml);
 
-    app.setPosition({ height: 'auto' });
-  });
+  //     app.setPosition({ height: 'auto' });
+  //   });
 };

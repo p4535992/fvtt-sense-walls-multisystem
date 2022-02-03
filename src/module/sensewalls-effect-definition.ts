@@ -15,7 +15,7 @@ export class EffectDefinitions {
    *
    * @returns {Effect[]} all the effects
    */
-  get all(): Effect[] {
+  static all(): Effect[] {
     return [
       EffectDefinitions.blinded(0),
       EffectDefinitions.blindsigth(0),
@@ -29,8 +29,8 @@ export class EffectDefinitions {
     ];
   }
 
-  effect(name: string, distance = 0): Effect | undefined {
-    const effect = <Effect>this.all.find((effect: Effect) => {
+  static effect(name: string, distance = 0): Effect | undefined {
+    const effect = <Effect>EffectDefinitions.all().find((effect: Effect) => {
       return effect.name.toLowerCase() === name.toLowerCase();
     });
     if (effect?.customId == StatusEffectSightFlags.BLINDED) {

@@ -169,16 +169,14 @@ export async function wallNewDraw() {
 
   // this.visibilityIcon = this.data.sight === 0 ? this.addChild(drawVisibility(this.direction)) : null;
   // this.movementIcon = this.data.move === 0 ? this.addChild(drawMovement(this.direction)) : null;
-  const requiredVisionLevel: StatusEffectSightFlags =
-    this.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
+  const requiredVisionLevel: StatusEffectSightFlags = this.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
 
-  const status = API.SENSES.find((a:StatusSight) =>{
+  const status = API.SENSES.find((a: StatusSight) => {
     return a.id == requiredVisionLevel || a.name == requiredVisionLevel;
   });
 
-  if(requiredVisionLevel && status){
-    this.visionLevelIcon =
-      this.data.sight === 0 ? this.addChild(drawVisionLevel(this.direction, status)) : null;
+  if (requiredVisionLevel && status) {
+    this.visionLevelIcon = this.data.sight === 0 ? this.addChild(drawVisionLevel(this.direction, status)) : null;
   }
   // Draw a door control icon
   if (this.isDoor) {

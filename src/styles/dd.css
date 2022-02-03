@@ -93,7 +93,11 @@
 .ms-dd .ms-dd-option-image,
 .ms-dd .ms-dd-selected-img {
   margin-right: 5px;
-  max-width: 64px;
+  /* MOD 4535992 */
+  /* max-width: 64px; */
+  width: 32px;
+  height: 32px;
+  /* END MOD 4535992 */
   vertical-align: middle;
 }
 .ms-dd .ms-dd-arrow {

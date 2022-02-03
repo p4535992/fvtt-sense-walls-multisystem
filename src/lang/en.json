@@ -1,8 +1,28 @@
 {
   "sense-walls-multisystem.visionLevel.name": "Piercing Vision Level",
   "sense-walls-multisystem.visionLevel.description": "The minimum level of vision required to ignore this wall. A setting of None (default) cannot be pierced by any level of vision, like a default wall.",
-  "sense-walls-multisystem.lowLightVision": "Low-Light Vision",
+
+  "sense-walls-multisystem.none": "None",
+  "sense-walls-multisystem.normal": "Normal",
+  "sense-walls-multisystem.blinded": "Blinded",
   "sense-walls-multisystem.darkvision": "Darkvision",
-  "sense-walls-multisystem.greaterDarkvision": "Greater Darkvision",
-  "sense-walls-multisystem.none": "None"
+  "sense-walls-multisystem.tremorsense": "Tremor Sense",
+  "sense-walls-multisystem.seeinvisible": "See invisible",
+  "sense-walls-multisystem.blindsight": "Blind Sight",
+  "sense-walls-multisystem.truesight": "True Sight",
+  "sense-walls-multisystem.devilssight": "Devil's sight",
+  "sense-walls-multisystem.lowlightvision": "Low-Light Vision",
+  "sense-walls-multisystem.greaterdarkvision": "Greater Darkvision",
+
+  "sense-walls-multisystem.setting.reset.name": "Reset settings to default",
+  "sense-walls-multisystem.setting.reset.label": "Reset Item Piles Settings To Default",
+  "sense-walls-multisystem.setting.reset.hint": "This will reset all of the settings of Item Piles back to the active game system's default.",
+  "sense-walls-multisystem.setting.debug.name": "Enable debugging",
+  "sense-walls-multisystem.setting.debug.label": "Prints debug messages to the console",
+  "sense-walls-multisystem.setting.debug.hint": " ",
+
+  "sense-walls-multisystem.dialogs.resetsettings.title": "Reset Item Piles Module Settings",
+  "sense-walls-multisystem.dialogs.resetsettings.content": "Are you sure you want to reset all of the Item Piles module settings to the current system's defaults? <strong>THIS CANNOT BE UNDONE!</strong>",
+  "sense-walls-multisystem.dialogs.resetsettings.confirm": "Reset Module Settings",
+  "sense-walls-multisystem.dialogs.resetsettings.cancel": "Cancel"
 }

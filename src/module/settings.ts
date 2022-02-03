@@ -1,5 +1,4 @@
 import API from './api';
-import { SenseWallsAttributeEditor } from './formapplications/senseWallsAttributeEditor';
 import CONSTANTS from './constants';
 import { dialogWarning, warn } from './lib/lib';
 import { SYSTEMS } from './systems';
@@ -57,20 +56,20 @@ function defaultSettings(apply = false) {
 
 export const registerSettings = function (): void {
   game.settings.registerMenu(CONSTANTS.MODULE_NAME, 'resetAllSettings', {
-    name: `${CONSTANTS.MODULE_NAME}.Setting.Reset.name`,
-    hint: `${CONSTANTS.MODULE_NAME}.Setting.Reset.hint`,
+    name: `${CONSTANTS.MODULE_NAME}.setting.reset.name`,
+    hint: `${CONSTANTS.MODULE_NAME}.setting.reset.hint`,
     icon: 'fas fa-coins',
     type: ResetSettingsDialog,
     restricted: true,
   });
 
-  game.settings.registerMenu(CONSTANTS.MODULE_NAME, 'openDynamicAttributesEditor', {
-    name: `${CONSTANTS.MODULE_NAME}.Setting.Attributes.name`,
-    hint: `${CONSTANTS.MODULE_NAME}.Setting.Attributes.hint`,
-    icon: 'fas fa-coins',
-    type: SenseWallsAttributeEditor,
-    restricted: true,
-  });
+  // game.settings.registerMenu(CONSTANTS.MODULE_NAME, 'openDynamicAttributesEditor', {
+  //   name: `${CONSTANTS.MODULE_NAME}.setting.attributes.name`,
+  //   hint: `${CONSTANTS.MODULE_NAME}.setting.attributes.hint`,
+  //   icon: 'fas fa-coins',
+  //   type: SenseWallsAttributeEditor,
+  //   restricted: true,
+  // });
 
   const settings = defaultSettings();
   for (const [name, data] of Object.entries(settings)) {
@@ -79,8 +78,8 @@ export const registerSettings = function (): void {
   }
 
   game.settings.register(CONSTANTS.MODULE_NAME, 'debug', {
-    name: `${CONSTANTS.MODULE_NAME}.Setting.Debug.name`,
-    hint: `${CONSTANTS.MODULE_NAME}.Setting.Debug.hint`,
+    name: `${CONSTANTS.MODULE_NAME}.setting.debug.name`,
+    hint: `${CONSTANTS.MODULE_NAME}.setting.debug.hint`,
     scope: 'client',
     config: true,
     default: false,
@@ -114,15 +113,15 @@ class ResetSettingsDialog extends FormApplication {
     super(args);
     //@ts-ignore
     return new Dialog({
-      title: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.Dialogs.ResetSettings.Title`),
+      title: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.resetsettings.title`),
       content:
         '<p style="margin-bottom:1rem;">' +
-        game.i18n.localize(`${CONSTANTS.MODULE_NAME}.Dialogs.ResetSettings.Content`) +
+        game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.resetsettings.content`) +
         '</p>',
       buttons: {
         confirm: {
           icon: '<i class="fas fa-check"></i>',
-          label: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.Dialogs.ResetSettings.Confirm`),
+          label: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.resetsettings.confirm`),
           callback: async () => {
             await applyDefaultSettings();
             window.location.reload();
@@ -130,7 +129,7 @@ class ResetSettingsDialog extends FormApplication {
         },
         cancel: {
           icon: '<i class="fas fa-times"></i>',
-          label: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.Dialogs.Cancel`),
+          label: game.i18n.localize(`${CONSTANTS.MODULE_NAME}.dialogs.resetsettings.cancel`),
         },
       },
       default: 'cancel',
