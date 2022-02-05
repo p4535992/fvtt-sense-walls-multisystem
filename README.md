@@ -93,7 +93,7 @@ https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src
 
 ## API
 
-
+SenseWalls.API.addEffect('Zruggig Widebrain','darkvision',60)
 
 ## [Changelog](./CHANGELOG.md)
 

@@ -69,8 +69,8 @@ export class EffectDefinitions {
 
   // static stealthpassive(number: number) {
   //   return new Effect({
-  //     name: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.stealthpassive.name`, number),
-  //     description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.stealthpassive.description`, number),
+  //     name: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.stealthpassive.name`, { number : number}),
+  //     description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.stealthpassive.description`, { number : number}),
   //     icon: '',
   //     // seconds: Constants.SECONDS.IN_EIGHT_HOURS,
   //     transfer: true,
@@ -90,9 +90,9 @@ export class EffectDefinitions {
       customId: StatusEffectSightFlags.DARKVISION,
       name:
         number && number > 0
-          ? i18n(`${CONSTANTS.MODULE_NAME}.effects.darkvision.name`)
-          : i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.darkvision.name2`, number),
-      description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.darkvision.description`, number),
+          ? i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.darkvision.name2`, { number: number })
+          : i18n(`${CONSTANTS.MODULE_NAME}.effects.darkvision.name`),
+      description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.darkvision.description`, { number: number }),
       icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/evil-eye-red-1.jpg`,
       // seconds: Constants.SECONDS.IN_EIGHT_HOURS,
       transfer: true,
@@ -120,9 +120,9 @@ export class EffectDefinitions {
       customId: StatusEffectSightFlags.BLIND_SIGHT,
       name:
         number && number > 0
-          ? i18n(`${CONSTANTS.MODULE_NAME}.effects.blindsigth.name`)
-          : i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.blindsigth.name2`, number),
-      description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.blindsigth.description`, number),
+          ? i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.blindsigth.name2`, { number: number })
+          : i18n(`${CONSTANTS.MODULE_NAME}.effects.blindsigth.name`),
+      description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.blindsigth.description`, { number: number }),
       icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/affliction_24.jpg`,
       // seconds: Constants.SECONDS.IN_EIGHT_HOURS,
       transfer: true,
@@ -142,9 +142,9 @@ export class EffectDefinitions {
       customId: StatusEffectSightFlags.TREMOR_SENSE,
       name:
         number && number > 0
-          ? i18n(`${CONSTANTS.MODULE_NAME}.effects.tremorsense.name`)
-          : i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.tremorsense.name2`, number),
-      description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.tremorsense.description`, number),
+          ? i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.tremorsense.name2`, { number: number })
+          : i18n(`${CONSTANTS.MODULE_NAME}.effects.tremorsense.name`),
+      description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.tremorsense.description`, { number: number }),
       icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/ice_15.jpg`,
       // seconds: Constants.SECONDS.IN_EIGHT_HOURS,
       transfer: true,
@@ -164,9 +164,9 @@ export class EffectDefinitions {
       customId: StatusEffectSightFlags.TRUE_SIGHT,
       name:
         number && number > 0
-          ? i18n(`${CONSTANTS.MODULE_NAME}.effects.truesight.name`)
-          : i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.truesight.name2`, number),
-      description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.truesight.description`, number),
+          ? i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.truesight.name2`, { number: number })
+          : i18n(`${CONSTANTS.MODULE_NAME}.effects.truesight.name`),
+      description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.truesight.description`, { number: number }),
       icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/emerald_11.jpg`,
       // seconds: Constants.SECONDS.IN_EIGHT_HOURS,
       transfer: true,
@@ -186,9 +186,9 @@ export class EffectDefinitions {
       customId: StatusEffectSightFlags.SEE_INVISIBLE,
       name:
         number && number > 0
-          ? i18n(`${CONSTANTS.MODULE_NAME}.effects.seeinvisible.name`)
-          : i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.seeinvisible.name2`, number),
-      description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.seeinvisible.description`, number),
+          ? i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.seeinvisible.name2`, { number: number })
+          : i18n(`${CONSTANTS.MODULE_NAME}.effects.seeinvisible.name`),
+      description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.seeinvisible.description`, { number: number }),
       icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/shadow_11.jpg`,
       // seconds: Constants.SECONDS.IN_EIGHT_HOURS,
       transfer: true,
@@ -208,9 +208,9 @@ export class EffectDefinitions {
       customId: StatusEffectSightFlags.DEVILS_SIGHT,
       name:
         number && number > 0
-          ? i18n(`${CONSTANTS.MODULE_NAME}.effects.devilssight.name`)
-          : i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.devilssight.name2`, number),
-      description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.devilssight.description`, number),
+          ? i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.devilssight.name2`, { number: number })
+          : i18n(`${CONSTANTS.MODULE_NAME}.effects.devilssight.name`),
+      description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.devilssight.description`, { number: number }),
       icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/blue_17.jpg`,
       // seconds: Constants.SECONDS.IN_EIGHT_HOURS,
       transfer: true,
@@ -230,9 +230,9 @@ export class EffectDefinitions {
       customId: StatusEffectSightFlags.LOW_LIGHT_VISION,
       name:
         number && number > 0
-          ? i18n(`${CONSTANTS.MODULE_NAME}.effects.lowlightvision.name`)
-          : i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.lowlightvision.name2`, number),
-      description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.lowlightvision.description`, number),
+          ? i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.lowlightvision.name2`, { number: number })
+          : i18n(`${CONSTANTS.MODULE_NAME}.effects.lowlightvision.name`),
+      description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.lowlightvision.description`, { number: number }),
       icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/violet_09.jpg`,
       // seconds: Constants.SECONDS.IN_EIGHT_HOURS,
       transfer: true,
@@ -266,9 +266,9 @@ export class EffectDefinitions {
       customId: StatusEffectSightFlags.BLINDED,
       name:
         number && number > 0
-          ? i18n(`${CONSTANTS.MODULE_NAME}.effects.blinded.name`)
-          : i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.blinded.name2`, number),
-      description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.blinded.description`, number),
+          ? i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.blinded.name2`, { number: number })
+          : i18n(`${CONSTANTS.MODULE_NAME}.effects.blinded.name`),
+      description: i18nFormat(`${CONSTANTS.MODULE_NAME}.effects.blinded.description`, { number: number }),
       icon: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/light_01.jpg`,
       // seconds: Constants.SECONDS.IN_EIGHT_HOURS,
       transfer: true,
