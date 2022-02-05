@@ -4,16 +4,7 @@ import { checkSystem } from './settings';
 import { canvas, game } from './settings';
 import CONSTANTS from './constants';
 import HOOKS from './hooks';
-import {
-  debug,
-  i18n,
-  resetVisionLevel,
-  shouldIncludeWall,
-  updateVisionLevel,
-  wallNewDraw,
-  wallNewRefresh,
-  wallNewUpdate,
-} from './lib/lib';
+import { debug, shouldIncludeWall, wallNewDraw, wallNewRefresh, wallNewUpdate } from './lib/lib';
 import API from './api.js';
 import EffectInterface from './effects/effect-interface';
 import { registerHotkeys } from './hotkeys';
@@ -29,16 +20,16 @@ export const initHooks = async (): Promise<void> => {
 
   if (game.modules.get('levels')?.active) {
     //@ts-ignore
-    libWrapper.register(
-      CONSTANTS.MODULE_NAME,
-      'Levels.prototype.advancedLosTestInLos',
-      function updateTokenVisionSourceLevels(wrapped, ...args) {
-        updateVisionLevel(args[0]);
-        const result = wrapped(...args);
-        resetVisionLevel();
-        return result;
-      },
-    );
+    // libWrapper.register(
+    //   CONSTANTS.MODULE_NAME,
+    //   'Levels.prototype.advancedLosTestInLos',
+    //   function updateTokenVisionSourceLevels(wrapped, ...args) {
+    //     updateVisionLevel(args[0]);
+    //     const result = wrapped(...args);
+    //     resetVisionLevel();
+    //     return result;
+    //   },
+    // );
     //@ts-ignore
     libWrapper.register(
       CONSTANTS.MODULE_NAME,
@@ -54,12 +45,14 @@ export const initHooks = async (): Promise<void> => {
     );
   }
 
-  //@ts-ignore
-  libWrapper.register(CONSTANTS.MODULE_NAME, 'Wall.prototype.draw', wallNewDraw, 'MIXED');
-  //@ts-ignore
-  libWrapper.register(CONSTANTS.MODULE_NAME, 'Wall.prototype._onUpdate', wallNewUpdate, 'MIXED');
-  //@ts-ignore
-  libWrapper.register(CONSTANTS.MODULE_NAME, 'Wall.prototype.refresh', wallNewRefresh, 'MIXED');
+  if (!game.settings.get(CONSTANTS.MODULE_NAME, 'disableOverrideWallDraw')) {
+    //@ts-ignore
+    libWrapper.register(CONSTANTS.MODULE_NAME, 'Wall.prototype.draw', wallNewDraw, 'OVERRIDE');
+    //@ts-ignore
+    libWrapper.register(CONSTANTS.MODULE_NAME, 'Wall.prototype._onUpdate', wallNewUpdate, 'OVERRIDE');
+    //@ts-ignore
+    libWrapper.register(CONSTANTS.MODULE_NAME, 'Wall.prototype.refresh', wallNewRefresh, 'OVERRIDE');
+  }
 
   registerLibwrappers();
 
@@ -89,7 +82,9 @@ export const setupHooks = async (): Promise<void> => {
   // setup all the hooks
 
   //@ts-ignore
-  window.SenseWalls.API.effectInterface = new EffectInterface(CONSTANTS.MODULE_NAME, senseWallsSocket);
+  window.SenseWalls.API.effectInterface = new EffectInterface(CONSTANTS.MODULE_NAME);
+  //@ts-ignore
+  window.SenseWalls.API.effectInterface.initialize();
 
   if (game[CONSTANTS.MODULE_NAME]) {
     game[CONSTANTS.MODULE_NAME] = {};

@@ -83,48 +83,48 @@ export function dialogWarning(message, icon = 'fas fa-exclamation-triangle') {
 // Module specific function
 // =============================
 
-export function updateVisionLevel(token: Token) {
-  const actor = token.actor;
-  if (!actor) {
-    return;
-  }
-  // TODO Probably i must do something ?
-  //@ts-ignore
-  const checkSenses = actor.data.data.traits.senses;
-  return;
+// export function updateVisionLevel(token: Token) {
+//   const actor = token.actor;
+//   if (!actor) {
+//     return;
+//   }
+//   // TODO Probably i must do something ?
+//   //@ts-ignore
+//   const checkSenses = actor.data.data.traits.senses;
+//   return;
 
-  /*
-  let senses = actor.data.data.traits.senses;
+//   /*
+//   let senses = actor.data.data.traits.senses;
 
-  if (actor.type === 'npc') {
-    //NPCs have one "sense" which is a free-text entry. Try to find the individual senses from there
-    //by splitting on comma characters and removing whitespace and the dash in "low-light vision"
-    senses = senses.value.split(',').map((s) => s.replace(/[\s-]+/g, '').toLowerCase());
-  } else if (actor.type == 'character' || actor.type == 'familiar') {
-    //Characters have an array of senses. Just put them to lower case to make matching easier
-    senses = senses.map((sense) => sense.type.toLowerCase());
-  } else {
-    // Non-creature actors (vehicles, loot actors etc.) don't have senses, so treat them as normal vision
-    return;
-  }
+//   if (actor.type === 'npc') {
+//     //NPCs have one "sense" which is a free-text entry. Try to find the individual senses from there
+//     //by splitting on comma characters and removing whitespace and the dash in "low-light vision"
+//     senses = senses.value.split(',').map((s) => s.replace(/[\s-]+/g, '').toLowerCase());
+//   } else if (actor.type == 'character' || actor.type == 'familiar') {
+//     //Characters have an array of senses. Just put them to lower case to make matching easier
+//     senses = senses.map((sense) => sense.type.toLowerCase());
+//   } else {
+//     // Non-creature actors (vehicles, loot actors etc.) don't have senses, so treat them as normal vision
+//     return;
+//   }
 
-  //If the token is blind, then we'll ignore any vision senses. Otherwise, find their highest
-  //vision level and we'll use that to see if the wall should be ignored.
-  return actor.getCondition(StatusEffectSightFlags.BLINDED)
-    ? StatusEffectSightFlags.BLINDED
-    : senses.includes(StatusEffectSightFlags.GREATER_DARKVISION)
-    ? StatusEffectSightFlags.GREATER_DARKVISION
-    : senses.includes(StatusEffectSightFlags.DARKVISION)
-    ? StatusEffectSightFlags.DARKVISION
-    : senses.includes(StatusEffectSightFlags.LOW_LIGHT_VISION)
-    ? StatusEffectSightFlags.LOW_LIGHT_VISION
-    : StatusEffectSightFlags.NORMAL;
-  */
-}
+//   //If the token is blind, then we'll ignore any vision senses. Otherwise, find their highest
+//   //vision level and we'll use that to see if the wall should be ignored.
+//   return actor.getCondition(StatusEffectSightFlags.BLINDED)
+//     ? StatusEffectSightFlags.BLINDED
+//     : senses.includes(StatusEffectSightFlags.GREATER_DARKVISION)
+//     ? StatusEffectSightFlags.GREATER_DARKVISION
+//     : senses.includes(StatusEffectSightFlags.DARKVISION)
+//     ? StatusEffectSightFlags.DARKVISION
+//     : senses.includes(StatusEffectSightFlags.LOW_LIGHT_VISION)
+//     ? StatusEffectSightFlags.LOW_LIGHT_VISION
+//     : StatusEffectSightFlags.NORMAL;
+//   */
+// }
 
-export function resetVisionLevel(): string {
-  return StatusEffectSightFlags.NORMAL;
-}
+// export function resetVisionLevel(): string {
+//   return StatusEffectSightFlags.NORMAL;
+// }
 
 export function shouldIncludeWall(wall): boolean {
   // const tokenVisioneLevel = <number>currentToken.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
@@ -175,9 +175,6 @@ export async function wallNewDraw() {
     //this.visionLevelIcon = this.data.sight === 0 ? this.addChild(drawVisionLevel(this.direction, status)) : null;
     this.visionLevelIcon1 = this.addChild(drawVisionLevel(this.direction, status));
     this.visionLevelIcon2 = this.addChild(drawVisionLevel(this.direction, status));
-
-    // setProperty(this.document.data.flags[CONSTANTS.MODULE_NAME], 'visionLevelIcon1', this.visionLevelIcon1);
-    // setProperty(this.document.data.flags[CONSTANTS.MODULE_NAME], 'visionLevelIcon2', this.visionLevelIcon2);
   }
   // Draw a door control icon
   if (this.isDoor) {
@@ -235,12 +232,6 @@ export function wallNewRefresh() {
   // if (this.movementIcon) {
   //   this.movementIcon.position.set(mp2[0], mp2[1]);
   //   this.movementIcon.tint = wc;
-  // }
-  // if (!this.visionLevelIcon1) {
-  //   this.visionLevelIcon1 = getProperty(this.document.data.flags[CONSTANTS.MODULE_NAME], 'visionLevelIcon1');
-  // }
-  // if (!this.visionLevelIcon2) {
-  //   this.visionLevelIcon2 = getProperty(this.document.data.flags[CONSTANTS.MODULE_NAME], 'visionLevelIcon2');
   // }
 
   if (this.visionLevelIcon1) {

@@ -86,6 +86,8 @@ export const registerSettings = function (): void {
   });
 
   game.settings.register(CONSTANTS.MODULE_NAME, 'debugHooks', {
+    name: `${CONSTANTS.MODULE_NAME}.setting.debugHooks.name`,
+    hint: `${CONSTANTS.MODULE_NAME}.setting.debugHooks.hint`,
     scope: 'world',
     config: false,
     default: false,
@@ -93,6 +95,8 @@ export const registerSettings = function (): void {
   });
 
   game.settings.register(CONSTANTS.MODULE_NAME, 'systemFound', {
+    name: `${CONSTANTS.MODULE_NAME}.setting.systemFound.name`,
+    hint: `${CONSTANTS.MODULE_NAME}.setting.systemFound.hint`,
     scope: 'world',
     config: false,
     default: false,
@@ -100,6 +104,17 @@ export const registerSettings = function (): void {
   });
 
   game.settings.register(CONSTANTS.MODULE_NAME, 'systemNotFoundWarningShown', {
+    name: `${CONSTANTS.MODULE_NAME}.setting.systemNotFoundWarningShown.name`,
+    hint: `${CONSTANTS.MODULE_NAME}.setting.systemNotFoundWarningShown.hint`,
+    scope: 'world',
+    config: false,
+    default: false,
+    type: Boolean,
+  });
+
+  game.settings.register(CONSTANTS.MODULE_NAME, 'disableOverrideWallDraw', {
+    name: `${CONSTANTS.MODULE_NAME}.setting.disableOverrideWallDraw.name`,
+    hint: `${CONSTANTS.MODULE_NAME}.setting.disableOverrideWallDraw.hint`,
     scope: 'world',
     config: false,
     default: false,

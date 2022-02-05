@@ -9,7 +9,7 @@ export const SOCKET_HANDLERS = {
   CALL_HOOK: 'callHook',
 
   /**
-   * Item pile sockets
+   * Sense Walls sockets
    */
 
   /**
@@ -62,6 +62,8 @@ export function registerSocket() {
   senseWallsSocket.register('removeEffectFromIdOnActor', (...args) =>
     API.effectInterface._effectHandler.removeEffectFromIdOnActorArr(...args),
   );
+
+  return senseWallsSocket;
 }
 
 async function callHook(inHookName, ...args) {

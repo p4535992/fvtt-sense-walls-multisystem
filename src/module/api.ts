@@ -1,12 +1,13 @@
 import CONSTANTS from './constants';
 import { senseWallsSocket, SOCKET_HANDLERS } from './socket';
 import { canvas, game } from './settings';
-import { error } from './lib/lib';
+import { dialogWarning, error, i18n, warn } from './lib/lib';
 import EffectInterface from './effects/effect-interface';
 import EffectHandler from './effects/effect-handler';
 import Effect from './effects/effect';
 import { StatusSight } from './sensewalls-models';
 import HOOKS from './hooks';
+import { EffectDefinitions } from './sensewalls-effect-definition';
 
 export default class API {
   // static get effectInterface(): EffectInterface {
@@ -49,5 +50,36 @@ export default class API {
       }
     });
     return game.settings.set(CONSTANTS.MODULE_NAME, 'senses', inAttributes);
+  }
+
+  static addEffect(actorNameOrId: string, effectName: string, distance: number) {
+    const actor = <Actor>game.actors?.get(actorNameOrId) || <Actor>game.actors?.getName(actorNameOrId);
+
+    if (!actor) {
+      warn(`No actor found with reference '${actorNameOrId}'`, true);
+    }
+
+    if (!distance) {
+      distance = 0;
+    }
+
+    let effect: Effect | undefined = undefined;
+    const sensesOrderByName = <StatusSight[]>API.SENSES.sort((a, b) => a.name.localeCompare(b.name));
+    sensesOrderByName.forEach((a: StatusSight) => {
+      if (a.id == effectName || i18n(a.name) == effectName) {
+        effect = <Effect>EffectDefinitions.all(distance).find((e: Effect) => {
+          return e.customId == a.id;
+        });
+      }
+    });
+
+    if (!effect) {
+      warn(`No effect found with reference '${effectName}'`, true);
+    }
+
+    if (actor && effect) {
+      //@ts-ignore
+      (<EffectInterface>SenseWalls.API.effectInterface).addEffectOnActor(effectName, <string>actor.id, effect);
+    }
   }
 }

@@ -91,6 +91,10 @@ https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src
 |<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/evil-eye-red-1.jpg" alt="" style="height: 50px; width:50px;"/> **Darkvision** | 0 | 3 | false |
 |<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/evil-eye-eerie-1.jpg" alt="" style="height: 50px; width:50px;"/> **Greater Darkvision** | 0 | 4 | false |
 
+## API
+
+
+
 ## [Changelog](./CHANGELOG.md)
 
 ## Issues

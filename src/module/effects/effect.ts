@@ -63,7 +63,7 @@ export default class Effect {
    * @param {object} params - the params to use for conversion
    * @param {string} params.origin - the origin to add to the effect
    * @param {boolean} params.overlay - whether the effect is an overlay or not
-   * @returns The active effect data object for this effect
+   * @returns {object} The active effect data object for this effect
    */
   convertToActiveEffectData({ origin = '', overlay = false } = {}): Record<string, unknown> {
     return {
@@ -85,6 +85,15 @@ export default class Effect {
       transfer: this.transfer ?? false,
       changes: this.changes,
     };
+  }
+
+  /**
+   * Converts the Effect into an object
+   *
+   * @returns {object} the object representation of this effect
+   */
+  convertToObject() {
+    return { ...this };
   }
 
   get _id() {
@@ -142,7 +151,7 @@ export class Constants {
   };
 
   static SECONDS = {
-    IN_ONE_ROUND: 6,
+    IN_ONE_ROUND: CONFIG.time.roundTime || 6,
     IN_ONE_MINUTE: 60,
     IN_TEN_MINUTES: 600,
     IN_ONE_HOUR: 3600,
