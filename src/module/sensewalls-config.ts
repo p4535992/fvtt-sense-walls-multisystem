@@ -37,12 +37,22 @@ export class SenseWallsPlaceableConfig {
     const sensesOrderByName = <StatusSight[]>API.SENSES.sort((a, b) => a.name.localeCompare(b.name));
 
     const options: string[] = [];
-    options.push(`<option data-image="icons/svg/mystery-man.svg" value="">${i18n('None')}</option>`);
+    // options.push(
+    //   `<option data-image="icons/svg/mystery-man.svg" value="">${i18n(`${CONSTANTS.MODULE_NAME}.default`)}</option>`,
+    // );
     sensesOrderByName.forEach((a: StatusSight) => {
-      if (requiredVisionLevel == a.id) {
-        options.push(`<option selected="selected" data-image="${a.img}" value="${a.id}">${i18n(a.name)}</option>`);
+      if (a.id == StatusEffectSightFlags.NONE) {
+        if (requiredVisionLevel == a.id) {
+          options.push(`<option selected="selected" data-image="${a.img}" value="">${i18n(a.name)}</option>`);
+        } else {
+          options.push(`<option data-image="${a.img}" value="">${i18n(a.name)}</option>`);
+        }
       } else {
-        options.push(`<option data-image="${a.img}" value="${a.id}">${i18n(a.name)}</option>`);
+        if (requiredVisionLevel == a.id) {
+          options.push(`<option selected="selected" data-image="${a.img}" value="${a.id}">${i18n(a.name)}</option>`);
+        } else {
+          options.push(`<option data-image="${a.img}" value="${a.id}">${i18n(a.name)}</option>`);
+        }
       }
     });
 

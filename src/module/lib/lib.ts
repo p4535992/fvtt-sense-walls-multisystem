@@ -83,10 +83,6 @@ export function dialogWarning(message, icon = 'fas fa-exclamation-triangle') {
 // Module specific function
 // =============================
 
-// export function buildOption(optionName, optionValue, currentValue) {
-//   return `<option value=${optionValue} ${currentValue === optionValue ? 'selected' : ''}>${optionName}</option>`;
-// }
-
 export function updateVisionLevel(token: Token) {
   const actor = token.actor;
   if (!actor) {
@@ -175,8 +171,13 @@ export async function wallNewDraw() {
     return a.id == requiredVisionLevel || a.name == requiredVisionLevel;
   });
 
-  if (requiredVisionLevel && status) {
-    this.visionLevelIcon = this.data.sight === 0 ? this.addChild(drawVisionLevel(this.direction, status)) : null;
+  if (requiredVisionLevel && requiredVisionLevel != StatusEffectSightFlags.NONE && status) {
+    //this.visionLevelIcon = this.data.sight === 0 ? this.addChild(drawVisionLevel(this.direction, status)) : null;
+    this.visionLevelIcon1 = this.addChild(drawVisionLevel(this.direction, status));
+    this.visionLevelIcon2 = this.addChild(drawVisionLevel(this.direction, status));
+
+    // setProperty(this.document.data.flags[CONSTANTS.MODULE_NAME], 'visionLevelIcon1', this.visionLevelIcon1);
+    // setProperty(this.document.data.flags[CONSTANTS.MODULE_NAME], 'visionLevelIcon2', this.visionLevelIcon2);
   }
   // Draw a door control icon
   if (this.isDoor) {
@@ -235,10 +236,21 @@ export function wallNewRefresh() {
   //   this.movementIcon.position.set(mp2[0], mp2[1]);
   //   this.movementIcon.tint = wc;
   // }
+  // if (!this.visionLevelIcon1) {
+  //   this.visionLevelIcon1 = getProperty(this.document.data.flags[CONSTANTS.MODULE_NAME], 'visionLevelIcon1');
+  // }
+  // if (!this.visionLevelIcon2) {
+  //   this.visionLevelIcon2 = getProperty(this.document.data.flags[CONSTANTS.MODULE_NAME], 'visionLevelIcon2');
+  // }
 
-  if (this.visionLevelIcon) {
-    this.visionLevelIcon.position.set(mp1[0], mp1[1]);
-    this.visionLevelIcon.tint = wc;
+  if (this.visionLevelIcon1) {
+    this.visionLevelIcon1.position.set(mp1[0], mp1[1]);
+    // this.visionLevelIcon1.tint = wc;
+  }
+
+  if (this.visionLevelIcon2) {
+    this.visionLevelIcon2.position.set(mp2[0], mp2[1]);
+    // this.visionLevelIcon2.tint = wc;
   }
 
   // Re-position door control icon
@@ -296,13 +308,13 @@ export function wallNewUpdate(data: any, ...args) {
   PlaceableObject.prototype._onUpdate.apply(this, args);
 
   // Re-draw if the direction changed
-  if (
-    Object.prototype.hasOwnProperty.call(data, 'dir') ||
-    Object.prototype.hasOwnProperty.call(data, 'sense') ||
-    Object.prototype.hasOwnProperty.call(data, 'move')
-  ) {
-    this.draw();
-  }
+  // if (
+  //   Object.prototype.hasOwnProperty.call(data, 'dir') ||
+  //   Object.prototype.hasOwnProperty.call(data, 'sense') ||
+  //   Object.prototype.hasOwnProperty.call(data, 'move')
+  // ) {
+  //   this.draw();
+  // }
 
   // If the wall is controlled, update the highlighted segments
   if (this._controlled) {
@@ -323,6 +335,7 @@ export function wallNewUpdate(data: any, ...args) {
   if (rebuildEndpoints || doorChange) {
     this._onModifyWall(doorChange);
   }
+  this.draw();
 }
 
 // ========================================================================================

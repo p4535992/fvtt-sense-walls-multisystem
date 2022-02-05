@@ -2,6 +2,7 @@
   "sense-walls-multisystem.visionLevel.name": "Piercing Vision Level",
   "sense-walls-multisystem.visionLevel.description": "The minimum level of vision required to ignore this wall. A setting of None (default) cannot be pierced by any level of vision, like a default wall.",
 
+  "sense-walls-multisystem.default": "No vision Level",
   "sense-walls-multisystem.none": "None",
   "sense-walls-multisystem.normal": "Normal",
   "sense-walls-multisystem.blinded": "Blinded",

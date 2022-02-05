@@ -55,7 +55,6 @@ function defaultSettings(apply = false) {
 }
 
 export const registerSettings = function (): void {
-
   game.settings.registerMenu(CONSTANTS.MODULE_NAME, 'resetAllSettings', {
     name: `${CONSTANTS.MODULE_NAME}.setting.reset.name`,
     hint: `${CONSTANTS.MODULE_NAME}.setting.reset.hint`,
@@ -74,7 +73,7 @@ export const registerSettings = function (): void {
 
   const settings = defaultSettings();
   for (const [name, data] of Object.entries(settings)) {
-      game.settings.register(CONSTANTS.MODULE_NAME, name, data);
+    game.settings.register(CONSTANTS.MODULE_NAME, name, data);
   }
 
   game.settings.register(CONSTANTS.MODULE_NAME, 'debug', {
