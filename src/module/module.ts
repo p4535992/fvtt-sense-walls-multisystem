@@ -19,14 +19,13 @@ export const initHooks = async (): Promise<void> => {
   // ======================================
 
   if (game.modules.get('levels')?.active) {
-    //@ts-ignore
+    // //@ts-ignore
     // libWrapper.register(
     //   CONSTANTS.MODULE_NAME,
     //   'Levels.prototype.advancedLosTestInLos',
     //   function updateTokenVisionSourceLevels(wrapped, ...args) {
     //     updateVisionLevel(args[0]);
     //     const result = wrapped(...args);
-    //     resetVisionLevel();
     //     return result;
     //   },
     // );
@@ -44,6 +43,43 @@ export const initHooks = async (): Promise<void> => {
       'WRAPPER',
     );
   }
+
+  // This function detemines whether a wall should be included. Add a condition on the wall sense compared to the current token
+  //@ts-ignore
+  libWrapper.register(
+    CONSTANTS.MODULE_NAME,
+    'ClockwiseSweepPolygon.testWallInclusion',
+    function filterWalls(wrapped, ...args) {
+      return wrapped(...args) && shouldIncludeWall(args[0]);
+    },
+    'WRAPPER',
+  );
+
+  // // This function builds the ClockwiseSweepPolygon to determine the token's vision.
+  // // Update the vision level just beforehand so we're using the correct token's vision level and height
+  // //@ts-ignore
+  // libWrapper.register(
+  //   CONSTANTS.MODULE_NAME,
+  //   'Token.prototype.updateVisionSource',
+  //   function updateTokenVisionSource(wrapped, ...args) {
+  //     updateVisionLevel(this);
+  //     wrapped(...args);
+  //   },
+  //   'WRAPPER',
+  // );
+
+  // // This function builds the ClockwiseSweepPolygon to determine the token's light coverage.
+  // // Update the vision level just beforehand so we're using the correct token's vision level and height
+  // //@ts-ignore
+  // libWrapper.register(
+  //   CONSTANTS.MODULE_NAME,
+  //   'Token.prototype.updateLightSource',
+  //   function updateTokenLightSource(wrapped, ...args) {
+  //     updateVisionLevel(this);
+  //     wrapped(...args);
+  //   },
+  //   'WRAPPER',
+  // );
 
   if (!game.settings.get(CONSTANTS.MODULE_NAME, 'disableOverrideWallDraw')) {
     //@ts-ignore
@@ -104,36 +140,4 @@ export const readyHooks = async (): Promise<void> => {
   SenseWallsPlaceableConfig.registerHooks();
 
   // Add any additional hooks if necessary
-
-  //   Hooks.on('renderWallConfig', (app, html, data) => {
-  //     const requiredVisionLevel = app.object.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel') || StatusEffectSightFlags.NONE;
-
-  //     const sensesOrderByName = <StatusSight[]>API.SENSES.sort((a, b) => a.name.localeCompare(b.name));
-
-  //     const options: string[] = [];
-  //     options.push(`<option data-image="icons/svg/mystery-man.svg" value="">${i18n('None')}</option>`);
-  //     sensesOrderByName.forEach((a: StatusSight) => {
-  //       if (requiredVisionLevel == a.id) {
-  //         options.push(`<option selected="selected" data-image="${a.img}" value="${a.id}">${i18n(a.name)}</option>`);
-  //       } else {
-  //         options.push(`<option data-image="${a.img}" value="${a.id}">${i18n(a.name)}</option>`);
-  //       }
-  //     });
-
-  //     const newHtml = `
-  //             <div class="form-group">
-  //                 <label>${i18n(`${CONSTANTS.MODULE_NAME}.visionLevel.name`)}</label>
-  //                 <select name="flags.${CONSTANTS.MODULE_NAME}.visionLevel" data-dtype="String" is="ms-dropdown">
-  //                   ${options.join('')}
-  //                 </select>
-  //                 <p class="notes">${i18n(`${CONSTANTS.MODULE_NAME}.visionLevel.description`)}</p>
-  //             </div>
-  //         `;
-
-  //     const underh = html.find('select[name="sight"]');
-  //     const formGroup = underh.closest('.form-group');
-  //     formGroup.append(newHtml);
-
-  //     app.setPosition({ height: 'auto' });
-  //   });
 };

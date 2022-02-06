@@ -13,6 +13,7 @@
 ![GitHub all releases](https://img.shields.io/github/downloads/p4535992/fvtt-sense-walls-multisystem/total?style=for-the-badge)
 
 A module for Foundry VTT that allows walls to block only certain senses, while other senses can "pierce" the wall.
+
 ## Installation
 
 It's always easiest to install modules from the in game add-on browser.
@@ -29,7 +30,7 @@ To install this module manually:
 
 This module uses the [libWrapper](https://github.com/ruipin/fvtt-lib-wrapper) library for wrapping core methods. It is a hard dependency and it is recommended for the best experience and compatibility with other modules.
 
-### socketlib
+### socketlib (optional but suggested)
 
 This module uses the [socketlib](https://github.com/manuelVo/foundryvtt-socketlib) library for wrapping core methods. It is a hard dependency and it is recommended for the best experience and compatibility with other modules.
 
@@ -48,52 +49,38 @@ Walls can be configured to only block up to a certain level of vision. For examp
 
 This can be used to set up an area created by the [Darkness](https://2e.aonprd.com/Spells.aspx?ID=59) spell, which blocks light from the other side.
 
-### Wall Configuration
-
-![Wall Configuration](wiki/images/wall-config.png)
-
-### With Darkvision
-
-![With Darkvision](wiki/images/darkvision.png)
-
-### With Normal Vision
-
-![Without Darkvision](wiki/images/normal-vision.png)
-
-The setup above also uses the [Perfect Vision](https://foundryvtt.com/packages/perfect-vision) module to create an area of darkness, which is surrounded with walls using the config above.
-
-<i>Perfect Vision</i> produces the greyscale effect inside the circle for the orc. Without <i>Sense Walls</i>, the area and goblin warrior on the other side of the darkness would be visible to the human.
-
 ## Tables
 
 ### System Dnd5e
 
-| Effect\Vision Level                                | Minimum | Maximum | Check Elevation |
-|:--------------------------------------------------|:-------:|:-------:|:---------------:|
-|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/light_01.jpg" alt="" style="height: 50px; width:50px;"/> **None**            | -2 | -1 | false |
-|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/light_02.jpg" alt="" style="height: 50px; width:50px;"/> **Normal**          | 0 | 1 | false |
-|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/affliction_24.jpg" alt="" style="height: 50px; width:50px;"/> **Blinded**    | -1 | 0 | false |
-|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/evil-eye-red-1.jpg" alt="" style="height: 50px; width:50px;"/> **Darkvision**| 0 | 3 | false |
-|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/ice_15.jpg" alt="" style="height: 50px; width:50px;"/> **Tremor Sense**      | 0 | 10 | true |
-|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/shadow_11.jpg" alt="" style="height: 50px; width:50px;"/> **See invisible**  | 0 | 5 | false |
-|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/green_18.jpg" alt="" style="height: 50px; width:50px;"/> **Blind Sight**     | 0 | 6 | false |
-|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/emerald_11.jpg" alt="" style="height: 50px; width:50px;"/> **True Sight**    | 0 | 7 | false |
-|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/blue_17.jpg" alt="" style="height: 50px; width:50px;"/> **Devil's sight**    | 0 | 8 | false |
+| Image | Effect\Vision Level  | effectId used on the module | Minimum  | Maximum | Check Elevation |
+|:------|:---------------------|:---------------------------:|:--------:|:-------:|:---------------:|
+|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/light_01.jpg" alt="" style="height: 50px; width:50px;"/> | **None** | none         | -2 | -1 | false |
+|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/light_02.jpg" alt="" style="height: 50px; width:50px;"/> | **Normal** | normal         | 0 | 1 | false |
+|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/affliction_24.jpg" alt="" style="height: 50px; width:50px;"/> | **Blinded** | blinded   | -1 | 0 | false |
+|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/evil-eye-red-1.jpg" alt="" style="height: 50px; width:50px;"/> | **Darkvision** | darkvision | 0 | 3 | false |
+|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/ice_15.jpg" alt="" style="height: 50px; width:50px;"/> | **Tremor Sense** | tremorsense      | 0 | 10 | true |
+|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/shadow_11.jpg" alt="" style="height: 50px; width:50px;"/> | **See invisible** | seeinvisible | 0 | 5 | false |
+|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/green_18.jpg" alt="" style="height: 50px; width:50px;"/> | **Blind Sight** | blindsight    | 0 | 6 | false |
+|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/emerald_11.jpg" alt="" style="height: 50px; width:50px;"/> | **True Sight** | truesight    | 0 | 7 | false |
+|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/blue_17.jpg" alt="" style="height: 50px; width:50px;"/> | **Devil's sight** | devilssight  | 0 | 8 | false |
 
 ### System Pf2e
-https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/affliction_24.jpg
-| Effect\Vision Level                                | Minimum | Maximum | Check Elevation |
-|:--------------------------------------------------|:-------:|:-------:|:---------------:|
-|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/light_01.jpg" alt="" style="height: 50px; width:50px;"/> **None**            | -2 | -1 | false |
-|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/light_02.jpg" alt="" style="height: 50px; width:50px;"/> **Normal**          | 0 | 1 | false |
-|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/affliction_24.jpg" alt="" style="height: 50px; width:50px;"/> **Blinded**    | -1 | 0 | false |
-|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/violet_09.jpg" alt="" style="height: 50px; width:50px;"/> **Low Light Vision** | 0 | 2 | false |
-|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/evil-eye-red-1.jpg" alt="" style="height: 50px; width:50px;"/> **Darkvision** | 0 | 3 | false |
-|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/evil-eye-eerie-1.jpg" alt="" style="height: 50px; width:50px;"/> **Greater Darkvision** | 0 | 4 | false |
+
+| Image | Effect\Vision Level  | effectId used on the module | Minimum  | Maximum | Check Elevation |
+|:------|:---------------------|:---------------------------:|:--------:|:-------:|:---------------:|
+|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/light_01.jpg" alt="" style="height: 50px; width:50px;"/> | **None** | none            | -2 | -1 | false |
+|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/light_02.jpg" alt="" style="height: 50px; width:50px;"/> | **Normal** | normal          | 0 | 1 | false |
+|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/affliction_24.jpg" alt="" style="height: 50px; width:50px;"/> | **Blinded** | blinded    | -1 | 0 | false |
+|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/violet_09.jpg" alt="" style="height: 50px; width:50px;"/> | **Low Light Vision** | lowlightvision | 0 | 2 | false |
+|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/evil-eye-red-1.jpg" alt="" style="height: 50px; width:50px;"/> | **Darkvision** | darkvision | 0 | 3 | false |
+|<img src="https://raw.githubusercontent.com/p4535992/fvtt-sense-walls-multisystem/main/src/icons/ae/evil-eye-eerie-1.jpg" alt="" style="height: 50px; width:50px;"/> | **Greater Darkvision** | greaterdarkvision | 0 | 4 | false |
 
 ## API
 
 SenseWalls.API.addEffect('Zruggig Widebrain','darkvision',60)
+
+
 
 ## [Changelog](./CHANGELOG.md)
 

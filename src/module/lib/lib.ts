@@ -126,7 +126,7 @@ export function dialogWarning(message, icon = 'fas fa-exclamation-triangle') {
 //   return StatusEffectSightFlags.NORMAL;
 // }
 
-export function shouldIncludeWall(wall): boolean {
+export function shouldIncludeWall(wall): boolean | null {
   // const tokenVisioneLevel = <number>currentToken.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
   let currentToken = <Token>getFirstPlayerTokenSelected();
   if (!currentToken) {
@@ -136,23 +136,60 @@ export function shouldIncludeWall(wall): boolean {
     return true;
   }
   const tokenVisionLevel = getVisionLevelToken(currentToken);
-  const wallVisionLevel = wall.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
-  const indexValueWallVisionLevel = API.SENSES.find((a: StatusSight) => {
+  const wallVisionLevel = <string>wall.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
+  wall.document.sight
+  const statusSight = <StatusSight>API.SENSES.find((a: StatusSight) => {
     return a.id == wallVisionLevel;
   });
+  if(statusSight.id == StatusEffectSightFlags.NORMAL ||
+    statusSight.id == StatusEffectSightFlags.NONE){
+      return true;
+  }
   if (tokenVisionLevel?.checkElevation) {
     const tokenElevation = getElevationToken(currentToken);
     const wallElevation = getElevationWall(wall);
     if (tokenElevation < wallElevation) {
-      return false;
+      return null;
     }
   }
 
-  return (
-    tokenVisionLevel.min <= <number>indexValueWallVisionLevel?.visionLevelMin &&
-    tokenVisionLevel.max >= <number>indexValueWallVisionLevel?.visionLevelMax
-  );
+  const result =
+    tokenVisionLevel.min <= <number>statusSight?.visionLevelMin &&
+    tokenVisionLevel.max >= <number>statusSight?.visionLevelMax;
+  if (result) {
+    return null;
+  } else {
+    return true;
+  }
 }
+
+// export function updateVisionLevel(currentToken) {
+//   const tokenVisionLevel = getVisionLevelToken(currentToken);
+//   const wallVisionLevel = <string>wall.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
+//   const statusSight = <StatusSight>API.SENSES.find((a: StatusSight) => {
+//     return a.id == wallVisionLevel;
+//   });
+//   if(statusSight.id == StatusEffectSightFlags.NORMAL ||
+//     statusSight.id == StatusEffectSightFlags.NONE){
+//       return true;
+//   }
+//   if (tokenVisionLevel?.checkElevation) {
+//     const tokenElevation = getElevationToken(currentToken);
+//     const wallElevation = getElevationWall(wall);
+//     if (tokenElevation < wallElevation) {
+//       return null;
+//     }
+//   }
+
+//   const result =
+//     tokenVisionLevel.min <= <number>statusSight?.visionLevelMin &&
+//     tokenVisionLevel.max >= <number>statusSight?.visionLevelMax;
+//   if (result) {
+//     return null;
+//   } else {
+//     return true;
+//   }
+// }
 
 // ========================================================================================
 
@@ -165,7 +202,7 @@ export async function wallNewDraw() {
 
   // this.visibilityIcon = this.data.sight === 0 ? this.addChild(drawVisibility(this.direction)) : null;
   // this.movementIcon = this.data.move === 0 ? this.addChild(drawMovement(this.direction)) : null;
-  const requiredVisionLevel: StatusEffectSightFlags = this.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
+  const requiredVisionLevel: StatusEffectSightFlags = this.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
 
   const status = API.SENSES.find((a: StatusSight) => {
     return a.id == requiredVisionLevel || a.name == requiredVisionLevel;
@@ -175,6 +212,9 @@ export async function wallNewDraw() {
     //this.visionLevelIcon = this.data.sight === 0 ? this.addChild(drawVisionLevel(this.direction, status)) : null;
     this.visionLevelIcon1 = this.addChild(drawVisionLevel(this.direction, status));
     this.visionLevelIcon2 = this.addChild(drawVisionLevel(this.direction, status));
+  } else {
+    this.visionLevelIcon1 = undefined;
+    this.visionLevelIcon2 = undefined;
   }
   // Draw a door control icon
   if (this.isDoor) {
@@ -393,11 +433,17 @@ export function getElevationWall(wall: Wall): number {
 function getElevationPlaceableObject(placeableObject: any): number {
   const base = placeableObject;
   const base_elevation =
-    base.elevation ??
-    base.flags['levels']?.elevation ??
-    base.flags['levels']?.rangeBottom ??
-    base.flags['wallHeight']?.wallHeightBottom ??
-    0;
+    //@ts-ignore
+    (typeof _levels !== 'undefined') && _levels?.advancedLOS 
+    //@ts-ignore
+    ? _levels.getTokenLOSheight(token) 
+    : (
+      base.elevation ??
+      base.flags['levels']?.elevation ??
+      base.flags['levels']?.rangeBottom ??
+      base.flags['wallHeight']?.wallHeightBottom ??
+      0
+  );
   return base_elevation;
 }
 
