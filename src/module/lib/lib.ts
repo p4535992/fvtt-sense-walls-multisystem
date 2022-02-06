@@ -137,13 +137,15 @@ export function shouldIncludeWall(wall): boolean | null {
   }
   const tokenVisionLevel = getVisionLevelToken(currentToken);
   const wallVisionLevel = <string>wall.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
-  wall.document.sight
+  wall.document.sight;
   const statusSight = <StatusSight>API.SENSES.find((a: StatusSight) => {
     return a.id == wallVisionLevel;
   });
-  if(statusSight.id == StatusEffectSightFlags.NORMAL ||
-    statusSight.id == StatusEffectSightFlags.NONE){
-      return true;
+  if (!statusSight) {
+    return true;
+  }
+  if (statusSight.id == StatusEffectSightFlags.NORMAL || statusSight.id == StatusEffectSightFlags.NONE) {
+    return true;
   }
   if (tokenVisionLevel?.checkElevation) {
     const tokenElevation = getElevationToken(currentToken);
@@ -261,7 +263,7 @@ export function wallNewRefresh() {
   this.endpoints.beginFill(wc, 1.0).drawCircle(p[0], p[1], cr).drawCircle(p[2], p[3], cr);
 
   // Tint direction icon
-  if (this.directionIcon) {
+  if (this.directionIcon && this.directionIcon.position) {
     this.directionIcon.position.set(mp[0], mp[1]);
     this.directionIcon.tint = wc;
   }
@@ -274,19 +276,27 @@ export function wallNewRefresh() {
   //   this.movementIcon.tint = wc;
   // }
 
-  if (this.visionLevelIcon1) {
+  if (this.visionLevelIcon1 && this.visionLevelIcon1.position) {
     this.visionLevelIcon1.position.set(mp1[0], mp1[1]);
     // this.visionLevelIcon1.tint = wc;
   }
 
-  if (this.visionLevelIcon2) {
+  if (this.visionLevelIcon2 && this.visionLevelIcon2.position) {
     this.visionLevelIcon2.position.set(mp2[0], mp2[1]);
     // this.visionLevelIcon2.tint = wc;
   }
 
   // Re-position door control icon
-  if (this.doorControl) {
-    this.doorControl.reposition();
+  if (this.doorControl && this.doorControl != null && this.doorControl != undefined) {
+    if (this.isDoor) {
+      try{
+        this.doorControl.reposition();
+      }catch(e){
+        this.doorControl.destroy();
+      }
+    } else {
+      (<DoorControl>this.doorControl).destroy();
+    }
   }
   // Update line hit area
   this.line.hitArea = this._getWallHitPolygon(p, lw3);
@@ -366,6 +376,9 @@ export function wallNewUpdate(data: any, ...args) {
   if (rebuildEndpoints || doorChange) {
     this._onModifyWall(doorChange);
   }
+  if (data.door == 0 && this.doorControl) {
+    (<DoorControl>this.doorControl).destroy();
+  }
   this.draw();
 }
 
@@ -434,16 +447,14 @@ function getElevationPlaceableObject(placeableObject: any): number {
   const base = placeableObject;
   const base_elevation =
     //@ts-ignore
-    (typeof _levels !== 'undefined') && _levels?.advancedLOS 
-    //@ts-ignore
-    ? _levels.getTokenLOSheight(token) 
-    : (
-      base.elevation ??
-      base.flags['levels']?.elevation ??
-      base.flags['levels']?.rangeBottom ??
-      base.flags['wallHeight']?.wallHeightBottom ??
-      0
-  );
+    typeof _levels !== 'undefined' && _levels?.advancedLOS
+      ? //@ts-ignore
+        _levels.getTokenLOSheight(token)
+      : base.elevation ??
+        base.flags['levels']?.elevation ??
+        base.flags['levels']?.rangeBottom ??
+        base.flags['wallHeight']?.wallHeightBottom ??
+        0;
   return base_elevation;
 }
 
@@ -453,13 +464,19 @@ function getVisionLevelToken(token: Token): { min: number; max: number; checkEle
   let min = 0;
   let max = 0;
   let hasOnlyEffectsWithCheckElevationTrue = true;
+
+  // regex expression to match all non-alphanumeric characters in string
+  const regex = /[^A-Za-z0-9]/g;
+
   for (const effectEntity of actorEffects) {
     const effectNameToSet = effectEntity.name ? effectEntity.name : effectEntity.data.label;
     if (!effectNameToSet) {
       continue;
     }
+    // use replace() method to match and remove all the non-alphanumeric characters
+    const effectNameToCheckOnActor = effectNameToSet.replace(regex, '');
     const effectSight = API.SENSES.find((a: StatusSight) => {
-      return effectNameToSet.toLowerCase().startsWith(a.id.toLowerCase());
+      return effectNameToCheckOnActor.toLowerCase().startsWith(a.id.toLowerCase());
     });
     // if is a AE with the label of the module (no id sorry)
     if (effectSight) {

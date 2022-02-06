@@ -12,7 +12,9 @@
 
 ![GitHub all releases](https://img.shields.io/github/downloads/p4535992/fvtt-sense-walls-multisystem/total?style=for-the-badge)
 
-A module for Foundry VTT that allows walls to block only certain senses, while other senses can "pierce" the wall.
+A module for Foundry VTT that allows to add and remove walls based on the active effects applied on the token.
+
+
 
 ## Installation
 
@@ -45,9 +47,19 @@ This module uses the [Perfect Vision](https://foundryvtt.com/packages/perfect-vi
 
 ## Features
 
-Walls can be configured to only block up to a certain level of vision. For example, if the "Piercing Vision Level" is set to "Dakvision" then a character with darkvision or greater darkvision can see through the wall, but one with only low-light vision cannot.
+Walls can be configured to only show up to a certain level of vision. For example, if the "Piercing Vision Level" is set to "Darkvision" then a character with darkvision or greater darkvision can see and move through the wall (depend on the configuration of the wall), but one with only low-light vision cannot.
 
-This can be used to set up an area created by the [Darkness](https://2e.aonprd.com/Spells.aspx?ID=59) spell, which blocks light from the other side.
+You can set the value on the wall config dialog from a dropdown.
+
+You can use any active effect where the name is founded from the following code 
+
+```
+// regex expression to match all non-alphanumeric characters in string
+const regex = /[^A-Za-z0-9]/g;
+// use replace() method to match and remove all the non-alphanumeric characters
+effectNameToCheckOnActor = effectNameToCheckOnActor.replace(regex, "");
+effectNameToCheckOnActor.toLowerCase().startsWith(effectIdOfTheModule);
+```
 
 ## Tables
 
