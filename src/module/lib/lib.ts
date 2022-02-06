@@ -232,7 +232,85 @@ export async function wallNewDraw() {
   return this;
 }
 
-export function wallNewRefresh() {
+// export async function wallNewDraw2(wrapped, ...args) {
+//   const requiredVisionLevel: StatusEffectSightFlags = this.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
+
+//   const status = API.SENSES.find((a: StatusSight) => {
+//     return a.id == requiredVisionLevel || a.name == requiredVisionLevel;
+//   });
+
+//   if (requiredVisionLevel && requiredVisionLevel != StatusEffectSightFlags.NONE && status) {
+//     //this.visionLevelIcon = this.data.sight === 0 ? this.addChild(drawVisionLevel(this.direction, status)) : null;
+//     this.visionLevelIcon1 = this.addChild(drawVisionLevel(this.direction, status));
+//     this.visionLevelIcon2 = this.addChild(drawVisionLevel(this.direction, status));
+//   } else {
+//     this.visionLevelIcon1 = undefined;
+//     this.visionLevelIcon2 = undefined;
+//   }
+//   return wrapped(...args);
+// }
+
+// export function wallNewRefresh() {
+//   const p = this.coords;
+//   // x1 + x2, y1 + y2 => x/y
+//   const mp = [(p[0] + p[2]) / 2, (p[1] + p[3]) / 2];
+//   const mp1 = [(p[0] + mp[0]) / 2, (p[1] + mp[1]) / 2];
+//   const mp2 = [(p[2] + mp[0]) / 2, (p[3] + mp[1]) / 2];
+
+//   const wc = this._getWallColor();
+
+//   // Determine circle radius and line width
+//   let lw = 2;
+//   if (<number>canvas.dimensions?.size > 150) {
+//     lw = 4;
+//   } else if (<number>canvas.dimensions?.size > 100) {
+//     lw = 3;
+//   }
+//   const cr = this._hover ? lw * 3 : lw * 2;
+//   const lw3 = lw * 3;
+
+//   // Draw background
+//   this.line.clear().lineStyle(lw3, 0x000000, 1.0).moveTo(p[0], p[1]).lineTo(p[2], p[3]);
+//   this.endpoints
+//     .clear()
+//     .beginFill(0x000000, 1.0)
+//     .drawCircle(p[0], p[1], cr + lw)
+//     .drawCircle(p[2], p[3], cr + lw);
+
+//   // Draw foreground
+//   this.line.lineStyle(lw, wc, 1.0).lineTo(p[0], p[1]);
+//   this.endpoints.beginFill(wc, 1.0).drawCircle(p[0], p[1], cr).drawCircle(p[2], p[3], cr);
+
+//   // Tint direction icon
+//   if (this.directionIcon && this.directionIcon.position) {
+//     this.directionIcon.position.set(mp[0], mp[1]);
+//     this.directionIcon.tint = wc;
+//   }
+
+//   if (this.visionLevelIcon1 && this.visionLevelIcon1.position) {
+//     this.visionLevelIcon1.position.set(mp1[0], mp1[1]);
+//     // this.visionLevelIcon1.tint = wc;
+//   }
+
+//   if (this.visionLevelIcon2 && this.visionLevelIcon2.position) {
+//     this.visionLevelIcon2.position.set(mp2[0], mp2[1]);
+//     // this.visionLevelIcon2.tint = wc;
+//   }
+
+//   // Re-position door control icon
+//   if (this.isDoor) {
+//     if (this.doorControl && this.doorControl != null && this.doorControl != undefined) {
+//       this.doorControl.reposition();
+//     }
+//   }
+
+//   // Update line hit area
+//   this.line.hitArea = this._getWallHitPolygon(p, lw3);
+//   // this.line.beginFill(0x00FF00, 1.0).drawShape(this.line.hitArea).endFill(); // Debug line hit area
+//   return this;
+// }
+
+export function wallNewRefresh2(wrapped, ...args) {
   const p = this.coords;
   // x1 + x2, y1 + y2 => x/y
   const mp = [(p[0] + p[2]) / 2, (p[1] + p[3]) / 2];
@@ -251,22 +329,22 @@ export function wallNewRefresh() {
   const cr = this._hover ? lw * 3 : lw * 2;
   const lw3 = lw * 3;
 
-  // Draw background
-  this.line.clear().lineStyle(lw3, 0x000000, 1.0).moveTo(p[0], p[1]).lineTo(p[2], p[3]);
-  this.endpoints
-    .clear()
-    .beginFill(0x000000, 1.0)
-    .drawCircle(p[0], p[1], cr + lw)
-    .drawCircle(p[2], p[3], cr + lw);
+  const requiredVisionLevel: StatusEffectSightFlags = this.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
 
-  // Draw foreground
-  this.line.lineStyle(lw, wc, 1.0).lineTo(p[0], p[1]);
-  this.endpoints.beginFill(wc, 1.0).drawCircle(p[0], p[1], cr).drawCircle(p[2], p[3], cr);
+  const status = API.SENSES.find((a: StatusSight) => {
+    return a.id == requiredVisionLevel || a.name == requiredVisionLevel;
+  });
 
-  // Tint direction icon
-  if (this.directionIcon && this.directionIcon.position) {
-    this.directionIcon.position.set(mp[0], mp[1]);
-    this.directionIcon.tint = wc;
+  if (requiredVisionLevel && requiredVisionLevel != StatusEffectSightFlags.NONE && status) {
+    if (!this.visionLevelIcon1) {
+      this.visionLevelIcon1 = this.addChild(drawVisionLevel(this.direction, status));
+    }
+    if (!this.visionLevelIcon2) {
+      this.visionLevelIcon2 = this.addChild(drawVisionLevel(this.direction, status));
+    }
+  } else {
+    this.visionLevelIcon1 = undefined;
+    this.visionLevelIcon2 = undefined;
   }
 
   if (this.visionLevelIcon1 && this.visionLevelIcon1.position) {
@@ -278,18 +356,7 @@ export function wallNewRefresh() {
     this.visionLevelIcon2.position.set(mp2[0], mp2[1]);
     // this.visionLevelIcon2.tint = wc;
   }
-
-  // Re-position door control icon
-  if (this.isDoor) {
-    if (this.doorControl && this.doorControl != null && this.doorControl != undefined) {
-      this.doorControl.reposition();
-    }
-  }
-  
-  // Update line hit area
-  this.line.hitArea = this._getWallHitPolygon(p, lw3);
-  // this.line.beginFill(0x00FF00, 1.0).drawShape(this.line.hitArea).endFill(); // Debug line hit area
-  return this;
+  return wrapped(...args);
 }
 
 function drawVisionLevel(direction, statusSight: StatusSight) {
@@ -306,56 +373,100 @@ function drawVisionLevel(direction, statusSight: StatusSight) {
   return sightIcon;
 }
 
-export function wallNewUpdate(data: any, ...args) {
-  //@ts-ignore
-  PlaceableObject.prototype._onUpdate.apply(this, args);
+// export function wallNewUpdate(data: any, ...args) {
+//   //@ts-ignore
+//   PlaceableObject.prototype._onUpdate.apply(this, args);
 
-  // // Re-draw if the direction changed
-  // if (
-  //   Object.prototype.hasOwnProperty.call(data, 'dir') ||
-  //   Object.prototype.hasOwnProperty.call(data, 'sense') ||
-  //   Object.prototype.hasOwnProperty.call(data, 'move')
-  // ) {
-  //   this.draw();
-  // }
+//   // // Re-draw if the direction changed
+//   // if (
+//   //   Object.prototype.hasOwnProperty.call(data, 'dir') ||
+//   //   Object.prototype.hasOwnProperty.call(data, 'sense') ||
+//   //   Object.prototype.hasOwnProperty.call(data, 'move')
+//   // ) {
+//   //   this.draw();
+//   // }
 
-  // If the wall is controlled, update the highlighted segments
-  if (this._controlled) {
-    canvas.addPendingOperation(
-      'WallsLayer.highlightControlledSegments',
-      this.layer.highlightControlledSegments,
-      this.layer,
-      [],
-    );
+//   // If the wall is controlled, update the highlighted segments
+//   if (this._controlled) {
+//     canvas.addPendingOperation(
+//       'WallsLayer.highlightControlledSegments',
+//       this.layer.highlightControlledSegments,
+//       this.layer,
+//       [],
+//     );
+//   }
+
+//   // Downstream layer operations
+//   this.layer._cloneType = this.document.toJSON();
+
+//   // If the type of door or door state has changed also modify the door icon
+//   const rebuildEndpoints = ['move', 'sense', 'c'].some((k) => k in data);
+//   const doorChange = this.data.door && ('door' in data || 'ds' in data);
+//   if (rebuildEndpoints) {
+//     this._onModifyWall(false);
+//   } else if(doorChange){
+//     if (data.door == 0 && this.doorControl) {
+//       (<DoorControl>this.doorControl).destroy();
+//     }else{
+//       // this._onModifyWall(doorChange);
+//     }
+//   } else{
+//     if (data.door == 0 && this.doorControl) {
+//       (<DoorControl>this.doorControl).destroy();
+//     }
+//   }
+//   this.draw();
+// }
+
+export function wallNewUpdate2(wrapped, ...args) {
+  const p = this.coords;
+  // x1 + x2, y1 + y2 => x/y
+  const mp = [(p[0] + p[2]) / 2, (p[1] + p[3]) / 2];
+  const mp1 = [(p[0] + mp[0]) / 2, (p[1] + mp[1]) / 2];
+  const mp2 = [(p[2] + mp[0]) / 2, (p[3] + mp[1]) / 2];
+
+  const wc = this._getWallColor();
+
+  // Determine circle radius and line width
+  let lw = 2;
+  if (<number>canvas.dimensions?.size > 150) {
+    lw = 4;
+  } else if (<number>canvas.dimensions?.size > 100) {
+    lw = 3;
   }
+  const cr = this._hover ? lw * 3 : lw * 2;
+  const lw3 = lw * 3;
 
-  // Downstream layer operations
-  this.layer._cloneType = this.document.toJSON();
+  const requiredVisionLevel: StatusEffectSightFlags = this.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
 
-  // If the type of door or door state has changed also modify the door icon
-  const rebuildEndpoints = ['move', 'sense', 'c'].some((k) => k in data);
-  const doorChange = this.data.door && ('door' in data || 'ds' in data);
-  if (rebuildEndpoints) {
-    this._onModifyWall(false);
-  } else if(doorChange){
-    if (data.door == 0 && this.doorControl) {
-      (<DoorControl>this.doorControl).destroy();
-    }else{
-      // this._onModifyWall(doorChange);
+  const status = API.SENSES.find((a: StatusSight) => {
+    return a.id == requiredVisionLevel || a.name == requiredVisionLevel;
+  });
+
+  if (requiredVisionLevel && requiredVisionLevel != StatusEffectSightFlags.NONE && status) {
+    if (!this.visionLevelIcon1 || (args[0]?.flags && args[0]?.flags['sense-walls-multisystem']?.visionLevel)) {
+      this.visionLevelIcon1.destroy()
+      this.visionLevelIcon1 = this.addChild(drawVisionLevel(this.direction, status));
     }
-  } else{
-    if (data.door == 0 && this.doorControl) {
-      (<DoorControl>this.doorControl).destroy();
+    if (!this.visionLevelIcon2 || (args[0]?.flags && args[0]?.flags['sense-walls-multisystem']?.visionLevel)) {
+      this.visionLevelIcon2.destroy();
+      this.visionLevelIcon2 = this.addChild(drawVisionLevel(this.direction, status));
     }
+  } else {
+    this.visionLevelIcon1 = undefined;
+    this.visionLevelIcon2 = undefined;
   }
-  this.draw();
-}
 
-export function wallNewUpdate2(data: any, ...args) {
-  if (data.door == 0 && this.doorControl) {
-    (<DoorControl>this.doorControl).destroy();
+  if (this.visionLevelIcon1 && this.visionLevelIcon1.position) {
+    this.visionLevelIcon1.position.set(mp1[0], mp1[1]);
+    // this.visionLevelIcon1.tint = wc;
   }
-  this.draw();
+
+  if (this.visionLevelIcon2 && this.visionLevelIcon2.position) {
+    this.visionLevelIcon2.position.set(mp2[0], mp2[1]);
+    // this.visionLevelIcon2.tint = wc;
+  }
+  return wrapped(...args);
 }
 
 // ========================================================================================

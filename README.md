@@ -16,6 +16,8 @@ A module for Foundry VTT that allows to add and remove walls based on the active
 
 Just something i have done for understands how levels and other module work with WallLayer and Sightlayer.
 
+This project is a staretd idea , maybe this can evolve i something more articulate.
+
 ## Installation
 
 It's always easiest to install modules from the in game add-on browser.
