@@ -18,6 +18,8 @@ Just something i have done for understands how levels and other module work with
 
 This project is a staretd idea , maybe this can evolve i something more articulate.
 
+
+
 ## Installation
 
 It's always easiest to install modules from the in game add-on browser.
@@ -34,7 +36,7 @@ To install this module manually:
 
 This module uses the [libWrapper](https://github.com/ruipin/fvtt-lib-wrapper) library for wrapping core methods. It is a hard dependency and it is recommended for the best experience and compatibility with other modules.
 
-### socketlib (optional but suggested)
+### socketlib
 
 This module uses the [socketlib](https://github.com/manuelVo/foundryvtt-socketlib) library for wrapping core methods. It is a hard dependency and it is recommended for the best experience and compatibility with other modules.
 
@@ -65,6 +67,12 @@ effectNameToCheckOnActor.toLowerCase().startsWith(effectIdOfTheModule);
 
 ## Tables
 
+These tables are essential because they help the communtity to decide how to calculate a hierachy between the Active Effect
+
+The calculation is done with this formula: 
+
+`Maximum vision wall level >= token vision level (Active Effects) >= Minimum vision level`
+
 ### System Dnd5e
 
 | Image | Effect\Vision Level  | effectId used on the module | Minimum  | Maximum | Check Elevation |
@@ -92,8 +100,22 @@ effectNameToCheckOnActor.toLowerCase().startsWith(effectIdOfTheModule);
 
 ## API
 
-SenseWalls.API.addEffect('Zruggig Widebrain','darkvision',60)
+This api is redundant it can be easily replace form other macro or module, is advisable to use other module like [CUB](https://github.com/death-save/combat-utility-belt) or [Dfred Conient Effects](https://github.com/DFreds/dfreds-convenient-effects/)
 
+#### addEffect(actorNameOrId: string, effectId: string, distance: number) ⇒ <code>void</code>
+
+Calculate the distance between the source token and the target placeable objet
+**Returns**: <code>void</code> - 
+
+| Param | Type | Description |
+| --- | --- | --- |
+| actorNameOrId | <code>string</code> | The name or the id of the actor, if applied on a token must be linked to a actor. |
+| effectId | <code>string</code> | The effectId used from this module |
+| distance | <code>number</code> | OPTIONAL: explicit distance in units not grid to add to the Active Effects |
+
+**Example**:
+`SenseWalls.API.addEffect('Zruggig Widebrain','darkvision',60)`
+`game.sense-walls-multisystem.API.addEffect('Zruggig Widebrain','darkvision',60)`
 
 
 ## [Changelog](./CHANGELOG.md)
