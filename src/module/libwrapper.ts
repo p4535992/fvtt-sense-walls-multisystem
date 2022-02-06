@@ -1,11 +1,11 @@
 import API from './api.js';
 import CONSTANTS from './constants.js';
-import { shouldIncludeWall } from './lib/lib.js';
+import { shouldIncludeWall, wallNewRefresh2, wallNewUpdate2 } from './lib/lib.js';
 import { canvas, game } from './settings';
 
 export function registerLibwrappers() {
   // TODO ADD HERE ALL THE LIBWRAPPER HOOK
-  
+
   // ======================================
   // If levels module is active
   // ======================================

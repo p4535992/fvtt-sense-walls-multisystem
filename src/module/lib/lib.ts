@@ -83,49 +83,6 @@ export function dialogWarning(message, icon = 'fas fa-exclamation-triangle') {
 // Module specific function
 // =============================
 
-// export function updateVisionLevel(token: Token) {
-//   const actor = token.actor;
-//   if (!actor) {
-//     return;
-//   }
-//   // TODO Probably i must do something ?
-//   //@ts-ignore
-//   const checkSenses = actor.data.data.traits.senses;
-//   return;
-
-//   /*
-//   let senses = actor.data.data.traits.senses;
-
-//   if (actor.type === 'npc') {
-//     //NPCs have one "sense" which is a free-text entry. Try to find the individual senses from there
-//     //by splitting on comma characters and removing whitespace and the dash in "low-light vision"
-//     senses = senses.value.split(',').map((s) => s.replace(/[\s-]+/g, '').toLowerCase());
-//   } else if (actor.type == 'character' || actor.type == 'familiar') {
-//     //Characters have an array of senses. Just put them to lower case to make matching easier
-//     senses = senses.map((sense) => sense.type.toLowerCase());
-//   } else {
-//     // Non-creature actors (vehicles, loot actors etc.) don't have senses, so treat them as normal vision
-//     return;
-//   }
-
-//   //If the token is blind, then we'll ignore any vision senses. Otherwise, find their highest
-//   //vision level and we'll use that to see if the wall should be ignored.
-//   return actor.getCondition(StatusEffectSightFlags.BLINDED)
-//     ? StatusEffectSightFlags.BLINDED
-//     : senses.includes(StatusEffectSightFlags.GREATER_DARKVISION)
-//     ? StatusEffectSightFlags.GREATER_DARKVISION
-//     : senses.includes(StatusEffectSightFlags.DARKVISION)
-//     ? StatusEffectSightFlags.DARKVISION
-//     : senses.includes(StatusEffectSightFlags.LOW_LIGHT_VISION)
-//     ? StatusEffectSightFlags.LOW_LIGHT_VISION
-//     : StatusEffectSightFlags.NORMAL;
-//   */
-// }
-
-// export function resetVisionLevel(): string {
-//   return StatusEffectSightFlags.NORMAL;
-// }
-
 export function shouldIncludeWall(wall): boolean | null {
   // const tokenVisioneLevel = <number>currentToken.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
   let currentToken = <Token>getFirstPlayerTokenSelected();
@@ -195,42 +152,42 @@ export function shouldIncludeWall(wall): boolean | null {
 
 // ========================================================================================
 
-export async function wallNewDraw() {
-  this.clear();
-  this.line = this.addChild(new PIXI.Graphics());
-  this.endpoints = this.addChild(new PIXI.Graphics());
-  // Draw wall components
-  this.directionIcon = this.data.dir ? this.addChild(this._drawDirection()) : null;
+// export async function wallNewDraw() {
+//   this.clear();
+//   this.line = this.addChild(new PIXI.Graphics());
+//   this.endpoints = this.addChild(new PIXI.Graphics());
+//   // Draw wall components
+//   this.directionIcon = this.data.dir ? this.addChild(this._drawDirection()) : null;
 
-  // this.visibilityIcon = this.data.sight === 0 ? this.addChild(drawVisibility(this.direction)) : null;
-  // this.movementIcon = this.data.move === 0 ? this.addChild(drawMovement(this.direction)) : null;
-  const requiredVisionLevel: StatusEffectSightFlags = this.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
+//   // this.visibilityIcon = this.data.sight === 0 ? this.addChild(drawVisibility(this.direction)) : null;
+//   // this.movementIcon = this.data.move === 0 ? this.addChild(drawMovement(this.direction)) : null;
+//   const requiredVisionLevel: StatusEffectSightFlags = this.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
 
-  const status = API.SENSES.find((a: StatusSight) => {
-    return a.id == requiredVisionLevel || a.name == requiredVisionLevel;
-  });
+//   const status = API.SENSES.find((a: StatusSight) => {
+//     return a.id == requiredVisionLevel || a.name == requiredVisionLevel;
+//   });
 
-  if (requiredVisionLevel && requiredVisionLevel != StatusEffectSightFlags.NONE && status) {
-    //this.visionLevelIcon = this.data.sight === 0 ? this.addChild(drawVisionLevel(this.direction, status)) : null;
-    this.visionLevelIcon1 = this.addChild(drawVisionLevel(this.direction, status));
-    this.visionLevelIcon2 = this.addChild(drawVisionLevel(this.direction, status));
-  } else {
-    this.visionLevelIcon1 = undefined;
-    this.visionLevelIcon2 = undefined;
-  }
-  // Draw a door control icon
-  if (this.isDoor) {
-    this.createDoorControl();
-  }
-  // Draw current wall
-  this.refresh();
+//   if (requiredVisionLevel && requiredVisionLevel != StatusEffectSightFlags.NONE && status) {
+//     //this.visionLevelIcon = this.data.sight === 0 ? this.addChild(drawVisionLevel(this.direction, status)) : null;
+//     this.visionLevelIcon1 = this.addChild(drawVisionLevel(this.direction, status));
+//     this.visionLevelIcon2 = this.addChild(drawVisionLevel(this.direction, status));
+//   } else {
+//     this.visionLevelIcon1 = undefined;
+//     this.visionLevelIcon2 = undefined;
+//   }
+//   // Draw a door control icon
+//   if (this.isDoor) {
+//     this.createDoorControl();
+//   }
+//   // Draw current wall
+//   this.refresh();
 
-  // Enable interactivity, only if the Tile has a true ID
-  if (this.id) {
-    this.activateListeners();
-  }
-  return this;
-}
+//   // Enable interactivity, only if the Tile has a true ID
+//   if (this.id) {
+//     this.activateListeners();
+//   }
+//   return this;
+// }
 
 // export async function wallNewDraw2(wrapped, ...args) {
 //   const requiredVisionLevel: StatusEffectSightFlags = this.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
@@ -335,27 +292,25 @@ export function wallNewRefresh2(wrapped, ...args) {
     return a.id == requiredVisionLevel || a.name == requiredVisionLevel;
   });
 
-  if (requiredVisionLevel && requiredVisionLevel != StatusEffectSightFlags.NONE && status) {
+  if (requiredVisionLevel && status && status.id != StatusEffectSightFlags.NONE) {
     if (!this.visionLevelIcon1) {
       this.visionLevelIcon1 = this.addChild(drawVisionLevel(this.direction, status));
     }
     if (!this.visionLevelIcon2) {
       this.visionLevelIcon2 = this.addChild(drawVisionLevel(this.direction, status));
     }
-  } else {
-    this.visionLevelIcon1 = undefined;
-    this.visionLevelIcon2 = undefined;
+
+    if (this.visionLevelIcon1 && this.visionLevelIcon1.position) {
+      this.visionLevelIcon1.position.set(mp1[0], mp1[1]);
+      // this.visionLevelIcon1.tint = wc;
+    }
+
+    if (this.visionLevelIcon2 && this.visionLevelIcon2.position) {
+      this.visionLevelIcon2.position.set(mp2[0], mp2[1]);
+      // this.visionLevelIcon2.tint = wc;
+    }
   }
 
-  if (this.visionLevelIcon1 && this.visionLevelIcon1.position) {
-    this.visionLevelIcon1.position.set(mp1[0], mp1[1]);
-    // this.visionLevelIcon1.tint = wc;
-  }
-
-  if (this.visionLevelIcon2 && this.visionLevelIcon2.position) {
-    this.visionLevelIcon2.position.set(mp2[0], mp2[1]);
-    // this.visionLevelIcon2.tint = wc;
-  }
   return wrapped(...args);
 }
 
@@ -443,28 +398,39 @@ export function wallNewUpdate2(wrapped, ...args) {
     return a.id == requiredVisionLevel || a.name == requiredVisionLevel;
   });
 
-  if (requiredVisionLevel && requiredVisionLevel != StatusEffectSightFlags.NONE && status) {
+  if (args[0]?.flags && args[0]?.flags['sense-walls-multisystem']) {
+    if (this.visionLevelIcon1 != null && this.visionLevelIcon1 != undefined) {
+      try {
+        this.visionLevelIcon1.destroy();
+      } catch (e) {
+        //
+      }
+    }
+    if (this.visionLevelIcon2 != null && this.visionLevelIcon2 != undefined) {
+      try {
+        this.visionLevelIcon2.destroy();
+      } catch (e) {
+        //
+      }
+    }
+  }
+  if (requiredVisionLevel && status && status.id != StatusEffectSightFlags.NONE) {
     if (!this.visionLevelIcon1 || (args[0]?.flags && args[0]?.flags['sense-walls-multisystem']?.visionLevel)) {
-      this.visionLevelIcon1.destroy()
       this.visionLevelIcon1 = this.addChild(drawVisionLevel(this.direction, status));
     }
     if (!this.visionLevelIcon2 || (args[0]?.flags && args[0]?.flags['sense-walls-multisystem']?.visionLevel)) {
-      this.visionLevelIcon2.destroy();
       this.visionLevelIcon2 = this.addChild(drawVisionLevel(this.direction, status));
     }
-  } else {
-    this.visionLevelIcon1 = undefined;
-    this.visionLevelIcon2 = undefined;
-  }
 
-  if (this.visionLevelIcon1 && this.visionLevelIcon1.position) {
-    this.visionLevelIcon1.position.set(mp1[0], mp1[1]);
-    // this.visionLevelIcon1.tint = wc;
-  }
+    if (this.visionLevelIcon1 && this.visionLevelIcon1?.position) {
+      this.visionLevelIcon1.position.set(mp1[0], mp1[1]);
+      // this.visionLevelIcon1.tint = wc;
+    }
 
-  if (this.visionLevelIcon2 && this.visionLevelIcon2.position) {
-    this.visionLevelIcon2.position.set(mp2[0], mp2[1]);
-    // this.visionLevelIcon2.tint = wc;
+    if (this.visionLevelIcon2 && this.visionLevelIcon2?.position) {
+      this.visionLevelIcon2.position.set(mp2[0], mp2[1]);
+      // this.visionLevelIcon2.tint = wc;
+    }
   }
   return wrapped(...args);
 }
