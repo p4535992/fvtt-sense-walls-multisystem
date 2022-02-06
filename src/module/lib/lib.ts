@@ -231,6 +231,7 @@ export async function wallNewDraw() {
   }
   return this;
 }
+
 export function wallNewRefresh() {
   const p = this.coords;
   // x1 + x2, y1 + y2 => x/y
@@ -267,14 +268,6 @@ export function wallNewRefresh() {
     this.directionIcon.position.set(mp[0], mp[1]);
     this.directionIcon.tint = wc;
   }
-  // if (this.visibilityIcon) {
-  //   this.visibilityIcon.position.set(mp1[0], mp1[1]);
-  //   this.visibilityIcon.tint = wc;
-  // }
-  // if (this.movementIcon) {
-  //   this.movementIcon.position.set(mp2[0], mp2[1]);
-  //   this.movementIcon.tint = wc;
-  // }
 
   if (this.visionLevelIcon1 && this.visionLevelIcon1.position) {
     this.visionLevelIcon1.position.set(mp1[0], mp1[1]);
@@ -287,48 +280,17 @@ export function wallNewRefresh() {
   }
 
   // Re-position door control icon
-  if (this.doorControl && this.doorControl != null && this.doorControl != undefined) {
-    if (this.isDoor) {
-      try{
-        this.doorControl.reposition();
-      }catch(e){
-        this.doorControl.destroy();
-      }
-    } else {
-      (<DoorControl>this.doorControl).destroy();
+  if (this.isDoor) {
+    if (this.doorControl && this.doorControl != null && this.doorControl != undefined) {
+      this.doorControl.reposition();
     }
   }
+  
   // Update line hit area
   this.line.hitArea = this._getWallHitPolygon(p, lw3);
   // this.line.beginFill(0x00FF00, 1.0).drawShape(this.line.hitArea).endFill(); // Debug line hit area
   return this;
 }
-
-// function drawVisibility(direction) {
-//   // Create the icon
-//   const eye = PIXI.Sprite.from('modules/wonderwalls/icons/eye-solid.png');
-//   eye.width = eye.height = 32;
-
-//   // Rotate the icon
-//   let iconAngle = 0;
-//   let angle = direction;
-//   eye.anchor.set(0.5, 0.5);
-//   eye.rotation = iconAngle + angle;
-//   return eye;
-// }
-
-// function drawMovement(direction) {
-//   // Create the icon
-//   const walk = PIXI.Sprite.from('modules/wonderwalls/icons/walking-solid.png');
-//   walk.width = walk.height = 32;
-
-//   // Rotate the icon
-//   let iconAngle = 0;
-//   let angle = direction;
-//   walk.anchor.set(0.5, 0.5);
-//   walk.rotation = iconAngle + angle;
-//   return walk;
-// }
 
 function drawVisionLevel(direction, statusSight: StatusSight) {
   // Create the icon
@@ -348,7 +310,7 @@ export function wallNewUpdate(data: any, ...args) {
   //@ts-ignore
   PlaceableObject.prototype._onUpdate.apply(this, args);
 
-  // Re-draw if the direction changed
+  // // Re-draw if the direction changed
   // if (
   //   Object.prototype.hasOwnProperty.call(data, 'dir') ||
   //   Object.prototype.hasOwnProperty.call(data, 'sense') ||
@@ -373,9 +335,23 @@ export function wallNewUpdate(data: any, ...args) {
   // If the type of door or door state has changed also modify the door icon
   const rebuildEndpoints = ['move', 'sense', 'c'].some((k) => k in data);
   const doorChange = this.data.door && ('door' in data || 'ds' in data);
-  if (rebuildEndpoints || doorChange) {
-    this._onModifyWall(doorChange);
+  if (rebuildEndpoints) {
+    this._onModifyWall(false);
+  } else if(doorChange){
+    if (data.door == 0 && this.doorControl) {
+      (<DoorControl>this.doorControl).destroy();
+    }else{
+      // this._onModifyWall(doorChange);
+    }
+  } else{
+    if (data.door == 0 && this.doorControl) {
+      (<DoorControl>this.doorControl).destroy();
+    }
   }
+  this.draw();
+}
+
+export function wallNewUpdate2(data: any, ...args) {
   if (data.door == 0 && this.doorControl) {
     (<DoorControl>this.doorControl).destroy();
   }

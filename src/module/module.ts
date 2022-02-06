@@ -4,7 +4,7 @@ import { checkSystem } from './settings';
 import { canvas, game } from './settings';
 import CONSTANTS from './constants';
 import HOOKS from './hooks';
-import { debug, shouldIncludeWall, wallNewDraw, wallNewRefresh, wallNewUpdate } from './lib/lib';
+import { debug, shouldIncludeWall, wallNewDraw, wallNewRefresh, wallNewUpdate, wallNewUpdate2 } from './lib/lib';
 import API from './api.js';
 import EffectInterface from './effects/effect-interface';
 import { registerHotkeys } from './hotkeys';
@@ -85,7 +85,8 @@ export const initHooks = async (): Promise<void> => {
     //@ts-ignore
     libWrapper.register(CONSTANTS.MODULE_NAME, 'Wall.prototype.draw', wallNewDraw, 'OVERRIDE');
     //@ts-ignore
-    libWrapper.register(CONSTANTS.MODULE_NAME, 'Wall.prototype._onUpdate', wallNewUpdate, 'OVERRIDE');
+    // libWrapper.register(CONSTANTS.MODULE_NAME, 'Wall.prototype._onUpdate', wallNewUpdate, 'OVERRIDE');
+    // libWrapper.register(CONSTANTS.MODULE_NAME, 'Wall.prototype._onUpdate', wallNewUpdate2, 'MIXED');
     //@ts-ignore
     libWrapper.register(CONSTANTS.MODULE_NAME, 'Wall.prototype.refresh', wallNewRefresh, 'OVERRIDE');
   }
