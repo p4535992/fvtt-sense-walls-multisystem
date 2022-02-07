@@ -1,4 +1,4 @@
-# Sense Walls (Multisystem)
+# Sense Walls Multisystem
 
 ![Latest Release Download Count](https://img.shields.io/github/downloads/p4535992/fvtt-sense-walls-multisystem/latest/module.zip?color=2b82fc&label=DOWNLOADS&style=for-the-badge) 
 
@@ -39,10 +39,6 @@ This module uses the [libWrapper](https://github.com/ruipin/fvtt-lib-wrapper) li
 ### socketlib
 
 This module uses the [socketlib](https://github.com/manuelVo/foundryvtt-socketlib) library for wrapping core methods. It is a hard dependency and it is recommended for the best experience and compatibility with other modules.
-
-### perfect-vision (optional but suggested)
-
-This module uses the [Perfect Vision](https://foundryvtt.com/packages/perfect-vision) library. It is a optional but suggested dependency and it is recommended for the best experience and compatibility with other modules.
 
 ## Supported Systems
 
@@ -100,7 +96,7 @@ The calculation is done with this formula:
 
 ## API
 
-This api is redundant it can be easily replace form other macro or module, is advisable to use other module like [CUB](https://github.com/death-save/combat-utility-belt) or [Dfred Conient Effects](https://github.com/DFreds/dfreds-convenient-effects/)
+This api is redundant it can be easily replace from other macros or modules, is advisable to use other module like [CUB](https://github.com/death-save/combat-utility-belt) or [Dfred convenient effects](https://github.com/DFreds/dfreds-convenient-effects/)
 
 #### addEffect(actorNameOrId: string, effectId: string, distance: number) ⇒ <code>void</code>
 
