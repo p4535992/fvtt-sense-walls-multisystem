@@ -42,7 +42,11 @@ export function registerLibwrappers() {
     CONSTANTS.MODULE_NAME,
     'ClockwiseSweepPolygon.testWallInclusion',
     function filterWalls(wrapped, ...args) {
-      return wrapped(...args) && shouldIncludeWall(args[0]);
+      if (args[2] === 'sight') {
+        return wrapped(...args) && shouldIncludeWall(args[0]);
+      } else {
+        return wrapped(...args);
+      }
     },
     'WRAPPER',
   );
