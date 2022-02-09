@@ -94,7 +94,9 @@ export function shouldIncludeWall(wall): boolean | null {
   }
   const tokenVisionLevel = getVisionLevelToken(currentToken);
   const wallVisionLevel = <string>wall.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
-  wall.document.sight;
+  if(!wallVisionLevel){
+    return true;
+  }
   const statusSight = <StatusSight>API.SENSES.find((a: StatusSight) => {
     return a.id == wallVisionLevel;
   });
@@ -108,7 +110,7 @@ export function shouldIncludeWall(wall): boolean | null {
     const tokenElevation = getElevationToken(currentToken);
     const wallElevation = getElevationWall(wall);
     if (tokenElevation < wallElevation) {
-      return null;
+      return false;
     }
   }
 
@@ -116,7 +118,7 @@ export function shouldIncludeWall(wall): boolean | null {
     tokenVisionLevel.min <= <number>statusSight?.visionLevelMin &&
     tokenVisionLevel.max >= <number>statusSight?.visionLevelMax;
   if (result) {
-    return null;
+    return false;
   } else {
     return true;
   }

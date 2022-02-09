@@ -1,3 +1,7 @@
+## 0.0.5
+
+- Clean up
+
 ## 0.0.4
 
 - Add filter by sight on inlcude wall
