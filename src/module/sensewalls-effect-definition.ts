@@ -74,7 +74,7 @@ export class EffectDefinitions {
       return EffectDefinitions.devilssight(distance);
     }
     if (effect?.customId == StatusEffectSightFlags.GREATER_DARKVISION) {
-      return EffectDefinitions.darkvision(120);
+      return EffectDefinitions.darkvision(distance);
     }
     if (effect?.customId == StatusEffectSightFlags.LOW_LIGHT_VISION) {
       return EffectDefinitions.lowlightvision(distance);
