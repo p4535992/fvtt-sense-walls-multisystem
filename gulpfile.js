@@ -13,7 +13,7 @@ const git = require('gulp-git');
 const eslint = require('gulp-eslint');
 
 const argv = require('yargs').argv;
-const del = require('del');
+// const del = require('del');
 
 sass.compiler = require('sass');
 
@@ -286,7 +286,7 @@ async function clean() {
     for (const filePath of files) {
       await fs.remove(path.join('dist', filePath));
     }
-    del('./dist/**', {force:true});
+    // del('./dist/**', {force:true});
     return Promise.resolve();
   } catch (err) {
     Promise.reject(err);
