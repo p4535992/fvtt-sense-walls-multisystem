@@ -65,8 +65,8 @@
   "sense-walls-multisystem.effects.greaterdarkvision.description2": "Within a radius of {number} a creature with darkvision or greater darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level darkness spell, block normal darkvision. A creature with greater darkvision, however, can see through even these forms of magical darkness.",
 
   "sense-walls-multisystem.setting.reset.name": "Reset settings to default",
-  "sense-walls-multisystem.setting.reset.label": "Reset Item Piles Settings To Default",
-  "sense-walls-multisystem.setting.reset.hint": "This will reset all of the settings of Item Piles back to the active game system's default.",
+  "sense-walls-multisystem.setting.reset.label": "Reset Settings To Default",
+  "sense-walls-multisystem.setting.reset.hint": "This will reset all of the settings of back to the active game system's default.",
   "sense-walls-multisystem.setting.debug.name": "Enable debugging",
   "sense-walls-multisystem.setting.debug.label": "Prints debug messages to the console",
   "sense-walls-multisystem.setting.debug.hint": " ",
@@ -74,8 +74,8 @@
   "sense-walls-multisystem.setting.disableOverrideWallDraw.name": "Disable override wall draw",
   "sense-walls-multisystem.setting.disableOverrideWallDraw.hint": "If enable it will disable the override draw on wall for avoid collision with other module",
 
-  "sense-walls-multisystem.dialogs.resetsettings.title": "Reset Item Piles Module Settings",
-  "sense-walls-multisystem.dialogs.resetsettings.content": "Are you sure you want to reset all of the Item Piles module settings to the current system's defaults? <strong>THIS CANNOT BE UNDONE!</strong>",
+  "sense-walls-multisystem.dialogs.resetsettings.title": "Reset Module Settings",
+  "sense-walls-multisystem.dialogs.resetsettings.content": "Are you sure you want to reset all of the module settings to the current system's defaults? <strong>THIS CANNOT BE UNDONE!</strong>",
   "sense-walls-multisystem.dialogs.resetsettings.confirm": "Reset Module Settings",
   "sense-walls-multisystem.dialogs.resetsettings.cancel": "Cancel",
 

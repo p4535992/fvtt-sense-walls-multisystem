@@ -94,7 +94,7 @@ export function shouldIncludeWall(wall): boolean | null {
   }
   const tokenVisionLevel = getVisionLevelToken(currentToken);
   const wallVisionLevel = <string>wall.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
-  if(!wallVisionLevel){
+  if (!wallVisionLevel) {
     return true;
   }
   const statusSight = <StatusSight>API.SENSES.find((a: StatusSight) => {

@@ -299,7 +299,7 @@ export default class EffectHandler {
    * @param {string} effectName - the effect name to search for
    * @returns {Effect} the found effect
    */
-  async findEffectByNameOnActor(effectName, uuid): Promise<Effect|null> {
+  async findEffectByNameOnActor(effectName, uuid): Promise<Effect | null> {
     if (effectName) {
       effectName = i18n(effectName);
     }
@@ -307,7 +307,7 @@ export default class EffectHandler {
     // return await (<ActiveEffect>(
     //   actor?.data?.effects?.find((activeEffect) => <string>activeEffect?.data?.label == effectName)
     // ));
-    let effect:Effect|null = null;
+    let effect: Effect | null = null;
     if (!effectName) {
       return effect;
     }
@@ -336,7 +336,7 @@ export default class EffectHandler {
    * @param {string} effectName - the effect name to search for
    * @returns {Effect} the found effect
    */
-  async findEffectByNameOnActorArr(...inAttributes: any[]): Promise<Effect|null> {
+  async findEffectByNameOnActorArr(...inAttributes: any[]): Promise<Effect | null> {
     if (!Array.isArray(inAttributes)) {
       throw error('findEffectByNameOnActorArr | inAttributes must be of type array');
     }

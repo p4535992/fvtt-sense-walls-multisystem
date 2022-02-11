@@ -67,7 +67,7 @@ export default {
       name: `${CONSTANTS.MODULE_NAME}.${StatusEffectSightFlags.GREATER_DARKVISION}`,
       path: 'data.traits.senses.greaterdarkvision',
       img: `modules/${CONSTANTS.MODULE_NAME}/icons/ae/evil-eye-eerie-1.jpg`,
-      //effect: EffectDefinitions.darkvision(120),
+      //effect: EffectDefinitions.darkvision(distance),
       visionLevelMin: 0,
       visionLevelMax: 4,
       checkElevation: false,

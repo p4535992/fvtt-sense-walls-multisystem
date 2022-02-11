@@ -1,3 +1,7 @@
+## 0.0.6
+
+- Add reset all to the module settings
+
 ## 0.0.5
 
 - Clean up

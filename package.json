@@ -3,7 +3,7 @@
   "name": "sense-walls-multisystem",
   "title": "Sense Walls Multisystem",
   "description": "Enable walls only for tokens without a certain vision level.",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "scripts": {
     "package": "gulp package",
     "build": "gulp build && gulp link",

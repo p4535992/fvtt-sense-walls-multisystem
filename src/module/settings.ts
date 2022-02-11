@@ -42,18 +42,6 @@ export function getAPI(): API {
   return game[CONSTANTS.MODULE_NAME].API;
 }
 
-function defaultSettings(apply = false) {
-  return {
-    senses: {
-      scope: 'world',
-      config: false,
-      //@ts-ignore
-      default: apply && SYSTEMS.DATA ? SYSTEMS.DATA.SENSES : [],
-      type: Array,
-    },
-  };
-}
-
 export const registerSettings = function (): void {
   game.settings.registerMenu(CONSTANTS.MODULE_NAME, 'resetAllSettings', {
     name: `${CONSTANTS.MODULE_NAME}.setting.reset.name`,
@@ -63,18 +51,14 @@ export const registerSettings = function (): void {
     restricted: true,
   });
 
-  // game.settings.registerMenu(CONSTANTS.MODULE_NAME, 'openDynamicAttributesEditor', {
-  //   name: `${CONSTANTS.MODULE_NAME}.setting.attributes.name`,
-  //   hint: `${CONSTANTS.MODULE_NAME}.setting.attributes.hint`,
-  //   icon: 'fas fa-coins',
-  //   type: SenseWallsAttributeEditor,
-  //   restricted: true,
-  // });
-
   const settings = defaultSettings();
   for (const [name, data] of Object.entries(settings)) {
-    game.settings.register(CONSTANTS.MODULE_NAME, name, data);
+    game.settings.register(CONSTANTS.MODULE_NAME, name, <any>data);
   }
+
+  // for (const [name, data] of Object.entries(otherSettings)) {
+  //     game.settings.register(ARMS_REACH_MODULE_NAME, name, data);
+  // }
 
   game.settings.register(CONSTANTS.MODULE_NAME, 'debug', {
     name: `${CONSTANTS.MODULE_NAME}.setting.debug.name`,
@@ -160,6 +144,55 @@ async function applyDefaultSettings() {
   for (const [name, data] of Object.entries(settings)) {
     await game.settings.set(CONSTANTS.MODULE_NAME, name, data.default);
   }
+}
+
+function defaultSettings(apply = false) {
+  return {
+    debug: {
+      name: `${CONSTANTS.MODULE_NAME}.setting.debug.name`,
+      hint: `${CONSTANTS.MODULE_NAME}.setting.debug.hint`,
+      scope: 'client',
+      config: true,
+      default: false,
+      type: Boolean,
+    },
+
+    debugHooks: {
+      name: `${CONSTANTS.MODULE_NAME}.setting.debugHooks.name`,
+      hint: `${CONSTANTS.MODULE_NAME}.setting.debugHooks.hint`,
+      scope: 'world',
+      config: false,
+      default: false,
+      type: Boolean,
+    },
+
+    systemFound: {
+      name: `${CONSTANTS.MODULE_NAME}.setting.systemFound.name`,
+      hint: `${CONSTANTS.MODULE_NAME}.setting.systemFound.hint`,
+      scope: 'world',
+      config: false,
+      default: false,
+      type: Boolean,
+    },
+
+    systemNotFoundWarningShown: {
+      name: `${CONSTANTS.MODULE_NAME}.setting.systemNotFoundWarningShown.name`,
+      hint: `${CONSTANTS.MODULE_NAME}.setting.systemNotFoundWarningShown.hint`,
+      scope: 'world',
+      config: false,
+      default: false,
+      type: Boolean,
+    },
+
+    disableOverrideWallDraw: {
+      name: `${CONSTANTS.MODULE_NAME}.setting.disableOverrideWallDraw.name`,
+      hint: `${CONSTANTS.MODULE_NAME}.setting.disableOverrideWallDraw.hint`,
+      scope: 'world',
+      config: false,
+      default: false,
+      type: Boolean,
+    },
+  };
 }
 
 export async function checkSystem() {
