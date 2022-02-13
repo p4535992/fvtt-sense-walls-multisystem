@@ -43,7 +43,6 @@ export function getAPI(): API {
 }
 
 export const registerSettings = function (): void {
-
   game.settings.registerMenu(CONSTANTS.MODULE_NAME, 'resetAllSettings', {
     name: `${CONSTANTS.MODULE_NAME}.setting.reset.name`,
     hint: `${CONSTANTS.MODULE_NAME}.setting.reset.hint`,
@@ -52,20 +51,28 @@ export const registerSettings = function (): void {
     restricted: true,
   });
 
-  const settings = defaultSettings();
-  for (const [name, data] of Object.entries(settings)) {
-    game.settings.register(CONSTANTS.MODULE_NAME, name, <any>data);
-  }
+  // const settings = defaultSettings();
+  // for (const [name, data] of Object.entries(settings)) {
+  //   game.settings.register(CONSTANTS.MODULE_NAME, name, <any>data);
+  // }
 
   // for (const [name, data] of Object.entries(otherSettings)) {
-  //     game.settings.register(ARMS_REACH_MODULE_NAME, name, data);
+  //     game.settings.register(CONSTANTS.MODULE_NAME, name, data);
   // }
+
+  game.settings.register(CONSTANTS.MODULE_NAME, 'senses', {
+    scope: 'world',
+    config: false,
+    //@ts-ignore
+    default: SYSTEMS.DATA ? SYSTEMS.DATA.SENSES : [],
+    type: Array,
+  });
 
   game.settings.register(CONSTANTS.MODULE_NAME, 'disableOverrideWallDraw', {
     name: `${CONSTANTS.MODULE_NAME}.setting.disableOverrideWallDraw.name`,
     hint: `${CONSTANTS.MODULE_NAME}.setting.disableOverrideWallDraw.hint`,
     scope: 'world',
-    config: false,
+    config: true,
     default: false,
     type: Boolean,
   });
@@ -149,6 +156,14 @@ async function applyDefaultSettings() {
 
 function defaultSettings(apply = false) {
   return {
+    senses: {
+      scope: 'world',
+      config: false,
+      //@ts-ignore
+      default: apply && SYSTEMS.DATA ? SYSTEMS.DATA.SENSES : [],
+      type: Array,
+    },
+
     debug: {
       name: `${CONSTANTS.MODULE_NAME}.setting.debug.name`,
       hint: `${CONSTANTS.MODULE_NAME}.setting.debug.hint`,
