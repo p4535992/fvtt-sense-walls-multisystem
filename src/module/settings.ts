@@ -43,6 +43,7 @@ export function getAPI(): API {
 }
 
 export const registerSettings = function (): void {
+
   game.settings.registerMenu(CONSTANTS.MODULE_NAME, 'resetAllSettings', {
     name: `${CONSTANTS.MODULE_NAME}.setting.reset.name`,
     hint: `${CONSTANTS.MODULE_NAME}.setting.reset.hint`,
@@ -59,6 +60,15 @@ export const registerSettings = function (): void {
   // for (const [name, data] of Object.entries(otherSettings)) {
   //     game.settings.register(ARMS_REACH_MODULE_NAME, name, data);
   // }
+
+  game.settings.register(CONSTANTS.MODULE_NAME, 'disableOverrideWallDraw', {
+    name: `${CONSTANTS.MODULE_NAME}.setting.disableOverrideWallDraw.name`,
+    hint: `${CONSTANTS.MODULE_NAME}.setting.disableOverrideWallDraw.hint`,
+    scope: 'world',
+    config: false,
+    default: false,
+    type: Boolean,
+  });
 
   game.settings.register(CONSTANTS.MODULE_NAME, 'debug', {
     name: `${CONSTANTS.MODULE_NAME}.setting.debug.name`,
@@ -90,15 +100,6 @@ export const registerSettings = function (): void {
   game.settings.register(CONSTANTS.MODULE_NAME, 'systemNotFoundWarningShown', {
     name: `${CONSTANTS.MODULE_NAME}.setting.systemNotFoundWarningShown.name`,
     hint: `${CONSTANTS.MODULE_NAME}.setting.systemNotFoundWarningShown.hint`,
-    scope: 'world',
-    config: false,
-    default: false,
-    type: Boolean,
-  });
-
-  game.settings.register(CONSTANTS.MODULE_NAME, 'disableOverrideWallDraw', {
-    name: `${CONSTANTS.MODULE_NAME}.setting.disableOverrideWallDraw.name`,
-    hint: `${CONSTANTS.MODULE_NAME}.setting.disableOverrideWallDraw.hint`,
     scope: 'world',
     config: false,
     default: false,
