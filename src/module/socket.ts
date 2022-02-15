@@ -62,6 +62,15 @@ export function registerSocket() {
   senseWallsSocket.register('removeEffectFromIdOnActor', (...args) =>
     API.effectInterface._effectHandler.removeEffectFromIdOnActorArr(...args),
   );
+  senseWallsSocket.register('toggleEffectFromIdOnActor', (...args) =>
+    API.effectInterface._effectHandler.toggleEffectFromIdOnActorArr(...args),
+  );
+  senseWallsSocket.register('findEffectByNameOnActor', (...args) =>
+    API.effectInterface._effectHandler.findEffectByNameOnActorArr(...args),
+  );
+  senseWallsSocket.register('addActiveEffectOnActor', (...args) =>
+    API.effectInterface._effectHandler.addActiveEffectOnActorArr(...args),
+  );
 
   return senseWallsSocket;
 }

@@ -1,3 +1,7 @@
+## 0.0.8
+
+- Update typescript
+
 ## 0.0.7
 
 - Bug fix
