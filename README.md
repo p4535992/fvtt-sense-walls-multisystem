@@ -45,6 +45,8 @@ This module uses the [socketlib](https://github.com/manuelVo/foundryvtt-socketli
 - [Dnd5e](https://gitlab.com/foundrynet/dnd5e)
 - [Pathfinder 2e](https://foundryvtt.com/packages/pf2e)
 
+**How can i add my system ?** That's is pretty easy on the code level ty to the design pattern so i just need some information on the system rules or better give me a table like the ones below.
+
 ## Features
 
 Walls can be configured to only show up to a certain level of vision. For example, if the "Piercing Vision Level" is set to "Darkvision" then a character with darkvision or greater darkvision can see and move through the wall (depend on the configuration of the wall), but one with only low-light vision cannot.
