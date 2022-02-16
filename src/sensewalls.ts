@@ -77,5 +77,9 @@ Hooks.once('ready', async function () {
 
 Hooks.once('libChangelogsReady', function () {
   //@ts-ignore
-  libChangelogs.register(CONSTANTS.MODULE_NAME, `- Initial release`, 'minor');
+  libChangelogs.register(CONSTANTS.MODULE_NAME, 
+  `
+  - Still trying to beatutify this thing
+  `
+  , 'minor');
 });

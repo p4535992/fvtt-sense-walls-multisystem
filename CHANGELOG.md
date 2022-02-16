@@ -1,3 +1,7 @@
+## 0.0.9
+
+- Still trying to beatutify this thing
+
 ## 0.0.8
 
 - Update typescript
