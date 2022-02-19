@@ -1,3 +1,7 @@
+## 0.0.11
+
+- Bug fix settings
+
 ## 0.0.10
 
 - Bug fix systems management

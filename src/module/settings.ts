@@ -146,6 +146,11 @@ async function applyDefaultSettings() {
   for (const [name, data] of Object.entries(settings)) {
     await game.settings.set(CONSTANTS.MODULE_NAME, name, data.default);
   }
+  const settings2 = otherSettings(true);
+  for (const [name, data] of Object.entries(settings2)) {
+    //@ts-ignore
+    await game.settings.set(CONSTANTS.MODULE_NAME, name, data.default);
+  }
 }
 
 function defaultSettings(apply = false) {
@@ -158,6 +163,55 @@ function defaultSettings(apply = false) {
       type: Array,
     },
   }
+}
+
+function otherSettings(apply = false) {
+  return {
+    debug: {
+      name: `${CONSTANTS.MODULE_NAME}.setting.debug.name`,
+      hint: `${CONSTANTS.MODULE_NAME}.setting.debug.hint`,
+      scope: 'client',
+      config: true,
+      default: false,
+      type: Boolean,
+    },
+
+    debugHooks: {
+      name: `${CONSTANTS.MODULE_NAME}.setting.debugHooks.name`,
+      hint: `${CONSTANTS.MODULE_NAME}.setting.debugHooks.hint`,
+      scope: 'world',
+      config: false,
+      default: false,
+      type: Boolean,
+    },
+
+    systemFound: {
+      name: `${CONSTANTS.MODULE_NAME}.setting.systemFound.name`,
+      hint: `${CONSTANTS.MODULE_NAME}.setting.systemFound.hint`,
+      scope: 'world',
+      config: false,
+      default: false,
+      type: Boolean,
+    },
+
+    systemNotFoundWarningShown: {
+      name: `${CONSTANTS.MODULE_NAME}.setting.systemNotFoundWarningShown.name`,
+      hint: `${CONSTANTS.MODULE_NAME}.setting.systemNotFoundWarningShown.hint`,
+      scope: 'world',
+      config: false,
+      default: false,
+      type: Boolean,
+    },
+
+    disableOverrideWallDraw: {
+      name: `${CONSTANTS.MODULE_NAME}.setting.disableOverrideWallDraw.name`,
+      hint: `${CONSTANTS.MODULE_NAME}.setting.disableOverrideWallDraw.hint`,
+      scope: 'world',
+      config: false,
+      default: false,
+      type: Boolean,
+    },
+  };
 }
 
 export async function checkSystem() {
