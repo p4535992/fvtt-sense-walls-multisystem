@@ -51,23 +51,6 @@ export const registerSettings = function (): void {
     restricted: true,
   });
 
-  // const settings = defaultSettings();
-  // for (const [name, data] of Object.entries(settings)) {
-  //   game.settings.register(CONSTANTS.MODULE_NAME, name, <any>data);
-  // }
-
-  // for (const [name, data] of Object.entries(otherSettings)) {
-  //     game.settings.register(CONSTANTS.MODULE_NAME, name, data);
-  // }
-
-  game.settings.register(CONSTANTS.MODULE_NAME, 'senses', {
-    scope: 'world',
-    config: false,
-    //@ts-ignore
-    default: SYSTEMS.DATA ? SYSTEMS.DATA.SENSES : [],
-    type: Array,
-  });
-
   game.settings.register(CONSTANTS.MODULE_NAME, 'disableOverrideWallDraw', {
     name: `${CONSTANTS.MODULE_NAME}.setting.disableOverrideWallDraw.name`,
     hint: `${CONSTANTS.MODULE_NAME}.setting.disableOverrideWallDraw.hint`,
@@ -112,6 +95,16 @@ export const registerSettings = function (): void {
     default: false,
     type: Boolean,
   });
+
+  const settings = defaultSettings();
+  for (const [name, data] of Object.entries(settings)) {
+      game.settings.register(CONSTANTS.MODULE_NAME, name, data);
+  }
+
+  for (const [name, data] of Object.entries(otherSettings)) {
+      game.settings.register(CONSTANTS.MODULE_NAME, name, data);
+  }
+
 };
 
 class ResetSettingsDialog extends FormApplication<FormApplicationOptions, object, any> {
@@ -164,7 +157,10 @@ function defaultSettings(apply = false) {
       default: apply && SYSTEMS.DATA ? SYSTEMS.DATA.SENSES : [],
       type: Array,
     },
+  }
+}
 
+const otherSettings = {
     debug: {
       name: `${CONSTANTS.MODULE_NAME}.setting.debug.name`,
       hint: `${CONSTANTS.MODULE_NAME}.setting.debug.hint`,
@@ -209,7 +205,6 @@ function defaultSettings(apply = false) {
       default: false,
       type: Boolean,
     },
-  };
 }
 
 export async function checkSystem() {

@@ -1,3 +1,7 @@
+## 0.0.10
+
+- Bug fix systems management
+
 ## 0.0.9
 
 - Still trying to beatutify this thing
