@@ -499,10 +499,16 @@ export function getElevationWall(wall: Wall): number {
 }
 
 function getElevationPlaceableObject(placeableObject: any): number {
-  const base = placeableObject;
+  let base = placeableObject;
+  if (base.document) {
+    base = base.document.data;
+  }
   const base_elevation =
     //@ts-ignore
-    typeof _levels !== 'undefined' && _levels?.advancedLOS
+    typeof _levels !== 'undefined' &&
+    //@ts-ignore
+    _levels?.advancedLOS &&
+    (placeableObject instanceof Token || placeableObject instanceof TokenDocument)
       ? //@ts-ignore
         _levels.getTokenLOSheight(token)
       : base.elevation ??
