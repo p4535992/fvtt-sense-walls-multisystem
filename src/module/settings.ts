@@ -101,9 +101,9 @@ export const registerSettings = function (): void {
       game.settings.register(CONSTANTS.MODULE_NAME, name, data);
   }
 
-  for (const [name, data] of Object.entries(otherSettings)) {
-      game.settings.register(CONSTANTS.MODULE_NAME, name, data);
-  }
+  // for (const [name, data] of Object.entries(otherSettings)) {
+  //     game.settings.register(CONSTANTS.MODULE_NAME, name, data);
+  // }
 
 };
 
@@ -158,53 +158,6 @@ function defaultSettings(apply = false) {
       type: Array,
     },
   }
-}
-
-const otherSettings = {
-    debug: {
-      name: `${CONSTANTS.MODULE_NAME}.setting.debug.name`,
-      hint: `${CONSTANTS.MODULE_NAME}.setting.debug.hint`,
-      scope: 'client',
-      config: true,
-      default: false,
-      type: Boolean,
-    },
-
-    debugHooks: {
-      name: `${CONSTANTS.MODULE_NAME}.setting.debugHooks.name`,
-      hint: `${CONSTANTS.MODULE_NAME}.setting.debugHooks.hint`,
-      scope: 'world',
-      config: false,
-      default: false,
-      type: Boolean,
-    },
-
-    systemFound: {
-      name: `${CONSTANTS.MODULE_NAME}.setting.systemFound.name`,
-      hint: `${CONSTANTS.MODULE_NAME}.setting.systemFound.hint`,
-      scope: 'world',
-      config: false,
-      default: false,
-      type: Boolean,
-    },
-
-    systemNotFoundWarningShown: {
-      name: `${CONSTANTS.MODULE_NAME}.setting.systemNotFoundWarningShown.name`,
-      hint: `${CONSTANTS.MODULE_NAME}.setting.systemNotFoundWarningShown.hint`,
-      scope: 'world',
-      config: false,
-      default: false,
-      type: Boolean,
-    },
-
-    disableOverrideWallDraw: {
-      name: `${CONSTANTS.MODULE_NAME}.setting.disableOverrideWallDraw.name`,
-      hint: `${CONSTANTS.MODULE_NAME}.setting.disableOverrideWallDraw.hint`,
-      scope: 'world',
-      config: false,
-      default: false,
-      type: Boolean,
-    },
 }
 
 export async function checkSystem() {
