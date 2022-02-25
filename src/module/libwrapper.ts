@@ -1,6 +1,6 @@
-import API from './api.js';
-import CONSTANTS from './constants.js';
-import { shouldIncludeWall, wallNewRefresh2, wallNewUpdate2 } from './lib/lib.js';
+import API from './api';
+import CONSTANTS from './constants';
+import { shouldIncludeWall, wallNewRefresh2, wallNewUpdate2 } from './lib/lib';
 import { canvas, game } from './settings';
 
 export function registerLibwrappers() {
@@ -64,14 +64,14 @@ export function registerLibwrappers() {
   //   'WRAPPER',
   // );
 
-  // // This function builds the ClockwiseSweepPolygon to determine the token's light coverage.
-  // // Update the vision level just beforehand so we're using the correct token's vision level and height
-  // //@ts-ignore
+  // This function builds the ClockwiseSweepPolygon to determine the token's light coverage.
+  // Update the vision level just beforehand so we're using the correct token's vision level and height
+  //@ts-ignore
   // libWrapper.register(
   //   CONSTANTS.MODULE_NAME,
   //   'Token.prototype.updateLightSource',
   //   function updateTokenLightSource(wrapped, ...args) {
-  //     updateVisionLevel(this);
+  //     shouldIncludeWall(args[0]);
   //     wrapped(...args);
   //   },
   //   'WRAPPER',
