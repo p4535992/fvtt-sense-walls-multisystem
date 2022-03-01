@@ -1,3 +1,7 @@
+## 0.0.13
+
+- Change wall inclusion overrides to high-performance mode
+
 ## 0.0.12
 
 - Bug fix elevation
