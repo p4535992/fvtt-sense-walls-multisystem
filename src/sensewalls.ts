@@ -18,12 +18,6 @@ import CONSTANTS from './module/constants';
 import { error, log } from './module/lib/lib';
 import { initHooks, readyHooks, setupHooks } from './module/module';
 
-// declare global {
-//   interface Window {
-//     Senses: ConditionalVisibility;
-//   }
-// }
-
 /* ------------------------------------ */
 /* Initialize module					*/
 /* ------------------------------------ */
@@ -77,9 +71,5 @@ Hooks.once('ready', async function () {
 
 Hooks.once('libChangelogsReady', function () {
   //@ts-ignore
-  libChangelogs.register(CONSTANTS.MODULE_NAME, 
-  `
-  - Still trying to beatutify this thing
-  `
-  , 'minor');
+  libChangelogs.register(CONSTANTS.MODULE_NAME, `- Some update`, 'minor');
 });

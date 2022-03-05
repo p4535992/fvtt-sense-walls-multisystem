@@ -32,8 +32,8 @@ export function registerLibwrappers() {
           return wrapped(...args);
         }
       },
-      "WRAPPER",
-      { perf_mode: "FAST" }
+      'WRAPPER',
+      { perf_mode: 'FAST' },
     );
   }
 
@@ -49,8 +49,8 @@ export function registerLibwrappers() {
         return wrapped(...args);
       }
     },
-    "WRAPPER",
-    { perf_mode: "FAST" }
+    'WRAPPER',
+    { perf_mode: 'FAST' },
   );
 
   // // This function builds the ClockwiseSweepPolygon to determine the token's vision.

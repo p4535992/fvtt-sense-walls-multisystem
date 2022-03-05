@@ -5,9 +5,9 @@ import { dialogWarning, error, i18n, warn } from './lib/lib';
 import EffectInterface from './effects/effect-interface';
 import EffectHandler from './effects/effect-handler';
 import Effect from './effects/effect';
-import { StatusSight } from './sensewalls-models';
+import { SenseData } from './sensewalls-models';
 import HOOKS from './hooks';
-import { EffectDefinitions } from './sensewalls-effect-definition';
+import { SenseWallsMultisystemEffectDefinitions } from './sensewalls-effect-definition';
 
 export default class API {
   // static get effectInterface(): EffectInterface {
@@ -21,7 +21,7 @@ export default class API {
    *
    * @returns {array}
    */
-  static get SENSES(): StatusSight[] {
+  static get SENSES(): SenseData[] {
     return <any[]>game.settings.get(CONSTANTS.MODULE_NAME, 'senses');
   }
 
@@ -64,10 +64,10 @@ export default class API {
     }
 
     let effect: Effect | undefined = undefined;
-    const sensesOrderByName = <StatusSight[]>API.SENSES.sort((a, b) => a.name.localeCompare(b.name));
-    sensesOrderByName.forEach((a: StatusSight) => {
+    const sensesOrderByName = <SenseData[]>API.SENSES.sort((a, b) => a.name.localeCompare(b.name));
+    sensesOrderByName.forEach((a: SenseData) => {
       if (a.id == effectName || i18n(a.name) == effectName) {
-        effect = <Effect>EffectDefinitions.all(distance).find((e: Effect) => {
+        effect = <Effect>SenseWallsMultisystemEffectDefinitions.all(distance).find((e: Effect) => {
           return e.customId == a.id;
         });
       }

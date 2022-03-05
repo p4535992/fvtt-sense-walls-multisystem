@@ -1,7 +1,7 @@
 import API from './api';
 import CONSTANTS from './constants';
 import { i18n } from './lib/lib';
-import { StatusEffectSightFlags, StatusSight } from './sensewalls-models';
+import { AtswmEffectSenseFlags, SenseData } from './sensewalls-models';
 import { canvas, game } from './settings';
 
 export class SenseWallsPlaceableConfig {
@@ -32,16 +32,16 @@ export class SenseWallsPlaceableConfig {
       return;
     }
 
-    const requiredVisionLevel = app.object.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel') || StatusEffectSightFlags.NONE;
+    const requiredVisionLevel = app.object.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel') || AtswmEffectSenseFlags.NONE;
 
-    const sensesOrderByName = <StatusSight[]>API.SENSES.sort((a, b) => a.name.localeCompare(b.name));
+    const sensesOrderByName = <SenseData[]>API.SENSES.sort((a, b) => a.name.localeCompare(b.name));
 
     const options: string[] = [];
     // options.push(
     //   `<option data-image="icons/svg/mystery-man.svg" value="">${i18n(`${CONSTANTS.MODULE_NAME}.default`)}</option>`,
     // );
-    sensesOrderByName.forEach((a: StatusSight) => {
-      if (a.id == StatusEffectSightFlags.NONE) {
+    sensesOrderByName.forEach((a: SenseData) => {
+      if (a.id == AtswmEffectSenseFlags.NONE) {
         if (requiredVisionLevel == a.id) {
           options.push(`<option selected="selected" data-image="${a.img}" value="">${i18n(a.name)}</option>`);
         } else {
@@ -59,7 +59,7 @@ export class SenseWallsPlaceableConfig {
     const newHtml = `
             <div class="form-group">
                 <label>${i18n(`${CONSTANTS.MODULE_NAME}.visionLevel.name`)}</label>
-                <select name="flags.${CONSTANTS.MODULE_NAME}.visionLevel" data-dtype="String" is="ms-dropdown">
+                <select name="flags.${CONSTANTS.MODULE_NAME}.visionLevel" data-dtype="String" is="ms-dropdown-fswm">
                   ${options.join('')}
                 </select>
                 <p class="notes">${i18n(`${CONSTANTS.MODULE_NAME}.visionLevel.description`)}</p>

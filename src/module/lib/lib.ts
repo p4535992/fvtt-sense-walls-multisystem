@@ -2,7 +2,7 @@ import EmbeddedCollection from '@league-of-foundry-developers/foundry-vtt-types/
 import { ActorData } from '@league-of-foundry-developers/foundry-vtt-types/src/foundry/common/data/module.mjs';
 import API from '../api.js';
 import CONSTANTS from '../constants.js';
-import { StatusEffectSightFlags, StatusSight } from '../sensewalls-models.js';
+import { AtswmEffectSenseFlags, SenseData } from '../sensewalls-models.js';
 import { canvas, game } from '../settings';
 
 // =============================
@@ -40,6 +40,13 @@ export function notify(message) {
   return message;
 }
 
+export function info(info, notify = false) {
+  info = `${CONSTANTS.MODULE_NAME} | ${info}`;
+  if (notify) ui.notifications?.info(info);
+  console.log(info.replace('<br>', '\n'));
+  return info;
+}
+
 export function warn(warning, notify = false) {
   warning = `${CONSTANTS.MODULE_NAME} | ${warning}`;
   if (notify) ui.notifications?.warn(warning);
@@ -58,11 +65,11 @@ export function timelog(message): void {
 }
 
 export const i18n = (key: string): string => {
-  return game.i18n.localize(key).trim();
+  return game.i18n.localize(key)?.trim();
 };
 
 export const i18nFormat = (key: string, data = {}): string => {
-  return game.i18n.format(key, data).trim();
+  return game.i18n.format(key, data)?.trim();
 };
 
 // export const setDebugLevel = (debugText: string): void => {
@@ -78,6 +85,30 @@ export function dialogWarning(message, icon = 'fas fa-exclamation-triangle') {
         <br><br>${message}
     </p>`;
 }
+
+export function cleanUpString(stringToCleanUp: string) {
+  // regex expression to match all non-alphanumeric characters in string
+  const regex = /[^A-Za-z0-9]/g;
+  if (stringToCleanUp) {
+    return i18n(stringToCleanUp).replace(regex, '').toLowerCase();
+  } else {
+    return stringToCleanUp;
+  }
+}
+
+export function isStringEquals(stringToCheck1: string, stringToCheck2: string, startsWith = true): boolean {
+  if (stringToCheck1 && stringToCheck2) {
+    if (startsWith) {
+      return cleanUpString(stringToCheck1).startsWith(cleanUpString(stringToCheck2));
+    } else {
+      return cleanUpString(stringToCheck1) === cleanUpString(stringToCheck2);
+    }
+  } else {
+    return stringToCheck1 === stringToCheck2;
+  }
+}
+
+// =========================================================================================
 
 // =============================
 // Module specific function
@@ -97,13 +128,13 @@ export function shouldIncludeWall(wall): boolean | null {
   if (!wallVisionLevel) {
     return true;
   }
-  const statusSight = <StatusSight>API.SENSES.find((a: StatusSight) => {
+  const statusSight = <SenseData>API.SENSES.find((a: SenseData) => {
     return a.id == wallVisionLevel;
   });
   if (!statusSight) {
     return true;
   }
-  if (statusSight.id == StatusEffectSightFlags.NORMAL || statusSight.id == StatusEffectSightFlags.NONE) {
+  if (statusSight.id == AtswmEffectSenseFlags.NORMAL || statusSight.id == AtswmEffectSenseFlags.NONE) {
     return true;
   }
   if (tokenVisionLevel?.checkElevation) {
@@ -115,8 +146,8 @@ export function shouldIncludeWall(wall): boolean | null {
   }
 
   const result =
-    tokenVisionLevel.min <= <number>statusSight?.visionLevelMin &&
-    tokenVisionLevel.max >= <number>statusSight?.visionLevelMax;
+    tokenVisionLevel.min <= <number>statusSight?.visionLevelMinIndex &&
+    tokenVisionLevel.max >= <number>statusSight?.visionLevelMaxIndex;
   if (result) {
     return false;
   } else {
@@ -288,13 +319,13 @@ export function wallNewRefresh2(wrapped, ...args) {
   const cr = this._hover ? lw * 3 : lw * 2;
   const lw3 = lw * 3;
 
-  const requiredVisionLevel: StatusEffectSightFlags = this.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
+  const requiredVisionLevel: AtswmEffectSenseFlags = this.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
 
-  const status = API.SENSES.find((a: StatusSight) => {
+  const status = API.SENSES.find((a: SenseData) => {
     return a.id == requiredVisionLevel || a.name == requiredVisionLevel;
   });
 
-  if (requiredVisionLevel && status && status.id != StatusEffectSightFlags.NONE) {
+  if (requiredVisionLevel && status && status.id != AtswmEffectSenseFlags.NONE) {
     if (!this.visionLevelIcon1) {
       this.visionLevelIcon1 = this.addChild(drawVisionLevel(this.direction, status));
     }
@@ -316,7 +347,7 @@ export function wallNewRefresh2(wrapped, ...args) {
   return wrapped(...args);
 }
 
-function drawVisionLevel(direction, statusSight: StatusSight) {
+function drawVisionLevel(direction, statusSight: SenseData) {
   // Create the icon
   //const sightIcon = PIXI.Sprite.from(`modules/${CONSTANTS.MODULE_NAME}/icons/${sightAllowed}.png`);
   const sightIcon = PIXI.Sprite.from(statusSight.img);
@@ -394,9 +425,9 @@ export function wallNewUpdate2(wrapped, ...args) {
   const cr = this._hover ? lw * 3 : lw * 2;
   const lw3 = lw * 3;
 
-  const requiredVisionLevel: StatusEffectSightFlags = this.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
+  const requiredVisionLevel: AtswmEffectSenseFlags = this.document.getFlag(CONSTANTS.MODULE_NAME, 'visionLevel');
 
-  const status = API.SENSES.find((a: StatusSight) => {
+  const status = API.SENSES.find((a: SenseData) => {
     return a.id == requiredVisionLevel || a.name == requiredVisionLevel;
   });
 
@@ -416,7 +447,7 @@ export function wallNewUpdate2(wrapped, ...args) {
       }
     }
   }
-  if (requiredVisionLevel && status && status.id != StatusEffectSightFlags.NONE) {
+  if (requiredVisionLevel && status && status.id != AtswmEffectSenseFlags.NONE) {
     if (!this.visionLevelIcon1 || (args[0]?.flags && args[0]?.flags['sense-walls-multisystem']?.visionLevel)) {
       this.visionLevelIcon1 = this.addChild(drawVisionLevel(this.direction, status));
     }
@@ -536,23 +567,23 @@ function getVisionLevelToken(token: Token): { min: number; max: number; checkEle
     }
     // use replace() method to match and remove all the non-alphanumeric characters
     const effectNameToCheckOnActor = effectNameToSet.replace(regex, '');
-    const effectSight = API.SENSES.find((a: StatusSight) => {
+    const effectSight = API.SENSES.find((a: SenseData) => {
       return effectNameToCheckOnActor.toLowerCase().startsWith(a.id.toLowerCase());
     });
     // if is a AE with the label of the module (no id sorry)
     if (effectSight) {
-      if (min < <number>effectSight?.visionLevelMin) {
-        min = <number>effectSight?.visionLevelMin;
+      if (min < <number>effectSight?.visionLevelMinIndex) {
+        min = <number>effectSight?.visionLevelMinIndex;
       }
-      if (max < <number>effectSight?.visionLevelMax) {
-        max = <number>effectSight?.visionLevelMax;
+      if (max < <number>effectSight?.visionLevelMaxIndex) {
+        max = <number>effectSight?.visionLevelMaxIndex;
       }
       // look up if you have not basic AE and if the check elevation is not enabled
       if (
-        !effectSight.checkElevation &&
-        effectSight.id != StatusEffectSightFlags.NONE &&
-        effectSight.id != StatusEffectSightFlags.NORMAL &&
-        effectSight.id != StatusEffectSightFlags.BLINDED
+        !effectSight.conditionElevation &&
+        effectSight.id != AtswmEffectSenseFlags.NONE &&
+        effectSight.id != AtswmEffectSenseFlags.NORMAL &&
+        effectSight.id != AtswmEffectSenseFlags.BLINDED
       ) {
         hasOnlyEffectsWithCheckElevationTrue = false;
       }

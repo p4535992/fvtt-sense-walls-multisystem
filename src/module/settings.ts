@@ -98,13 +98,12 @@ export const registerSettings = function (): void {
 
   const settings = defaultSettings();
   for (const [name, data] of Object.entries(settings)) {
-      game.settings.register(CONSTANTS.MODULE_NAME, name, data);
+    game.settings.register(CONSTANTS.MODULE_NAME, name, data);
   }
 
   // for (const [name, data] of Object.entries(otherSettings)) {
   //     game.settings.register(CONSTANTS.MODULE_NAME, name, data);
   // }
-
 };
 
 class ResetSettingsDialog extends FormApplication<FormApplicationOptions, object, any> {
@@ -162,7 +161,7 @@ function defaultSettings(apply = false) {
       default: apply && SYSTEMS.DATA ? SYSTEMS.DATA.SENSES : [],
       type: Array,
     },
-  }
+  };
 }
 
 function otherSettings(apply = false) {

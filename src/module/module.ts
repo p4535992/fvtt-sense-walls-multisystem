@@ -8,7 +8,7 @@ import { debug, shouldIncludeWall, wallNewRefresh2, wallNewUpdate2 } from './lib
 import API from './api.js';
 import EffectInterface from './effects/effect-interface';
 import { registerHotkeys } from './hotkeys';
-import { StatusEffectSightFlags, StatusSight } from './sensewalls-models';
+import { AtswmEffectSenseFlags, SenseData } from './sensewalls-models';
 import { SenseWallsPlaceableConfig } from './sensewalls-config';
 
 export const initHooks = async (): Promise<void> => {
