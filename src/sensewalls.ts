@@ -71,5 +71,5 @@ Hooks.once('ready', async function () {
 
 Hooks.once('libChangelogsReady', function () {
   //@ts-ignore
-  libChangelogs.register(CONSTANTS.MODULE_NAME, `- Some update`, 'minor');
+  libChangelogs.register(CONSTANTS.MODULE_NAME, `- Update effect manager`, 'minor');
 });

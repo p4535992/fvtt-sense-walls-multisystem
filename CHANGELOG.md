@@ -1,3 +1,7 @@
+## 0.0.15
+
+- Update effect manager
+
 ## 0.0.14
 
 - Some update

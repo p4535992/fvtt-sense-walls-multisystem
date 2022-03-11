@@ -38,10 +38,6 @@ function getGame(): Game {
   return game;
 }
 
-export function getAPI(): API {
-  return game[CONSTANTS.MODULE_NAME].API;
-}
-
 export const registerSettings = function (): void {
   game.settings.registerMenu(CONSTANTS.MODULE_NAME, 'resetAllSettings', {
     name: `${CONSTANTS.MODULE_NAME}.setting.reset.name`,
@@ -51,6 +47,8 @@ export const registerSettings = function (): void {
     restricted: true,
   });
 
+  // ============================================================================
+
   game.settings.register(CONSTANTS.MODULE_NAME, 'disableOverrideWallDraw', {
     name: `${CONSTANTS.MODULE_NAME}.setting.disableOverrideWallDraw.name`,
     hint: `${CONSTANTS.MODULE_NAME}.setting.disableOverrideWallDraw.hint`,
@@ -59,6 +57,8 @@ export const registerSettings = function (): void {
     default: false,
     type: Boolean,
   });
+
+  // ===================================================================
 
   game.settings.register(CONSTANTS.MODULE_NAME, 'debug', {
     name: `${CONSTANTS.MODULE_NAME}.setting.debug.name`,
@@ -155,9 +155,10 @@ async function applyDefaultSettings() {
 function defaultSettings(apply = false) {
   return {
     senses: {
+      name: `${CONSTANTS.MODULE_NAME}.setting.senses.name`,
+      hint: `${CONSTANTS.MODULE_NAME}.setting.senses.hint`,
       scope: 'world',
       config: false,
-      //@ts-ignore
       default: apply && SYSTEMS.DATA ? SYSTEMS.DATA.SENSES : [],
       type: Array,
     },
