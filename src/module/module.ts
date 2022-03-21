@@ -46,10 +46,10 @@ export const setupHooks = async (): Promise<void> => {
   //@ts-ignore
   window.SenseWalls.API.effectInterface.initialize();
 
-  if (game[CONSTANTS.MODULE_NAME]) {
+  if (!game[CONSTANTS.MODULE_NAME]) {
     game[CONSTANTS.MODULE_NAME] = {};
   }
-  if (game[CONSTANTS.MODULE_NAME].API) {
+  if (!game[CONSTANTS.MODULE_NAME].API) {
     game[CONSTANTS.MODULE_NAME].API = {};
   }
   //@ts-ignore
