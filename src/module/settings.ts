@@ -98,7 +98,7 @@ export const registerSettings = function (): void {
 
   const settings = defaultSettings();
   for (const [name, data] of Object.entries(settings)) {
-    game.settings.register(CONSTANTS.MODULE_NAME, name, data);
+    game.settings.register(CONSTANTS.MODULE_NAME, name, <any>data);
   }
 
   // for (const [name, data] of Object.entries(otherSettings)) {
